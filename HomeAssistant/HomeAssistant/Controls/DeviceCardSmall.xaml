@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Frame xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="HomeAssistant.Controls.DeviceCardSmall" 
+    BackgroundColor="WhiteSmoke" BorderColor="DarkOrange" CornerRadius="20" HasShadow="True">
+
+    <Frame.GestureRecognizers>
+        <TapGestureRecognizer x:Name="tapGestureRecognizer"/>
+    </Frame.GestureRecognizers>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Label x:Name="titleLabel" Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Start"/>
+        <Image x:Name="deviceIcon" Grid.Row="1"/>
+    </Grid>
+</Frame>

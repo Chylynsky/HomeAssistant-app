@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:Controls="clr-namespace:HomeAssistant.Controls"
+             xmlns:ViewModel="clr-namespace:HomeAssistant.ViewModel"
+             x:Class="HomeAssistant.MainPage">
+    
+    <AbsoluteLayout x:Name="absoluteLayoutMain">
+        <ScrollView x:Name="scrollViewMain" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+            <FlexLayout x:Name="flexLayoutMain" BindableLayout.ItemsSource="{Binding ConnectedDevices}" Wrap="Wrap" 
+                        Margin="20" FlowDirection="LeftToRight" Direction="Row" AlignContent="Start" JustifyContent="SpaceBetween">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <Controls:DeviceCardSmall 
+                            Title="{Binding Name}" 
+                            IconSource="{Binding IconSource}" 
+                            Command="{Binding SelectDeviceCommand, Source={RelativeSource AncestorType={x:Type ViewModel:MainPageViewModel}}}"
+                            CommandParameter="{Binding Id}" 
+                            Margin="10" 
+                            WidthRequest="100" 
+                            HeightRequest="140" 
+                            Clicked="deviceCard_Clicked"/>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </FlexLayout>
+        </ScrollView>
+        <ImageButton
+            x:Name="buttonAdd"
+            AbsoluteLayout.LayoutBounds="0.95,0.95,70,70"
+            AbsoluteLayout.LayoutFlags="PositionProportional"
+            BackgroundColor="DarkOrange" 
+            CornerRadius="35"
+            WidthRequest="70"
+            HeightRequest="70"
+            VerticalOptions="End"
+            HorizontalOptions="End"
+            Source="add.png"
+            Clicked="buttonAdd_Clicked"/>
+        <Controls:ActionCard 
+            x:Name="actionCard" 
+            AbsoluteLayout.LayoutBounds="0.5,0.5,0.93,0.93" 
+            AbsoluteLayout.LayoutFlags="All" 
+            Title="Connect device"
+            IsEnabled="false" 
+            IsVisible="false"
+            Scale="0.8"
+            Closed="actionCard_Closed"
+            Swiped="actionCard_Swiped"/>
+    </AbsoluteLayout>
+    
+</ContentPage>
