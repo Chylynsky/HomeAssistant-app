@@ -41,7 +41,7 @@
             x:Name="actionCard" 
             AbsoluteLayout.LayoutBounds="0.5,0.5,0.93,0.93" 
             AbsoluteLayout.LayoutFlags="All" 
-            Title="Connect device"
+            Title="{Binding SelectedDevice.Name}"
             IsEnabled="false" 
             IsVisible="false"
             Scale="0.8"

@@ -19,20 +19,36 @@ namespace HomeAssistant.ViewModel
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private Task<ObservableCollection<DeviceBase>> InitializationTask; 
+        //private Task<ObservableCollection<DeviceBase>> InitializationTask; 
 
         private HomeAssistantClient apiClient;
 
         public ObservableCollection<DeviceBase> ConnectedDevices { get; private set; }
+
         public Command<string> ConnectDevice { get; }
+
         public Command<string> SelectDeviceCommand { get; }
-        public DeviceBase SelectedDevice { get; private set; }
+
+        private DeviceBase selectedDevice;
+
+        public DeviceBase SelectedDevice 
+        {
+            get
+            {
+                return selectedDevice;
+            }
+            private set
+            {
+                selectedDevice = value;
+                NotifyPropertyChanged(nameof(SelectedDevice));
+            }
+        }
 
         public MainPageViewModel()
         {
             // Wait for response from server containing connected devices
             apiClient = new HomeAssistantClient(address, proxy);
-            InitializationTask = apiClient.GetConnectedDevices();
+            var InitializationTask = apiClient.GetConnectedDevices();
             InitializationTask.ContinueWith((initializationResult) => {
                 ConnectedDevices = initializationResult.Result;
                 NotifyPropertyChanged(nameof(ConnectedDevices));

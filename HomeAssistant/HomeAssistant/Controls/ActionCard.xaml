@@ -19,10 +19,9 @@
             <RowDefinition Height="10*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-        <Label x:Name="labelTitle" Grid.Row="0" Grid.ColumnSpan="2" HorizontalOptions="Center" VerticalOptions="Center" FontSize="20"/>
-        <ImageButton x:Name="buttonClose" Grid.Row="0" Grid.Column="2" VerticalOptions="Fill" HorizontalOptions="Fill"/>
-        <ScrollView x:Name="scrollViewContent" Grid.Row="1" Grid.ColumnSpan="3">
+        <Label x:Name="titleLabel" Grid.Row="0" Grid.ColumnSpan="2" HorizontalOptions="Center" VerticalOptions="Center" FontSize="20"/>
+        <ImageButton x:Name="closeButton" Grid.Row="0" Grid.Column="2" VerticalOptions="Fill" HorizontalOptions="Fill"/>
+        <ScrollView x:Name="scrollViewContent" Grid.Row="1" Grid.ColumnSpan="3"/>
 
-        </ScrollView>
     </Grid>
 </Frame>

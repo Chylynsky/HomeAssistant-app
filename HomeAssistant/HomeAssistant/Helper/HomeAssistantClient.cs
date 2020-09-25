@@ -62,7 +62,7 @@ namespace HomeAssistant.Helper
 
         public async Task<ObservableCollection<DeviceBase>> GetConnectedDevices()
         {
-            ObservableCollection<DeviceBase> deviceList = new ObservableCollection<DeviceBase>();
+            var deviceList = new ObservableCollection<DeviceBase>();
 
             HttpResponseMessage response = await httpClient.GetAsync("devices", HttpCompletionOption.ResponseContentRead);
 
@@ -77,7 +77,12 @@ namespace HomeAssistant.Helper
             foreach (var deviceEntry in devicesList)
             {
                 var deviceFactory = deviceFactoryDictionary[deviceEntry["type"]];
-                deviceList.Add(deviceFactory.Create());
+                var device = deviceFactory.Create();
+
+                device.Id = deviceEntry["id"];
+                device.Name = deviceEntry["name"];
+
+                deviceList.Add(device);
             }
 
             return deviceList;
