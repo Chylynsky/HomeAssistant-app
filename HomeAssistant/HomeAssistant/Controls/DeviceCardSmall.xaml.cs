@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -86,13 +87,14 @@ namespace HomeAssistant.Controls
         {
             InitializeComponent();
             tapGestureRecognizer.Tapped += async (object sender, EventArgs e) => {
+                Command?.Execute(CommandParameter);
                 Clicked?.Invoke(this, e);
                 await this.ScaleTo(0.9, 40, Easing.SinOut);
                 await this.ScaleTo(1.0, 40, Easing.SinIn);
             };
         }
 
-        protected override void OnPropertyChanged(string propertyName = null)
+        protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             base.OnPropertyChanged(propertyName);
 
@@ -103,14 +105,6 @@ namespace HomeAssistant.Controls
             else if (propertyName == IconSourceProperty.PropertyName)
             {
                 deviceIcon.Source = IconSource;
-            }
-            else if (propertyName == CommandProperty.PropertyName)
-            {
-                tapGestureRecognizer.Command = Command;
-            }
-            else if (propertyName == CommandParameterProperty.PropertyName)
-            {
-                tapGestureRecognizer.CommandParameter = CommandParameter;
             }
         }
     }

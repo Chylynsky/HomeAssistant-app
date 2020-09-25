@@ -1,67 +1,61 @@
 ﻿using HomeAssistant.Model;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows.Input;
+using System.Net.Http;
 using Xamarin.Forms;
+using System.Net;
+using System;
+using HomeAssistant.Helper;
+using System.Threading.Tasks;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace HomeAssistant.ViewModel
 {
-    class MainPageViewModel
+    class MainPageViewModel : INotifyPropertyChanged
     {
-        public ObservableCollection<DeviceModel> ConnectedDevices { get; }
-        public ObservableCollection<DeviceModel> AvailableDevices { get; }
+        private static readonly WebProxy proxy = new WebProxy("192.168.0.109:80");
+        private static readonly Uri address = new Uri("http://home.as");
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private Task<ObservableCollection<DeviceBase>> InitializationTask; 
+
+        private HomeAssistantClient apiClient;
+
+        public ObservableCollection<DeviceBase> ConnectedDevices { get; private set; }
         public Command<string> ConnectDevice { get; }
         public Command<string> SelectDeviceCommand { get; }
-        public DeviceModel SelectedDevice { get; private set; }
+        public DeviceBase SelectedDevice { get; private set; }
 
         public MainPageViewModel()
         {
-            ConnectedDevices = new ObservableCollection<DeviceModel>();
-            AvailableDevices = new ObservableCollection<DeviceModel>();
-
-            AvailableDevices.Add(new DeviceModel()
-            {
-                Name = "Rakieta",
-                Id = "997",
-                IconSource = "C:\\Users\\borch\\Pictures\\Saved Pictures\\Chylinski.jpg"
+            // Wait for response from server containing connected devices
+            apiClient = new HomeAssistantClient(address, proxy);
+            InitializationTask = apiClient.GetConnectedDevices();
+            InitializationTask.ContinueWith((initializationResult) => {
+                ConnectedDevices = initializationResult.Result;
+                NotifyPropertyChanged(nameof(ConnectedDevices));
             });
-
-            AvailableDevices.Add(new DeviceModel()
-            {
-                Name = "Łopata",
-                Id = "1",
-                IconSource = "C:\\Users\\borch\\Pictures\\Saved Pictures\\Chylinski.jpg"
-            });
-
-            ConnectedDevices.Add(new DeviceModel()
-            {
-                Name = "Czajnik",
-                Id = "2",
-                IconSource = "C:\\Users\\borch\\Pictures\\Saved Pictures\\Chylinski.jpg"
-            });
-
-            ConnectedDevices.Add(new DeviceModel()
-            {
-                Name = "Balonix",
-                Id = "3",
-                IconSource = "C:\\Users\\borch\\Pictures\\Saved Pictures\\Chylinski.jpg"
-            });
-
-            ConnectDevice = new Command<string>((string deviceId) => {
-                var deviceEnumerator = AvailableDevices.Where((DeviceModel device) => { 
-                    return device.Id.Equals(deviceId); 
-                });
-
-                ConnectedDevices.Add(deviceEnumerator.First());
-            });
-
+            
             SelectDeviceCommand = new Command<string>((string deviceId) => {
-                var deviceEnumerator = ConnectedDevices.Where((DeviceModel device) => {
+
+                if (deviceId == null)
+                {
+                    return;
+                }
+
+                var deviceEnumerator = ConnectedDevices.Where((DeviceBase device) => {
                     return device.Id.Equals(deviceId);
                 });
 
                 SelectedDevice = deviceEnumerator.First();
             });
+        }
+
+        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
