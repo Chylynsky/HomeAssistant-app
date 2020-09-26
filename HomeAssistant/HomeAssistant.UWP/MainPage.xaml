@@ -4,9 +4,9 @@
     xmlns:forms="using:Xamarin.Forms.Platform.UWP"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:HomeAssistant.UWP"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="White">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Background="White">
 
     </Grid>
 </forms:WindowsPage>

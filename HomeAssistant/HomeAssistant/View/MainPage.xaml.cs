@@ -31,7 +31,7 @@ namespace HomeAssistant
             actionCard.IsVisible = false;
         }
 
-        private async void actionCard_Closed(object sender, EventArgs e)
+        private void actionCard_Closed(object sender, EventArgs e)
         {
             HideActionCard();
         }
@@ -45,7 +45,7 @@ namespace HomeAssistant
             actionCard.IsEnabled = true;
         }
         */
-        private async void actionCard_Swiped(object sender, SwipedEventArgs e)
+        private void actionCard_Swiped(object sender, SwipedEventArgs e)
         {
             if (e.Direction != SwipeDirection.Down)
             {

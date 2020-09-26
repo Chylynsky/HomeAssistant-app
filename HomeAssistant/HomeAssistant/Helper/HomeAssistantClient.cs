@@ -62,9 +62,10 @@ namespace HomeAssistant.Helper
 
         public async Task<ObservableCollection<DeviceBase>> GetConnectedDevices()
         {
+            Thread.Sleep(10);
             var deviceList = new ObservableCollection<DeviceBase>();
 
-            HttpResponseMessage response = await httpClient.GetAsync("devices", HttpCompletionOption.ResponseContentRead);
+            /*HttpResponseMessage response = await httpClient.GetAsync("devices", HttpCompletionOption.ResponseContentRead);
 
             if (!response.IsSuccessStatusCode)
             {
@@ -83,7 +84,7 @@ namespace HomeAssistant.Helper
                 device.Name = deviceEntry["name"];
 
                 deviceList.Add(device);
-            }
+            }*/
 
             return deviceList;
         }

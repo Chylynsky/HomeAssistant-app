@@ -15,6 +15,12 @@ namespace HomeAssistant.Controls
             typeof(DeviceCardSmall),
             default(string));
 
+        public static readonly BindableProperty TitleFontColorProperty = BindableProperty.Create(
+            nameof(TitleFontColor),
+            typeof(Color),
+            typeof(DeviceCardSmall),
+            default(Color));
+
         public static readonly BindableProperty IconSourceProperty = BindableProperty.Create(
             nameof(IconSource),
             typeof(ImageSource),
@@ -44,6 +50,18 @@ namespace HomeAssistant.Controls
             set 
             {
                 SetValue(TitleProperty, value);
+            }
+        }
+
+        public Color TitleFontColor
+        {
+            get
+            {
+                return (Color)GetValue(TitleFontColorProperty);
+            }
+            set
+            {
+                SetValue(TitleFontColorProperty, value);
             }
         }
 
@@ -101,6 +119,10 @@ namespace HomeAssistant.Controls
             if (propertyName == TitleProperty.PropertyName)
             {
                 titleLabel.Text = Title;
+            }
+            else if (propertyName == TitleFontColorProperty.PropertyName)
+            {
+                titleLabel.TextColor = TitleFontColor;
             }
             else if (propertyName == IconSourceProperty.PropertyName)
             {

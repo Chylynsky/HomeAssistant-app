@@ -14,8 +14,8 @@ namespace HomeAssistant.Controls
             typeof(ActionCard),
             default(string));
 
-        public static new readonly BindableProperty ContentProperty = BindableProperty.Create(
-            nameof(Content),
+        public static readonly BindableProperty InnerContentProperty = BindableProperty.Create(
+            nameof(InnerContent),
             typeof(View),
             typeof(ActionCard),
             default(View));
@@ -35,15 +35,15 @@ namespace HomeAssistant.Controls
             }
         }
 
-        public new View Content
+        public View InnerContent
         {
             get
             {
-                return (View)GetValue(ContentProperty);
+                return (View)GetValue(InnerContentProperty);
             }
             set
             {
-                SetValue(ContentProperty, value);
+                SetValue(InnerContentProperty, value);
             }
         }
 
@@ -52,8 +52,6 @@ namespace HomeAssistant.Controls
             InitializeComponent();
             closeButton.Clicked += (object sender, EventArgs e) => Closed?.Invoke(this, e);
             swipeGestureRecognizer.Swiped += (object sender, SwipedEventArgs e) => Swiped?.Invoke(this, e);
-
-            scrollViewContent.Content
         }
 
         protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -64,9 +62,9 @@ namespace HomeAssistant.Controls
             {
                 titleLabel.Text = Title;
             }
-            else if (propertyName == ContentProperty.PropertyName)
+            else if (propertyName == InnerContentProperty.PropertyName)
             {
-                scrollViewContent.Content = Content;
+                scrollViewContent.Content = InnerContent;
             }
         }
     }

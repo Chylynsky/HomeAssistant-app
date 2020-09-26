@@ -51,6 +51,14 @@ namespace HomeAssistant.ViewModel
             var InitializationTask = apiClient.GetConnectedDevices();
             InitializationTask.ContinueWith((initializationResult) => {
                 ConnectedDevices = initializationResult.Result;
+
+                var testDevice = new MiKettle()
+                {
+                    Id = "997-ten-numer-to-kłopoty",
+                    Name = "Xiaomi Mi Kettle"
+                };
+
+                ConnectedDevices.Add(testDevice);
                 NotifyPropertyChanged(nameof(ConnectedDevices));
             });
             
