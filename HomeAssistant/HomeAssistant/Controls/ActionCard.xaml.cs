@@ -19,12 +19,12 @@ namespace HomeAssistant.Controls
             typeof(Color),
             typeof(DeviceCardSmall),
             default(Color));
-
+        
         public static readonly BindableProperty InnerContentProperty = BindableProperty.Create(
             nameof(InnerContent),
-            typeof(View),
+            typeof(Xamarin.Forms.View),
             typeof(ActionCard),
-            default(View));
+            default(Xamarin.Forms.View));
 
         public event EventHandler Closed;
         public event EventHandler<SwipedEventArgs> Swiped;
@@ -53,11 +53,11 @@ namespace HomeAssistant.Controls
             }
         }
 
-        public View InnerContent
+        public Xamarin.Forms.View InnerContent
         {
             get
             {
-                return (View)GetValue(InnerContentProperty);
+                return (Xamarin.Forms.View)GetValue(InnerContentProperty);
             }
             set
             {

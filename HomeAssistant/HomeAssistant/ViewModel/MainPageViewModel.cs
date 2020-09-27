@@ -9,6 +9,7 @@ using HomeAssistant.Helper;
 using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Collections.Generic;
 
 namespace HomeAssistant.ViewModel
 {
@@ -52,20 +53,42 @@ namespace HomeAssistant.ViewModel
             InitializationTask.ContinueWith((initializationResult) => {
                 ConnectedDevices = initializationResult.Result;
 
-                var testDevice0 = new MiKettle()
+                ConnectedDevices.Add(new MiKettle()
                 {
                     Id = "997-ten-numer-to-kłopoty",
                     Name = "Xiaomi Mi Kettle"
-                };
+                });
 
-                var testDevice1 = new MiKettle()
+                ConnectedDevices.Add(new MiKettle()
                 {
                     Id = "112-spoko-mordeczki",
                     Name = "Yeelight Bulb"
-                };
+                });
 
-                ConnectedDevices.Add(testDevice0);
-                ConnectedDevices.Add(testDevice1);
+                ConnectedDevices.Add(new MiKettle()
+                {
+                    Id = "111",
+                    Name = "Dupa"
+                });
+
+                ConnectedDevices.Add(new MiKettle()
+                {
+                    Id = "222",
+                    Name = "Cycki"
+                });
+
+                ConnectedDevices.Add(new MiKettle()
+                {
+                    Id = "333",
+                    Name = "Wibro3000"
+                });
+
+                ConnectedDevices.Add(new MiKettle()
+                {
+                    Id = "4",
+                    Name = "SmartKubek"
+                });
+
                 NotifyPropertyChanged(nameof(ConnectedDevices));
             });
             

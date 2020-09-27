@@ -1,6 +1,7 @@
 ﻿using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using HomeAssistant.View;
 
 namespace HomeAssistant
 {
@@ -10,7 +11,7 @@ namespace HomeAssistant
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
+            MainPage = new RoomPage();
         }
 
         protected override void OnStart()

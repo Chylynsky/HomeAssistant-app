@@ -28,7 +28,7 @@ namespace HomeAssistant
         {
             actionCard.IsEnabled = false;
             await actionCard.ScaleTo(0.8, 100, Easing.SinIn);
-            await actionCard.TranslateTo(0.0, absoluteLayoutMain.Bounds.Bottom, 200, Easing.SinIn);
+            await actionCard.TranslateTo(0.0, mainGrid.Bounds.Bottom, 200, Easing.SinIn);
             actionCard.IsVisible = false;
         }
 
