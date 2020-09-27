@@ -52,13 +52,20 @@ namespace HomeAssistant.ViewModel
             InitializationTask.ContinueWith((initializationResult) => {
                 ConnectedDevices = initializationResult.Result;
 
-                var testDevice = new MiKettle()
+                var testDevice0 = new MiKettle()
                 {
                     Id = "997-ten-numer-to-kłopoty",
                     Name = "Xiaomi Mi Kettle"
                 };
 
-                ConnectedDevices.Add(testDevice);
+                var testDevice1 = new MiKettle()
+                {
+                    Id = "112-spoko-mordeczki",
+                    Name = "Yeelight Bulb"
+                };
+
+                ConnectedDevices.Add(testDevice0);
+                ConnectedDevices.Add(testDevice1);
                 NotifyPropertyChanged(nameof(ConnectedDevices));
             });
             

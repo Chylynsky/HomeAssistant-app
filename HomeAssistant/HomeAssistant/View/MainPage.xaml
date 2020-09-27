@@ -3,24 +3,32 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              xmlns:Controls="clr-namespace:HomeAssistant.Controls"
              xmlns:ViewModel="clr-namespace:HomeAssistant.ViewModel"
-             x:Class="HomeAssistant.MainPage"
-             BackgroundColor="White">
+             x:Class="HomeAssistant.MainPage">
     
     <AbsoluteLayout x:Name="absoluteLayoutMain">
+        <Image AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="SizeProportional" Aspect="AspectFill">
+            <Image.Source>
+                <OnPlatform x:TypeArguments="FileImageSource">
+                    <On Platform="UWP" Value="Assets/Images/LivingRoom0.jpg"/>
+                    <On Platform="Android" Value="LivingRoom0.jpg"/>
+                </OnPlatform>
+            </Image.Source>
+        </Image>
         <ScrollView x:Name="scrollViewMain" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
             <FlexLayout x:Name="flexLayoutMain" BindableLayout.ItemsSource="{Binding ConnectedDevices}" Wrap="Wrap" 
-                        Margin="20" FlowDirection="LeftToRight" Direction="Row" AlignContent="Start" JustifyContent="Start">
+                        Margin="20" FlowDirection="LeftToRight" Direction="Row" AlignContent="Start" JustifyContent="SpaceAround">
                 <BindableLayout.ItemTemplate>
                     <DataTemplate>
                         <Controls:DeviceCardSmall
-                            x:Name="deviceCard"
                             Title="{Binding Name}" 
                             IconSource="{Binding IconSource}" 
                             Command="{Binding SelectDeviceCommand, Source={RelativeSource AncestorType={x:Type ViewModel:MainPageViewModel}}}"
                             CommandParameter="{Binding Id}"
-                            FlexLayout.Basis="50%"
-                            HeightRequest="180"
+                            FlexLayout.Basis="95%"
+                            HeightRequest="130"
                             Margin="10"
+                            Opacity="0.85"
+                            TitleFontColor="Black"
                             Clicked="deviceCard_Clicked"/>
                     </DataTemplate>
                 </BindableLayout.ItemTemplate>
@@ -40,14 +48,15 @@
             Clicked="buttonAdd_Clicked"/-->
         <Controls:ActionCard 
             x:Name="actionCard" 
-            AbsoluteLayout.LayoutBounds="0.5,0.5,0.93,0.93" 
+            AbsoluteLayout.LayoutBounds="0.5,0.5,1,1"
             AbsoluteLayout.LayoutFlags="All" 
             Title="{Binding SelectedDevice.Name}"
             IsEnabled="false" 
             IsVisible="false"
             Scale="0.8"
+            Margin="20"
+            TitleFontColor="Black"
             Closed="actionCard_Closed"
             Swiped="actionCard_Swiped"/>
     </AbsoluteLayout>
-    
 </ContentPage>

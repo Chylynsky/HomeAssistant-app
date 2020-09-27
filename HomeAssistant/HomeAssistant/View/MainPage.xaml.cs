@@ -3,6 +3,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Xamarin.Essentials;
 using HomeAssistant.ViewModel;
+using Xamarin.Forms.Markup;
 
 namespace HomeAssistant
 {
@@ -57,7 +58,6 @@ namespace HomeAssistant
 
         private void deviceCard_Clicked(object sender, EventArgs e)
         {
-            Vibration.Vibrate(5.0);
             ShowActionCard();
         }
     }

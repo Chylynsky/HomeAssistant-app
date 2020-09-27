@@ -2,7 +2,7 @@
 <Frame xmlns="http://xamarin.com/schemas/2014/forms" 
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="HomeAssistant.Controls.DeviceCardSmall" 
-    BackgroundColor="WhiteSmoke" BorderColor="DarkOrange" CornerRadius="20" HasShadow="True">
+    BackgroundColor="FloralWhite" BorderColor="DimGray" CornerRadius="20" HasShadow="True">
 
     <Frame.GestureRecognizers>
         <TapGestureRecognizer x:Name="tapGestureRecognizer"/>
@@ -13,7 +13,7 @@
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-        <Label x:Name="titleLabel" Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Start"/>
+        <Label x:Name="titleLabel" Grid.Row="0" HorizontalOptions="CenterAndExpand" VerticalOptions="StartAndExpand"/>
         <Image x:Name="deviceIcon" Grid.Row="1"/>
     </Grid>
 </Frame>
