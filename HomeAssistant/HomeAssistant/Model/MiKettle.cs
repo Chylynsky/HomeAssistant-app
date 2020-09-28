@@ -4,7 +4,7 @@ using System.Text;
 
 namespace HomeAssistant.Model
 {
-    class MiKettle : DeviceBase
+    class MiKettle : DeviceModel
     {
         public MiKettle()
         {

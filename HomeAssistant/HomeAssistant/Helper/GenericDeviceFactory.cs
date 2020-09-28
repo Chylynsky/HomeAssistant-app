@@ -3,9 +3,9 @@
 namespace HomeAssistant.Helper
 {
     class GenericDeviceFactory<DeviceType> : DeviceFactoryBase 
-        where DeviceType : DeviceBase, new()
+        where DeviceType : DeviceModel, new()
     {
-        public override DeviceBase Create()
+        public override DeviceModel Create()
         {
             return new DeviceType();
         }

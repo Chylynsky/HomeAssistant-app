@@ -20,16 +20,28 @@
     <Compile Update="Controls\ActionCard.xaml.cs">
       <DependentUpon>ActionCard.xaml</DependentUpon>
     </Compile>
+    <Compile Update="View\RoomCardView.xaml.cs">
+      <DependentUpon>RoomCardView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="View\DeviceCardSmallView.xaml.cs">
+      <DependentUpon>DeviceCardSmallView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="View\RoomView.xaml.cs">
+      <DependentUpon>RoomView.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Update="Controls\ActionCard.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Controls\DeviceCardSmall.xaml">
+    <EmbeddedResource Update="View\DeviceCardSmallView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="View\RoomPage.xaml">
+    <EmbeddedResource Update="View\MainView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="View\RoomView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>

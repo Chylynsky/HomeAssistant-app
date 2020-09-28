@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:Controls="clr-namespace:HomeAssistant.Controls"
+             xmlns:View="clr-namespace:HomeAssistant.View"
+             x:Class="HomeAssistant.View.RoomView">
+    <ContentView.Content>
+        <Grid x:Name="mainGrid">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="8*"/>
+            </Grid.RowDefinitions>
+            <Image Aspect="AspectFill" Grid.RowSpan="2">
+                <Image.Source>
+                    <OnPlatform x:TypeArguments="FileImageSource">
+                        <On Platform="UWP" Value="Assets/Images/LivingRoom0.jpg"/>
+                        <On Platform="Android" Value="LivingRoom0.jpg"/>
+                    </OnPlatform>
+                </Image.Source>
+            </Image>
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="5*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Frame Grid.ColumnSpan="3" BackgroundColor="FloralWhite" Opacity="0.5" CornerRadius="20" HasShadow="True"/>
+                <Label
+                    Grid.Column="1"
+                    Text="{Binding Room.Name}" 
+                    HorizontalOptions="CenterAndExpand" 
+                    VerticalOptions="CenterAndExpand" 
+                    HorizontalTextAlignment="Center" 
+                    VerticalTextAlignment="Center" 
+                    FontSize="Title"/>
+                <Button Grid.Column="0" BackgroundColor="Gray" Clicked="backButton_Clicked" Margin="20"/>
+                <Button Grid.Column="2" BackgroundColor="Gray" Margin="20"/>
+            </Grid>
+            <ScrollView x:Name="scrollViewMain" Grid.Row="1">
+                <FlexLayout x:Name="flexLayoutMain" BindableLayout.ItemsSource="{Binding DeviceCardsViewModels}" Wrap="Wrap" 
+                        Margin="20" FlowDirection="LeftToRight" Direction="Row" AlignContent="Start" JustifyContent="SpaceAround">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <View:DeviceCardSmallView
+                                BindingContext="{Binding}"
+                                FlexLayout.Basis="95%"
+                                HeightRequest="130"
+                                Margin="10"
+                                Clicked="deviceCard_Clicked"/>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </FlexLayout>
+            </ScrollView>
+            <Controls:ActionCard 
+                x:Name="actionCard" 
+                Grid.RowSpan="2"
+                Title="{Binding SelectedDevice.Name}"
+                IsEnabled="false" 
+                IsVisible="false"
+                Scale="0.8"
+                Margin="20"
+                TitleFontColor="Black"
+                Closed="actionCard_Closed"
+                Swiped="actionCard_Swiped"/>
+        </Grid>
+    </ContentView.Content>
+</ContentView>

@@ -17,7 +17,7 @@ namespace HomeAssistant.Controls
         public static readonly BindableProperty TitleFontColorProperty = BindableProperty.Create(
             nameof(TitleFontColor),
             typeof(Color),
-            typeof(DeviceCardSmall),
+            typeof(ActionCard),
             default(Color));
         
         public static readonly BindableProperty InnerContentProperty = BindableProperty.Create(

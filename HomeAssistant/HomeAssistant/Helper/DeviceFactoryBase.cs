@@ -4,6 +4,6 @@ namespace HomeAssistant.Helper
 {
     abstract class DeviceFactoryBase
     {
-        public abstract DeviceBase Create();
+        public abstract DeviceModel Create();
     }
 }

@@ -20,91 +20,55 @@ namespace HomeAssistant.ViewModel
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        //private Task<ObservableCollection<DeviceBase>> InitializationTask; 
+        private Task<ObservableCollection<DeviceModel>> InitializationTask; 
 
         private HomeAssistantClient apiClient;
 
-        public ObservableCollection<DeviceBase> ConnectedDevices { get; private set; }
+        private ObservableCollection<RoomModel> rooms;
 
-        public Command<string> ConnectDevice { get; }
-
-        public Command<string> SelectDeviceCommand { get; }
-
-        private DeviceBase selectedDevice;
-
-        public DeviceBase SelectedDevice 
-        {
+        public ObservableCollection<RoomModel> Rooms 
+        { 
             get
             {
-                return selectedDevice;
+                return rooms;
             }
             private set
             {
-                selectedDevice = value;
-                NotifyPropertyChanged(nameof(SelectedDevice));
+                rooms = value;
+                NotifyPropertyChanged(nameof(Rooms));
             }
         }
 
         public MainPageViewModel()
         {
             // Wait for response from server containing connected devices
-            apiClient = new HomeAssistantClient(address, proxy);
+            /*apiClient = new HomeAssistantClient(address, proxy);
             var InitializationTask = apiClient.GetConnectedDevices();
             InitializationTask.ContinueWith((initializationResult) => {
-                ConnectedDevices = initializationResult.Result;
-
-                ConnectedDevices.Add(new MiKettle()
+                
+                foreach (device in initializationResult.Result)
                 {
-                    Id = "997-ten-numer-to-kłopoty",
-                    Name = "Xiaomi Mi Kettle"
-                });
-
-                ConnectedDevices.Add(new MiKettle()
-                {
-                    Id = "112-spoko-mordeczki",
-                    Name = "Yeelight Bulb"
-                });
-
-                ConnectedDevices.Add(new MiKettle()
-                {
-                    Id = "111",
-                    Name = "Dupa"
-                });
-
-                ConnectedDevices.Add(new MiKettle()
-                {
-                    Id = "222",
-                    Name = "Cycki"
-                });
-
-                ConnectedDevices.Add(new MiKettle()
-                {
-                    Id = "333",
-                    Name = "Wibro3000"
-                });
-
-                ConnectedDevices.Add(new MiKettle()
-                {
-                    Id = "4",
-                    Name = "SmartKubek"
-                });
-
-                NotifyPropertyChanged(nameof(ConnectedDevices));
-            });
-            
-            SelectDeviceCommand = new Command<string>((string deviceId) => {
-
-                if (deviceId == null)
-                {
-                    return;
+                    ConnectedDevices.Add(new DeviceCardSmallViewModel(device))
                 }
 
-                var deviceEnumerator = ConnectedDevices.Where((DeviceBase device) => {
-                    return device.Id.Equals(deviceId);
-                });
+                NotifyPropertyChanged(nameof(ConnectedDevices));
+            });*/
 
-                SelectedDevice = deviceEnumerator.First();
-            });
+            Rooms = new ObservableCollection<RoomModel>();
+            var roomModel = new RoomModel()
+            {
+                Devices = new ObservableCollection<DeviceModel>(),
+                Type = RoomType.LivingRoom
+            };
+
+            DeviceModel deviceModel = new MiKettle()
+            {
+                Id = "1234",
+                Name = "Xiaomi Mi Kettle"
+            };
+
+            roomModel.Devices.Add(deviceModel);
+            Rooms.Add(roomModel);
         }
 
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")

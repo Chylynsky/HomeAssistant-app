@@ -4,6 +4,8 @@ using Xamarin.Forms.Xaml;
 using Xamarin.Essentials;
 using HomeAssistant.ViewModel;
 using Xamarin.Forms.Markup;
+using HomeAssistant.View;
+using System.Threading.Tasks;
 
 namespace HomeAssistant
 {
@@ -14,51 +16,36 @@ namespace HomeAssistant
         {
             InitializeComponent();
             BindingContext = new MainPageViewModel();
+            roomView.BindingContext = BindingContext;
+            homeView.BindingContext = BindingContext;
+
+            roomView.TranslationX = homeView.Width;
         }
 
-        private async void ShowActionCard()
+        private async Task NavigateTo(ContentView contentView)
         {
-            actionCard.IsVisible = true;
-            await actionCard.TranslateTo(0.0, 0.0, 200, Easing.SinOut);
-            await actionCard.ScaleTo(1.0, 100, Easing.SinOut);
-            actionCard.IsEnabled = true;
-        }
-
-        private async void HideActionCard()
-        {
-            actionCard.IsEnabled = false;
-            await actionCard.ScaleTo(0.8, 100, Easing.SinIn);
-            await actionCard.TranslateTo(0.0, mainGrid.Bounds.Bottom, 200, Easing.SinIn);
-            actionCard.IsVisible = false;
-        }
-
-        private void actionCard_Closed(object sender, EventArgs e)
-        {
-            HideActionCard();
-        }
-        /*
-        private async void buttonAdd_Clicked(object sender, EventArgs e)
-        {
-            Vibration.Vibrate(5.0);
-            actionCard.IsVisible = true;
-            await actionCard.TranslateTo(0.0, 0.0, 200, Easing.SinOut);
-            await actionCard.ScaleTo(1.0, 100, Easing.SinOut);
-            actionCard.IsEnabled = true;
-        }
-        */
-        private void actionCard_Swiped(object sender, SwipedEventArgs e)
-        {
-            if (e.Direction != SwipeDirection.Down)
+            if (contentView == roomView)
             {
-                return;
+                await Task.WhenAll(
+                    homeView.TranslateTo(-40.0, 0.0, 150, Easing.SinOut),
+                    roomView.TranslateTo(0.0, 0.0, 150, Easing.SinOut));
             }
-
-            HideActionCard();
+            else
+            {
+                await Task.WhenAll(
+                    homeView.TranslateTo(0.0, 0.0, 150, Easing.SinOut),
+                    roomView.TranslateTo(homeView.Width, 0.0, 150, Easing.SinOut));
+            }
         }
 
-        private void deviceCard_Clicked(object sender, EventArgs e)
+        private async void mainView_RoomSelected(object sender, EventArgs e)
         {
-            ShowActionCard();
+            await NavigateTo(roomView);
+        }
+
+        private async void roomView_BackButtonClicked(object sender, EventArgs e)
+        {
+            await NavigateTo(homeView);
         }
     }
 }

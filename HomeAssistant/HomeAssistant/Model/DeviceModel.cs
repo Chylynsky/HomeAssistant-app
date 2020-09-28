@@ -2,17 +2,12 @@
 
 namespace HomeAssistant.Model
 {
-    abstract class DeviceBase
+    public abstract class DeviceModel
     {
         public string Id { get; set; }
 
         public string Name { get; set; }
 
         public ImageSource IconSource { get; protected set; }
-
-        public DeviceBase()
-        {
-
-        }
     }
 }

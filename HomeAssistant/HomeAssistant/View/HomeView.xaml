@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:View="clr-namespace:HomeAssistant.View"
+             x:Class="HomeAssistant.View.HomeView">
+    <ContentView.Content>
+        <Grid x:Name="mainGrid">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="8*"/>
+            </Grid.RowDefinitions>
+            <Image Grid.RowSpan="2" Aspect="AspectFill" Source="MainBackground.jpg"/>
+            <Frame Grid.Row="0" BackgroundColor="FloralWhite" Opacity="0.5" CornerRadius="20" HasShadow="True"/>
+            <Label
+            Grid.Row="0"
+            Text="Pokoje" 
+            HorizontalOptions="CenterAndExpand" 
+            VerticalOptions="CenterAndExpand" 
+            HorizontalTextAlignment="Center" 
+            VerticalTextAlignment="Center" 
+            FontSize="Title"/>
+            <ScrollView x:Name="scrollViewMain" Grid.Row="1">
+                <FlexLayout x:Name="flexLayoutMain" BindableLayout.ItemsSource="{Binding RoomCardViewModels}" Wrap="Wrap" 
+                        Margin="20" FlowDirection="LeftToRight" Direction="Row" AlignContent="Start" JustifyContent="SpaceAround">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <View:RoomCardView
+                                BindingContext="{Binding}"
+                                FlexLayout.Basis="95%"
+                                HeightRequest="130"
+                                Clicked="roomCard_Clicked"/>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </FlexLayout>
+            </ScrollView>
+        </Grid>
+    </ContentView.Content>
+</ContentView>

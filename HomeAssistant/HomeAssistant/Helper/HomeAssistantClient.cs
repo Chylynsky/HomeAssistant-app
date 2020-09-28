@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using HomeAssistant.Model;
+using HomeAssistant.ViewModel;
 using Newtonsoft.Json;
 
 namespace HomeAssistant.Helper
@@ -60,12 +61,12 @@ namespace HomeAssistant.Helper
             }
         }
 
-        public async Task<ObservableCollection<DeviceBase>> GetConnectedDevices()
+        public async Task<ObservableCollection<DeviceModel>> GetConnectedDevices()
         {
             Thread.Sleep(10);
-            var deviceList = new ObservableCollection<DeviceBase>();
+            var deviceList = new ObservableCollection<DeviceModel>();
 
-            /*HttpResponseMessage response = await httpClient.GetAsync("devices", HttpCompletionOption.ResponseContentRead);
+            HttpResponseMessage response = await httpClient.GetAsync("devices", HttpCompletionOption.ResponseContentRead);
 
             if (!response.IsSuccessStatusCode)
             {
@@ -84,7 +85,7 @@ namespace HomeAssistant.Helper
                 device.Name = deviceEntry["name"];
 
                 deviceList.Add(device);
-            }*/
+            }
 
             return deviceList;
         }

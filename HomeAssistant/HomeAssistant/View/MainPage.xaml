@@ -2,82 +2,23 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              xmlns:Controls="clr-namespace:HomeAssistant.Controls"
-             xmlns:ViewModel="clr-namespace:HomeAssistant.ViewModel"
+             xmlns:ViewModel="clr-namespace:HomeAssistant.ViewModel" 
+             xmlns:View="clr-namespace:HomeAssistant.View"
              x:Class="HomeAssistant.MainPage">
     <ContentPage.Content>
-        <Grid x:Name="mainGrid">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="10*"/>
-            </Grid.RowDefinitions>
-            <Image Aspect="AspectFill" Grid.RowSpan="2">
-                <Image.Source>
-                    <OnPlatform x:TypeArguments="FileImageSource">
-                        <On Platform="UWP" Value="Assets/Images/LivingRoom0.jpg"/>
-                        <On Platform="Android" Value="LivingRoom0.jpg"/>
-                    </OnPlatform>
-                </Image.Source>
-            </Image>
-            <Grid Grid.Row="0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="5*"/>
-                    <ColumnDefinition Width="1*"/>
-                </Grid.ColumnDefinitions>
-                <Frame Grid.ColumnSpan="3" BackgroundColor="FloralWhite" Opacity="0.3" CornerRadius="20" HasShadow="True"/>
-                <Label
-                Grid.Column="1"
-                Text="Salon" 
-                HorizontalOptions="CenterAndExpand" 
-                VerticalOptions="CenterAndExpand" 
-                HorizontalTextAlignment="Center" 
-                VerticalTextAlignment="Center" 
-                FontSize="Title"/>
-                <ImageButton Grid.Column="0" BackgroundColor="Red"/>
-                <ImageButton Grid.Column="2" BackgroundColor="Red"/>
-            </Grid>
-            <ScrollView x:Name="scrollViewMain" Grid.Row="1">
-                <FlexLayout x:Name="flexLayoutMain" BindableLayout.ItemsSource="{Binding ConnectedDevices}" Wrap="Wrap" 
-                        Margin="20" FlowDirection="LeftToRight" Direction="Row" AlignContent="Start" JustifyContent="SpaceAround">
-                    <BindableLayout.ItemTemplate>
-                        <DataTemplate>
-                            <Controls:DeviceCardSmall
-                            Title="{Binding Name}" 
-                            IconSource="{Binding IconSource}" 
-                            Command="{Binding SelectDeviceCommand, Source={RelativeSource AncestorType={x:Type ViewModel:MainPageViewModel}}}"
-                            CommandParameter="{Binding Id}"
-                            FlexLayout.Basis="95%"
-                            HeightRequest="130"
-                            Margin="10"
-                            TitleFontColor="Black"
-                            Clicked="deviceCard_Clicked"/>
-                        </DataTemplate>
-                    </BindableLayout.ItemTemplate>
-                </FlexLayout>
-            </ScrollView>
-            <!--ImageButton
-            x:Name="buttonAdd"
-            AbsoluteLayout.LayoutBounds="0.95,0.95,70,70"
-            AbsoluteLayout.LayoutFlags="PositionProportional"
-            BackgroundColor="DarkOrange" 
-            CornerRadius="35"
-            WidthRequest="70"
-            HeightRequest="70"
-            VerticalOptions="End"
-            HorizontalOptions="End"
-            Source="add.png"
-            Clicked="buttonAdd_Clicked"/-->
-            <Controls:ActionCard 
-            x:Name="actionCard" 
-            Grid.RowSpan="2"
-            Title="{Binding SelectedDevice.Name}"
-            IsEnabled="false" 
-            IsVisible="false"
-            Scale="0.8"
-            Margin="20"
-            TitleFontColor="Black"
-            Closed="actionCard_Closed"
-            Swiped="actionCard_Swiped"/>
+        <Grid>
+            <View:HomeView 
+                x:Name="homeView" 
+                SelectRoomCommand="{Binding SelectRoomCommand}" 
+                Rooms="{Binding Rooms}" 
+                SelectedRoom="{Binding SelectedRoom}" 
+                RoomSelected="mainView_RoomSelected"/>
+            <View:RoomView 
+                x:Name="roomView" 
+                SelectDeviceCommand="{Binding SelectDeviceCommand}" 
+                ConnectedDevices="{Binding ConnectedDevices}" 
+                SelectedDevice="{Binding SelectedRoom}" 
+                BackButtonClicked="roomView_BackButtonClicked"/>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

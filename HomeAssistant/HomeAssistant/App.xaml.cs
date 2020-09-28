@@ -11,7 +11,7 @@ namespace HomeAssistant
         {
             InitializeComponent();
 
-            MainPage = new RoomPage();
+            MainPage = new MainPage();
         }
 
         protected override void OnStart()
