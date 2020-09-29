@@ -45,7 +45,6 @@
                                 BindingContext="{Binding}"
                                 FlexLayout.Basis="95%"
                                 HeightRequest="130"
-                                Margin="10"
                                 Clicked="deviceCard_Clicked"/>
                         </DataTemplate>
                     </BindableLayout.ItemTemplate>

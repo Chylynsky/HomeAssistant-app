@@ -1,4 +1,5 @@
-﻿using HomeAssistant.Model;
+﻿using HomeAssistant.Helper.Events;
+using HomeAssistant.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,6 +14,8 @@ namespace HomeAssistant.ViewModel
     class HomeViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public event RoomSelectedEventHandler RoomSelected;
 
         public Command<string> SelectRoomCommand { get; }
 
@@ -36,26 +39,27 @@ namespace HomeAssistant.ViewModel
         {
             RoomCardViewModels = new ObservableCollection<RoomCardViewModel>();
 
-            foreach (RoomModel roomModel in roomModels)
-            {
-                var roomViewModel = new RoomCardViewModel(roomModel);
-                roomViewModel.SelectRoomCommand = SelectRoomCommand;
-                RoomCardViewModels.Add(roomViewModel);
-            }
-
             SelectRoomCommand = new Command<string>((string roomName) => {
 
                 if (roomName == null)
                 {
                     return;
                 }
-
+                
                 var roomEnumerator = RoomCardViewModels.Where((RoomCardViewModel roomViewModel) => {
                     return roomViewModel.Name.Equals(roomName);
                 });
 
                 SelectedRoom = roomEnumerator.First().Room;
+                RoomSelected.Invoke(this, new RoomSelectedEventArgs(SelectedRoom));
             });
+
+            foreach (RoomModel roomModel in roomModels)
+            {
+                var roomViewModel = new RoomCardViewModel(roomModel);
+                roomViewModel.SelectRoomCommand = SelectRoomCommand;
+                RoomCardViewModels.Add(roomViewModel);
+            }
         }
 
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")

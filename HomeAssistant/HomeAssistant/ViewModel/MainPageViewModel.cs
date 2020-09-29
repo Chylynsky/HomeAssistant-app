@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Collections.Generic;
+using HomeAssistant.Helper.Events;
 
 namespace HomeAssistant.ViewModel
 {
@@ -36,6 +37,23 @@ namespace HomeAssistant.ViewModel
             {
                 rooms = value;
                 NotifyPropertyChanged(nameof(Rooms));
+            }
+        }
+
+        public HomeViewModel HomeViewModel { get; private set; }
+
+        private RoomViewModel roomViewModel;
+
+        public RoomViewModel RoomViewModel 
+        {
+            get
+            {
+                return roomViewModel;
+            }
+            private set
+            {
+                roomViewModel = value;
+                NotifyPropertyChanged(nameof(RoomViewModel));
             }
         }
 
@@ -69,6 +87,14 @@ namespace HomeAssistant.ViewModel
 
             roomModel.Devices.Add(deviceModel);
             Rooms.Add(roomModel);
+
+            HomeViewModel = new HomeViewModel(Rooms.ToList());
+            HomeViewModel.RoomSelected += HomeViewModel_RoomSelected;
+        }
+
+        private void HomeViewModel_RoomSelected(object sender, RoomSelectedEventArgs args)
+        {
+            RoomViewModel = new RoomViewModel(args.RoomModel);
         }
 
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")

@@ -21,6 +21,7 @@ namespace HomeAssistant.ViewModel
         public RoomModel Room { get; private set; }
 
         private DeviceModel selectedDevice;
+
         public DeviceModel SelectedDevice 
         {
             get
@@ -39,13 +40,6 @@ namespace HomeAssistant.ViewModel
             Room = room;
             DeviceCardsViewModels = new ObservableCollection<DeviceCardSmallViewModel>();
 
-            foreach (DeviceModel deviceModel in Room.Devices)
-            {
-                var deviceCardViewModel = new DeviceCardSmallViewModel(deviceModel);
-                deviceCardViewModel.SelectDeviceCommand = SelectDeviceCommand;
-                DeviceCardsViewModels.Add(deviceCardViewModel);
-            }
-
             SelectDeviceCommand = new Command<string>((string deviceId) => {
 
                 if (deviceId == null)
@@ -59,6 +53,13 @@ namespace HomeAssistant.ViewModel
 
                 SelectedDevice = deviceEnumerator.First();
             });
+
+            foreach (DeviceModel deviceModel in Room.Devices)
+            {
+                var deviceCardViewModel = new DeviceCardSmallViewModel(deviceModel);
+                deviceCardViewModel.SelectDeviceCommand = SelectDeviceCommand;
+                DeviceCardsViewModels.Add(deviceCardViewModel);
+            }
         }
 
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
