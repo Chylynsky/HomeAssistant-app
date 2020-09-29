@@ -10,15 +10,16 @@
                 <RowDefinition Height="8*"/>
             </Grid.RowDefinitions>
             <Image Grid.RowSpan="2" Aspect="AspectFill" Source="MainBackground.jpg"/>
-            <Frame Grid.Row="0" BackgroundColor="FloralWhite" Opacity="0.5" CornerRadius="20" HasShadow="True"/>
+            <Frame Grid.Row="0" BackgroundColor="FloralWhite" Opacity="0.5" HasShadow="False"/>
             <Label
-            Grid.Row="0"
-            Text="Pokoje" 
-            HorizontalOptions="CenterAndExpand" 
-            VerticalOptions="CenterAndExpand" 
-            HorizontalTextAlignment="Center" 
-            VerticalTextAlignment="Center" 
-            FontSize="Title"/>
+                Grid.Row="0"
+                Text="Pokoje" 
+                HorizontalOptions="CenterAndExpand" 
+                VerticalOptions="CenterAndExpand" 
+                HorizontalTextAlignment="Center" 
+                VerticalTextAlignment="Center" 
+                TextColor="Black"
+                FontSize="Title"/>
             <ScrollView x:Name="scrollViewMain" Grid.Row="1">
                 <FlexLayout x:Name="flexLayoutMain" BindableLayout.ItemsSource="{Binding RoomCardViewModels}" Wrap="Wrap" 
                         Margin="20" FlowDirection="LeftToRight" Direction="Row" AlignContent="Start" JustifyContent="SpaceAround">

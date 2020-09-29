@@ -5,16 +5,4 @@
              xmlns:ViewModel="clr-namespace:HomeAssistant.ViewModel" 
              xmlns:View="clr-namespace:HomeAssistant.View"
              x:Class="HomeAssistant.MainPageView">
-    <ContentPage.Content>
-        <Grid>
-            <View:HomeView
-                x:Name="homeView" 
-                BindingContext="{Binding HomeViewModel}"
-                RoomSelected="mainView_RoomSelected"/>
-            <View:RoomView 
-                x:Name="roomView"
-                BindingContext="{Binding RoomViewModel}"
-                BackButtonClicked="roomView_BackButtonClicked"/>
-        </Grid>
-    </ContentPage.Content>
 </ContentPage>

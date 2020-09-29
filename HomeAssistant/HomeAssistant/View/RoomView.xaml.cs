@@ -25,16 +25,16 @@ namespace HomeAssistant.View
         private async void ShowActionCard()
         {
             actionCard.IsVisible = true;
-            await actionCard.TranslateTo(0.0, 0.0, 100, Easing.SinOut);
-            await actionCard.ScaleTo(1.0, 50, Easing.SinOut);
+            await actionCard.TranslateTo(0.0, 0.0, 150, Easing.SinOut);
+            await actionCard.ScaleTo(1.0, 75, Easing.SinOut);
             actionCard.IsEnabled = true;
         }
 
         private async void HideActionCard()
         {
             actionCard.IsEnabled = false;
-            await actionCard.ScaleTo(0.8, 50, Easing.SinIn);
-            await actionCard.TranslateTo(0.0, mainGrid.Bounds.Bottom, 100, Easing.SinIn);
+            await actionCard.ScaleTo(0.8, 75, Easing.SinIn);
+            await actionCard.TranslateTo(0.0, mainGrid.Bounds.Bottom, 150, Easing.SinIn);
             actionCard.IsVisible = false;
         }
 

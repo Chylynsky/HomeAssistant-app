@@ -11,7 +11,7 @@
     <Frame.Content>
         <Grid>
             <Image Aspect="AspectFill" Source="{Binding RoomImageSource}"/>
-            <Label Text="{Binding Name}" TextColor="Black" FontSize="Large" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+            <Label Text="{Binding Name}" TextColor="Black" FontSize="Title" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
         </Grid>
     </Frame.Content>
 </Frame>
