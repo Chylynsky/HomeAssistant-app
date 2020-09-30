@@ -1,21 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using System.Collections.ObjectModel;
-using HomeAssistant.ViewModel;
-using HomeAssistant.Model;
-using System.Runtime.CompilerServices;
 
 namespace HomeAssistant.View
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class RoomView : ContentView
     {
-        public event EventHandler BackButtonClicked;
+        public event EventHandler BackNavigationRequested;
 
         public RoomView()
         {
@@ -58,9 +50,14 @@ namespace HomeAssistant.View
             ShowActionCard();
         }
 
+        private void SwipeGestureRecognizer_Swiped(object sender, SwipedEventArgs e)
+        {
+            BackNavigationRequested.Invoke(sender, e);
+        }
+
         private void backButton_Clicked(object sender, EventArgs e)
         {
-            BackButtonClicked.Invoke(sender, e);
+            BackNavigationRequested.Invoke(sender, e);
         }
     }
 }

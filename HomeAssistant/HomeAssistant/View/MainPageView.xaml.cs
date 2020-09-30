@@ -1,12 +1,8 @@
 ﻿using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using Xamarin.Essentials;
 using HomeAssistant.ViewModel;
-using Xamarin.Forms.Markup;
 using HomeAssistant.View;
-using System.Threading.Tasks;
-using System.Collections.Generic;
 using HomeAssistant.Helper;
 
 namespace HomeAssistant
@@ -29,7 +25,7 @@ namespace HomeAssistant
 
             roomView = new RoomView();
             roomView.SetBinding(BindingContextProperty, nameof(RoomViewModel));
-            roomView.BackButtonClicked += roomView_BackButtonClicked;
+            roomView.BackNavigationRequested += roomView_BackButtonClicked;
 
             navigationHandler = new NavigationHandler(homeView);
 

@@ -1,5 +1,4 @@
-﻿using HomeAssistant.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -8,6 +7,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using HomeAssistant.Model;
 
 namespace HomeAssistant.ViewModel
 {
