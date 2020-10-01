@@ -16,9 +16,6 @@ namespace HomeAssistant.ViewModel
 {
     class MainPageViewModel : INotifyPropertyChanged
     {
-        private static readonly WebProxy proxy = new WebProxy("192.168.0.109:80");
-        private static readonly Uri address = new Uri("http://home.as");
-
         public event PropertyChangedEventHandler PropertyChanged;
 
         private Task<ObservableCollection<DeviceModel>> InitializationTask; 
@@ -40,7 +37,20 @@ namespace HomeAssistant.ViewModel
             }
         }
 
-        public HomeViewModel HomeViewModel { get; private set; }
+        private HomeViewModel homeViewModel;
+
+        public HomeViewModel HomeViewModel 
+        { 
+            get
+            {
+                return homeViewModel;
+            }
+            private set
+            {
+                homeViewModel = value;
+                NotifyPropertyChanged(nameof(HomeViewModel));
+            }
+        }
 
         private RoomViewModel roomViewModel;
 

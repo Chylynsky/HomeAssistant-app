@@ -6,7 +6,7 @@ using Xamarin.Forms;
 
 namespace HomeAssistant.ViewModel
 {
-    public class RoomCardViewModel
+    public class RoomCardViewModel : ThemedRoomViewModelBase
     {
         public Command<string> SelectRoomCommand { get; set; }
 
@@ -20,17 +20,9 @@ namespace HomeAssistant.ViewModel
             }
         }
 
-        public ImageSource RoomImageSource
+        public RoomCardViewModel(RoomModel roomModel) : base(roomModel.Type)
         {
-            get
-            {
-                return RoomModel.RoomTypeToImageSource(Room.Type);
-            }
-        }
-
-        public RoomCardViewModel(RoomModel room)
-        {
-            Room = room;
+            Room = roomModel;
         }
     }
 }

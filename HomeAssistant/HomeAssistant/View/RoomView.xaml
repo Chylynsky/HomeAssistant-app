@@ -14,18 +14,12 @@
                 <RowDefinition Height="8*"/>
             </Grid.RowDefinitions>
 
-            <Image Aspect="AspectFill" Grid.RowSpan="2">
+            <Image Aspect="AspectFill" Grid.RowSpan="2" Source="{Binding Background}">
 
                 <Image.GestureRecognizers>
                     <SwipeGestureRecognizer Swiped="SwipeGestureRecognizer_Swiped" Direction="Left"/>
                 </Image.GestureRecognizers>
-
-                <Image.Source>
-                    <OnPlatform x:TypeArguments="FileImageSource">
-                        <On Platform="UWP" Value="Assets/Images/LivingRoom0.jpg"/>
-                        <On Platform="Android" Value="LivingRoom0.jpg"/>
-                    </OnPlatform>
-                </Image.Source>
+                
             </Image>
             
             <Grid Grid.Row="0">
@@ -50,12 +44,12 @@
             
             <ScrollView x:Name="scrollViewMain" Grid.Row="1">
                 <FlexLayout x:Name="flexLayoutMain" BindableLayout.ItemsSource="{Binding DeviceCardsViewModels}" Wrap="Wrap" 
-                        Margin="20" FlowDirection="LeftToRight" Direction="Row" AlignContent="Start" JustifyContent="SpaceAround">
+                        Margin="20" FlowDirection="LeftToRight" Direction="Row" AlignContent="Start" JustifyContent="SpaceBetween">
                     <BindableLayout.ItemTemplate>
                         <DataTemplate>
                             <View:DeviceCardSmallView
                                 BindingContext="{Binding}"
-                                FlexLayout.Basis="95%"
+                                FlexLayout.Basis="50%"
                                 HeightRequest="130"
                                 Clicked="deviceCard_Clicked"/>
                         </DataTemplate>

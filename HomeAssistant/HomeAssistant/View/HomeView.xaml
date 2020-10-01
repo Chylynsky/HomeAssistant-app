@@ -9,7 +9,7 @@
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="8*"/>
             </Grid.RowDefinitions>
-            <Image Grid.RowSpan="2" Aspect="AspectFill" Source="MainBackground.jpg"/>
+            <Image Grid.RowSpan="2" Aspect="AspectFill" Source="{Binding Background}"/>
             <Frame Grid.Row="0" BackgroundColor="FloralWhite" Opacity="0.5" HasShadow="False"/>
             <Label
                 Grid.Row="0"

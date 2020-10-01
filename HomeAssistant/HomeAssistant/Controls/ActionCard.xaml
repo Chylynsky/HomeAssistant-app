@@ -2,7 +2,7 @@
 <Frame xmlns="http://xamarin.com/schemas/2014/forms" 
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="HomeAssistant.Controls.ActionCard" 
-    BackgroundColor="FloralWhite" BorderColor="DimGray" CornerRadius="20" HasShadow="True">
+    BackgroundColor="FloralWhite" BorderColor="Transparent" CornerRadius="20" HasShadow="True">
 
     <Frame.GestureRecognizers>
         <SwipeGestureRecognizer x:Name="swipeGestureRecognizer" Direction="Down"/>

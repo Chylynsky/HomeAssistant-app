@@ -11,15 +11,41 @@ using HomeAssistant.Model;
 
 namespace HomeAssistant.ViewModel
 {
-    class RoomViewModel : INotifyPropertyChanged
+    class RoomViewModel : ThemedRoomViewModelBase, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
         public Command<string> SelectDeviceCommand { get; }
 
-        public ObservableCollection<DeviceCardSmallViewModel> DeviceCardsViewModels { get; private set; }
+        private ObservableCollection<DeviceCardSmallViewModel> deviceCardsViewModels;
 
-        public RoomModel Room { get; private set; }
+        public ObservableCollection<DeviceCardSmallViewModel> DeviceCardsViewModels
+        {
+            get
+            {
+                return deviceCardsViewModels;
+            }
+            private set
+            {
+                deviceCardsViewModels = value;
+                NotifyPropertyChanged(nameof(DeviceCardsViewModels));
+            }
+        }
+
+        private RoomModel room;
+
+        public RoomModel Room
+        {
+            get
+            {
+                return room;
+            }
+            private set
+            {
+                room = value;
+                NotifyPropertyChanged(nameof(Room));
+            }
+        }
 
         private DeviceModel selectedDevice;
 
@@ -36,7 +62,7 @@ namespace HomeAssistant.ViewModel
             }
         }
 
-        public RoomViewModel(RoomModel room)
+        public RoomViewModel(RoomModel room) : base(room.Type)
         {
             Room = room;
             DeviceCardsViewModels = new ObservableCollection<DeviceCardSmallViewModel>();

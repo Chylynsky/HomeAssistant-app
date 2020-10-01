@@ -11,7 +11,7 @@ using HomeAssistant.Model;
 
 namespace HomeAssistant.ViewModel
 {
-    class HomeViewModel : INotifyPropertyChanged
+    class HomeViewModel : ThemedViewModelBase, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -19,7 +19,20 @@ namespace HomeAssistant.ViewModel
 
         public Command<string> SelectRoomCommand { get; }
 
-        public ObservableCollection<RoomCardViewModel> RoomCardViewModels { get; private set; }
+        private ObservableCollection<RoomCardViewModel> roomCardViewModels;
+
+        public ObservableCollection<RoomCardViewModel> RoomCardViewModels
+        {
+            get
+            {
+                return roomCardViewModels;
+            }
+            private set
+            {
+                roomCardViewModels = value;
+                NotifyPropertyChanged(nameof(RoomCardViewModels));
+            }
+        }
 
         private RoomModel selectedRoom;
         public RoomModel SelectedRoom
