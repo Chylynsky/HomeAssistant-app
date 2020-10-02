@@ -1,21 +1,23 @@
 ﻿using HomeAssistant.Model;
-using System.Collections.ObjectModel;
+using System.Collections.ObjectModel;.
 using System.Linq;
-using System.Net.Http;
-using Xamarin.Forms;
-using System.Net;
-using System;
 using HomeAssistant.Helper;
 using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Collections.Generic;
 using HomeAssistant.Helper.Events;
+using System;
+using System.Net;
 
 namespace HomeAssistant.ViewModel
 {
     class MainPageViewModel : INotifyPropertyChanged
     {
+        private readonly Uri address = new Uri("http://home.as");
+
+        private readonly WebProxy proxy = new WebProxy("0.0.0.0:80");
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         private Task<ObservableCollection<DeviceModel>> InitializationTask; 
@@ -72,43 +74,16 @@ namespace HomeAssistant.ViewModel
         public MainPageViewModel()
         {
             // Wait for response from server containing connected devices
-            /*apiClient = new HomeAssistantClient(address, proxy);
-            var InitializationTask = apiClient.GetConnectedDevices();
-            InitializationTask.ContinueWith((initializationResult) => {
-                
-                foreach (device in initializationResult.Result)
-                {
-                    ConnectedDevices.Add(new DeviceCardSmallViewModel(device))
-                }
-
-                NotifyPropertyChanged(nameof(ConnectedDevices));
-            });*/
+            apiClient = new HomeAssistantClient(address, proxy);
 
             RoomModels = new ObservableCollection<RoomModel>();
             roomViewModels = new List<RoomViewModel>();
 
-            var roomModel = new RoomModel()
-            {
-                Devices = new ObservableCollection<DeviceModel>(),
-                Type = RoomType.LivingRoom
-            };
 
-            DeviceModel deviceModel0 = new MiKettle()
-            {
-                Id = "1234",
-                Name = "Xiaomi Mi Kettle"
-            };
 
-            DeviceModel deviceModel1 = new MiKettle()
-            {
-                Id = "698",
-                Name = "Dupa"
-            };
-
-            roomModel.Devices.Add(deviceModel0);
-            roomModel.Devices.Add(deviceModel1);
+            /*
             RoomModels.Add(roomModel);
-
+            
             UserHomeViewModel = new HomeViewModel(RoomModels.ToList());
             UserHomeViewModel.RoomSelected += HomeViewModel_RoomSelected;
 
@@ -116,6 +91,7 @@ namespace HomeAssistant.ViewModel
             {
                 roomViewModels.Add(new RoomViewModel(roomCardViewModel.RoomModel, roomCardViewModel.Background));
             }
+            */
         }
 
         private void HomeViewModel_RoomSelected(RoomCardViewModel sender, RoomSelectedEventArgs args)
