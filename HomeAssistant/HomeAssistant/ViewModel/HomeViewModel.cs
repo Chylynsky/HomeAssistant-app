@@ -63,8 +63,9 @@ namespace HomeAssistant.ViewModel
                     return roomViewModel.Name.Equals(roomName);
                 });
 
-                SelectedRoom = roomEnumerator.First().Room;
-                RoomSelected.Invoke(this, new RoomSelectedEventArgs(SelectedRoom));
+                var selectedRoomCard = roomEnumerator.First();
+                SelectedRoom = selectedRoomCard.Room;
+                RoomSelected.Invoke(selectedRoomCard, new RoomSelectedEventArgs(SelectedRoom));
             });
 
             foreach (RoomModel roomModel in roomModels)

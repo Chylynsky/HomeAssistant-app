@@ -102,9 +102,9 @@ namespace HomeAssistant.ViewModel
             HomeViewModel.RoomSelected += HomeViewModel_RoomSelected;
         }
 
-        private void HomeViewModel_RoomSelected(object sender, RoomSelectedEventArgs args)
+        private void HomeViewModel_RoomSelected(RoomCardViewModel sender, RoomSelectedEventArgs args)
         {
-            RoomViewModel = new RoomViewModel(args.RoomModel);
+            RoomViewModel = new RoomViewModel(args.RoomModel, sender.Background);
         }
 
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")

@@ -6,7 +6,7 @@ using Xamarin.Forms;
 
 namespace HomeAssistant.ViewModel
 {
-    public class ThemedRoomViewModelBase : ThemedViewModelBase
+    public class ThemedRoomCardViewModelBase : ThemedViewModelBase
     {
         // Number of backgrounds available for themed category (Kitchen, Living Room, etc...)
         private static readonly int ThemedBackgroundMaxIndex = 5;
@@ -35,7 +35,7 @@ namespace HomeAssistant.ViewModel
             }
         }
 
-        public ThemedRoomViewModelBase(RoomType roomType)
+        public ThemedRoomCardViewModelBase(RoomType roomType)
         {
             this.roomType = roomType;
         }

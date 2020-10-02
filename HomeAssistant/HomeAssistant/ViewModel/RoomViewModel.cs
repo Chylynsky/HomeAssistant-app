@@ -11,7 +11,7 @@ using HomeAssistant.Model;
 
 namespace HomeAssistant.ViewModel
 {
-    class RoomViewModel : ThemedRoomViewModelBase, INotifyPropertyChanged
+    class RoomViewModel : IThemedViewModelBase, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -47,6 +47,21 @@ namespace HomeAssistant.ViewModel
             }
         }
 
+        private ImageSource background;
+
+        public ImageSource Background 
+        { 
+            get
+            {
+                return background;
+            }
+            private set
+            {
+                background = value;
+                NotifyPropertyChanged(nameof(Background));
+            }
+        }
+
         private DeviceModel selectedDevice;
 
         public DeviceModel SelectedDevice 
@@ -62,9 +77,10 @@ namespace HomeAssistant.ViewModel
             }
         }
 
-        public RoomViewModel(RoomModel room) : base(room.Type)
+        public RoomViewModel(RoomModel roomModel, ImageSource background)
         {
-            Room = room;
+            Room = roomModel;
+            Background = background;
             DeviceCardsViewModels = new ObservableCollection<DeviceCardSmallViewModel>();
 
             SelectDeviceCommand = new Command<string>((string deviceId) => {

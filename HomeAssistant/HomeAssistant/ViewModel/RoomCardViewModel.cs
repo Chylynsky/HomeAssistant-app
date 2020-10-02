@@ -6,7 +6,7 @@ using Xamarin.Forms;
 
 namespace HomeAssistant.ViewModel
 {
-    public class RoomCardViewModel : ThemedRoomViewModelBase
+    public class RoomCardViewModel : ThemedRoomCardViewModelBase
     {
         public Command<string> SelectRoomCommand { get; set; }
 
