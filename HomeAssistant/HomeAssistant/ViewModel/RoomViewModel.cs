@@ -32,18 +32,18 @@ namespace HomeAssistant.ViewModel
             }
         }
 
-        private RoomModel room;
+        private RoomModel roomModel;
 
-        public RoomModel Room
+        public RoomModel RoomModel
         {
             get
             {
-                return room;
+                return roomModel;
             }
             private set
             {
-                room = value;
-                NotifyPropertyChanged(nameof(Room));
+                roomModel = value;
+                NotifyPropertyChanged(nameof(RoomModel));
             }
         }
 
@@ -55,7 +55,7 @@ namespace HomeAssistant.ViewModel
             {
                 return background;
             }
-            private set
+            set
             {
                 background = value;
                 NotifyPropertyChanged(nameof(Background));
@@ -79,7 +79,7 @@ namespace HomeAssistant.ViewModel
 
         public RoomViewModel(RoomModel roomModel, ImageSource background)
         {
-            Room = roomModel;
+            RoomModel = roomModel;
             Background = background;
             DeviceCardsViewModels = new ObservableCollection<DeviceCardSmallViewModel>();
 
@@ -90,14 +90,14 @@ namespace HomeAssistant.ViewModel
                     return;
                 }
 
-                var deviceEnumerator = Room.Devices.Where((DeviceModel device) => {
+                var deviceEnumerator = RoomModel.Devices.Where((DeviceModel device) => {
                     return device.Id.Equals(deviceId);
                 });
 
                 SelectedDevice = deviceEnumerator.First();
             });
 
-            foreach (DeviceModel deviceModel in Room.Devices)
+            foreach (DeviceModel deviceModel in RoomModel.Devices)
             {
                 var deviceCardViewModel = new DeviceCardSmallViewModel(deviceModel);
                 deviceCardViewModel.SelectDeviceCommand = SelectDeviceCommand;

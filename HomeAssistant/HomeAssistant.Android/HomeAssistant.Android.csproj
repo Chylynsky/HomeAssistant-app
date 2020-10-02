@@ -47,6 +47,10 @@
     <WarningLevel>4</WarningLevel>
     <AndroidManagedSymbols>true</AndroidManagedSymbols>
     <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
+    <AotAssemblies>false</AotAssemblies>
+    <EnableLLVM>false</EnableLLVM>
+    <AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
+    <BundleAssemblies>false</BundleAssemblies>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Mono.Android" />
@@ -96,132 +100,177 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\bathroom0.jpg" />
+    <AndroidResource Include="Resources\drawable-xhdpi\bathroom0.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\bathroom1.jpg" />
+    <AndroidResource Include="Resources\drawable-xhdpi\bathroom1.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\bathroom2.jpg" />
+    <AndroidResource Include="Resources\drawable-xhdpi\bathroom2.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\bathroom3.jpg" />
+    <AndroidResource Include="Resources\drawable-xhdpi\bathroom3.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\bathroom4.jpg" />
+    <AndroidResource Include="Resources\drawable-xhdpi\bathroom4.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\bathroom5.jpg" />
+    <AndroidResource Include="Resources\drawable-xhdpi\bathroom5.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\bedroom0.jpg" />
+    <AndroidResource Include="Resources\drawable-xhdpi\bedroom0.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\bedroom1.jpg" />
+    <AndroidResource Include="Resources\drawable-xhdpi\bedroom1.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\bedroom2.jpg" />
+    <AndroidResource Include="Resources\drawable-xhdpi\bedroom2.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\bedroom3.jpg" />
+    <AndroidResource Include="Resources\drawable-xhdpi\bedroom3.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\bedroom4.jpg" />
+    <AndroidResource Include="Resources\drawable-xhdpi\bedroom4.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\bedroom5.jpg" />
+    <AndroidResource Include="Resources\drawable-xhdpi\bedroom5.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\diningroom0.jpg" />
+    <AndroidResource Include="Resources\drawable-xhdpi\diningroom0.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\diningroom1.jpg" />
+    <AndroidResource Include="Resources\drawable-xhdpi\diningroom1.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\diningroom2.jpg" />
+    <AndroidResource Include="Resources\drawable-xhdpi\diningroom2.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\diningroom3.jpg" />
+    <AndroidResource Include="Resources\drawable-xhdpi\diningroom3.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\diningroom4.jpg" />
+    <AndroidResource Include="Resources\drawable-xhdpi\diningroom4.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\diningroom5.jpg" />
+    <AndroidResource Include="Resources\drawable-xhdpi\diningroom5.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\kitchen0.jpg" />
+    <AndroidResource Include="Resources\drawable-xhdpi\kitchen0.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\kitchen1.jpg" />
+    <AndroidResource Include="Resources\drawable-xhdpi\kitchen1.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\kitchen2.jpg" />
+    <AndroidResource Include="Resources\drawable-xhdpi\kitchen2.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\kitchen3.jpg" />
+    <AndroidResource Include="Resources\drawable-xhdpi\kitchen3.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\kitchen4.jpg" />
+    <AndroidResource Include="Resources\drawable-xhdpi\kitchen4.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\kitchen5.jpg" />
+    <AndroidResource Include="Resources\drawable-xhdpi\kitchen5.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\livingroom0.jpg" />
+    <AndroidResource Include="Resources\drawable-xhdpi\livingroom0.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\livingroom1.jpg" />
+    <AndroidResource Include="Resources\drawable-xhdpi\livingroom1.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\livingroom2.jpg" />
+    <AndroidResource Include="Resources\drawable-xhdpi\livingroom2.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\livingroom3.jpg" />
+    <AndroidResource Include="Resources\drawable-xhdpi\livingroom3.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\livingroom4.jpg" />
+    <AndroidResource Include="Resources\drawable-xhdpi\livingroom4.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\livingroom5.jpg" />
+    <AndroidResource Include="Resources\drawable-xhdpi\livingroom5.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\universal0.jpg" />
+    <AndroidResource Include="Resources\drawable-xhdpi\universal0.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\universal1.jpg" />
+    <AndroidResource Include="Resources\drawable-xhdpi\universal1.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\universal10.jpg" />
+    <AndroidResource Include="Resources\drawable-xhdpi\universal10.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\universal2.jpg" />
+    <AndroidResource Include="Resources\drawable-xhdpi\universal2.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\universal3.jpg" />
+    <AndroidResource Include="Resources\drawable-xhdpi\universal3.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\universal4.jpg" />
+    <AndroidResource Include="Resources\drawable-xhdpi\universal4.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\universal5.jpg" />
+    <AndroidResource Include="Resources\drawable-xhdpi\universal5.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\universal6.jpg" />
+    <AndroidResource Include="Resources\drawable-xhdpi\universal6.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\universal7.jpg" />
+    <AndroidResource Include="Resources\drawable-xhdpi\universal7.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\universal8.jpg" />
+    <AndroidResource Include="Resources\drawable-xhdpi\universal8.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\universal9.jpg" />
+    <AndroidResource Include="Resources\drawable-xhdpi\universal9.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\back.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\more.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-mdpi\add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-mdpi\back.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-mdpi\more.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\back.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\more.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\back.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\more.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\more.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\back.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\add.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties XamarinHotReloadDebuggerTimeoutExceptionHomeAssistantAndroidHideInfoBar="True" XamarinHotReloadUnhandledDeviceExceptionHomeAssistantAndroidHideInfoBar="True" />
+      <UserProperties XamarinHotReloadUnhandledDeviceExceptionHomeAssistantAndroidHideInfoBar="True" XamarinHotReloadDebuggerTimeoutExceptionHomeAssistantAndroidHideInfoBar="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

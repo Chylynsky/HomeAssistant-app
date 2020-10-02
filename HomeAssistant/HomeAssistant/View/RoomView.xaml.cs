@@ -12,6 +12,21 @@ namespace HomeAssistant.View
         public RoomView()
         {
             InitializeComponent();
+
+            switch (Device.RuntimePlatform)
+            {
+                case Device.UWP: 
+                    backButton.Source = "Assets\\back.png";
+                    addButton.Source = "Assets\\add.png";
+                    moreButton.Source = "Assets\\more.png";
+                    break;
+                case Device.Android:
+                    backButton.Source = "back.png";
+                    addButton.Source = "add.png";
+                    moreButton.Source = "more.png";
+                    break;
+                default: break;
+            }
         }
 
         private async void ShowActionCard()
@@ -48,11 +63,6 @@ namespace HomeAssistant.View
         private void deviceCard_Clicked(object sender, EventArgs e)
         {
             ShowActionCard();
-        }
-
-        private void SwipeGestureRecognizer_Swiped(object sender, SwipedEventArgs e)
-        {
-            BackNavigationRequested.Invoke(sender, e);
         }
 
         private void backButton_Clicked(object sender, EventArgs e)

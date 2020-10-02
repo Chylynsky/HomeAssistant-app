@@ -11,6 +11,7 @@
     <Frame.Content>
         <Grid>
             <Image Aspect="AspectFill" Source="{Binding Background}"/>
+            <Frame Margin="40" BackgroundColor="FloralWhite" CornerRadius="20" Opacity="0.7" HasShadow="False"/>
             <Label Text="{Binding Name}" TextColor="Black" FontSize="Title" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
         </Grid>
     </Frame.Content>

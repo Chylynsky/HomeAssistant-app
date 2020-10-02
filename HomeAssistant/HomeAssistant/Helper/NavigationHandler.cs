@@ -6,7 +6,7 @@ namespace HomeAssistant.Helper
 {
     class NavigationHandler
     {
-        private readonly uint AnimationLength = 225U;
+        private readonly uint AnimationLength = 200U;
 
         private Stack<ContentView> viewStack;
 
@@ -52,6 +52,11 @@ namespace HomeAssistant.Helper
 
         public async Task NavigateBackAsync()
         {
+            if (viewStack.Count == 1)
+            {
+                return;
+            }
+
             ContentView currentView = viewStack.Pop();
             ContentView previousView = viewStack.Peek();
 
@@ -66,6 +71,11 @@ namespace HomeAssistant.Helper
 
         public async Task NavigateToMainViewAsync()
         {
+            if (viewStack.Count == 1)
+            {
+                return;
+            }
+
             ContentView currentView = viewStack.Peek();
 
             while (viewStack.Count != 1)

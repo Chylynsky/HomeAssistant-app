@@ -2,7 +2,7 @@
 <Frame xmlns="http://xamarin.com/schemas/2014/forms" 
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="HomeAssistant.Controls.ActionCard" 
-    BackgroundColor="FloralWhite" BorderColor="Transparent" CornerRadius="20" HasShadow="True">
+    BackgroundColor="FloralWhite" BorderColor="DarkGray" CornerRadius="20" HasShadow="True">
 
     <Frame.GestureRecognizers>
         <SwipeGestureRecognizer x:Name="swipeGestureRecognizer" Direction="Down"/>
@@ -19,7 +19,7 @@
             <RowDefinition Height="10*"/>
         </Grid.RowDefinitions>
         <Label x:Name="titleLabel" Grid.Row="0" Grid.ColumnSpan="2" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" FontSize="20"/>
-        <ImageButton x:Name="closeButton" Grid.Row="0" Grid.Column="2" VerticalOptions="Fill" HorizontalOptions="Fill"/>
+        <ImageButton x:Name="closeButton" Grid.Row="0" Grid.Column="2" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
         <ScrollView x:Name="scrollViewContent" Grid.Row="1" Grid.ColumnSpan="3"/>
 
     </Grid>

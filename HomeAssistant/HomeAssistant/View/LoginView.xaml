@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="HomeAssistant.View.LoginView">
+    <ContentView.Content>
+        <Grid>
+            <Image Source="{Binding Background}" Aspect="AspectFill"/>
+            <Frame BackgroundColor="FloralWhite" Margin="40" Opacity="0.7" CornerRadius="20">
+            
+            
+            
+            </Frame>
+        </Grid>
+    </ContentView.Content>
+</ContentView>

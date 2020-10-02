@@ -12,7 +12,7 @@ namespace HomeAssistant.ViewModel
         // Number of backgrounds available for Universal category
         protected static readonly int UniversalBackgroundMaxIndex = 10;
 
-        protected static readonly string ResourcePathUWP = "Assets\\Images\\";
+        protected static readonly string ResourcePathUWP = "Assets\\";
 
         protected static Random randomGenerator;
 
@@ -30,7 +30,7 @@ namespace HomeAssistant.ViewModel
 
         protected virtual ImageSource GetImage()
         {
-            string image = "universal" + randomGenerator.Next(0, UniversalBackgroundMaxIndex).ToString() + ".jpg";
+            string image = "universal" + randomGenerator.Next(0, UniversalBackgroundMaxIndex).ToString() + ".png";
 
             switch (Device.RuntimePlatform)
             {

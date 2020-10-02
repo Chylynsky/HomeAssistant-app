@@ -10,19 +10,19 @@ namespace HomeAssistant.ViewModel
     {
         public Command<string> SelectRoomCommand { get; set; }
 
-        public RoomModel Room { get; private set; }
+        public RoomModel RoomModel { get; private set; }
 
         public string Name
         {
             get
             {
-                return RoomModel.RoomTypeToString(Room.Type);
+                return RoomModel.RoomTypeToString(RoomModel.Type);
             }
         }
 
         public RoomCardViewModel(RoomModel roomModel) : base(roomModel.Type)
         {
-            Room = roomModel;
+            RoomModel = roomModel;
         }
     }
 }

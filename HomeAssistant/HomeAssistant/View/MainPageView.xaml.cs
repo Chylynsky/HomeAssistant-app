@@ -20,14 +20,14 @@ namespace HomeAssistant
             BindingContext = new MainPageViewModel();
 
             homeView = new HomeView();
-            homeView.SetBinding(BindingContextProperty, nameof(HomeViewModel));
+            homeView.SetBinding(BindingContextProperty, nameof(MainPageViewModel.UserHomeViewModel));
             homeView.RoomSelected += homeView_RoomSelected;
 
             roomView = new RoomView();
-            roomView.SetBinding(BindingContextProperty, nameof(RoomViewModel));
+            roomView.SetBinding(BindingContextProperty, nameof(MainPageViewModel.SelectedRoomViewModel));
             roomView.BackNavigationRequested += roomView_BackButtonClicked;
 
-            navigationHandler = new NavigationHandler(homeView);
+            navigationHandler = new NavigationHandler(new LoginView());
 
             Content = navigationHandler.Content;
         }

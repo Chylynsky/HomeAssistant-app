@@ -17,7 +17,6 @@ namespace HomeAssistant.View
 
         private async void tapGestureRecognizer_Tapped(object sender, EventArgs e)
         {
-            Vibration.Vibrate(5);
             Clicked?.Invoke(this, e);
             await this.ScaleTo(0.9, 50, Easing.SinOut);
             await this.ScaleTo(1.0, 50, Easing.SinIn);

@@ -22,48 +22,50 @@ namespace HomeAssistant.ViewModel
 
         private HomeAssistantClient apiClient;
 
-        private ObservableCollection<RoomModel> rooms;
+        private List<RoomViewModel> roomViewModels;
 
-        public ObservableCollection<RoomModel> Rooms 
+        private ObservableCollection<RoomModel> roomModels;
+
+        public ObservableCollection<RoomModel> RoomModels 
         { 
             get
             {
-                return rooms;
+                return roomModels;
             }
             private set
             {
-                rooms = value;
-                NotifyPropertyChanged(nameof(Rooms));
+                roomModels = value;
+                NotifyPropertyChanged(nameof(RoomModels));
             }
         }
 
-        private HomeViewModel homeViewModel;
+        private HomeViewModel HomeViewModel;
 
-        public HomeViewModel HomeViewModel 
+        public HomeViewModel UserHomeViewModel 
         { 
             get
             {
-                return homeViewModel;
+                return HomeViewModel;
             }
             private set
             {
-                homeViewModel = value;
-                NotifyPropertyChanged(nameof(HomeViewModel));
+                HomeViewModel = value;
+                NotifyPropertyChanged(nameof(UserHomeViewModel));
             }
         }
 
-        private RoomViewModel roomViewModel;
+        private RoomViewModel selectedRoomViewModel;
 
-        public RoomViewModel RoomViewModel 
+        public RoomViewModel SelectedRoomViewModel 
         {
             get
             {
-                return roomViewModel;
+                return selectedRoomViewModel;
             }
             private set
             {
-                roomViewModel = value;
-                NotifyPropertyChanged(nameof(RoomViewModel));
+                selectedRoomViewModel = value;
+                NotifyPropertyChanged(nameof(SelectedRoomViewModel));
             }
         }
 
@@ -82,29 +84,45 @@ namespace HomeAssistant.ViewModel
                 NotifyPropertyChanged(nameof(ConnectedDevices));
             });*/
 
-            Rooms = new ObservableCollection<RoomModel>();
+            RoomModels = new ObservableCollection<RoomModel>();
+            roomViewModels = new List<RoomViewModel>();
+
             var roomModel = new RoomModel()
             {
                 Devices = new ObservableCollection<DeviceModel>(),
                 Type = RoomType.LivingRoom
             };
 
-            DeviceModel deviceModel = new MiKettle()
+            DeviceModel deviceModel0 = new MiKettle()
             {
                 Id = "1234",
                 Name = "Xiaomi Mi Kettle"
             };
 
-            roomModel.Devices.Add(deviceModel);
-            Rooms.Add(roomModel);
+            DeviceModel deviceModel1 = new MiKettle()
+            {
+                Id = "698",
+                Name = "Dupa"
+            };
 
-            HomeViewModel = new HomeViewModel(Rooms.ToList());
-            HomeViewModel.RoomSelected += HomeViewModel_RoomSelected;
+            roomModel.Devices.Add(deviceModel0);
+            roomModel.Devices.Add(deviceModel1);
+            RoomModels.Add(roomModel);
+
+            UserHomeViewModel = new HomeViewModel(RoomModels.ToList());
+            UserHomeViewModel.RoomSelected += HomeViewModel_RoomSelected;
+
+            foreach (var roomCardViewModel in UserHomeViewModel.RoomCardViewModels)
+            {
+                roomViewModels.Add(new RoomViewModel(roomCardViewModel.RoomModel, roomCardViewModel.Background));
+            }
         }
 
         private void HomeViewModel_RoomSelected(RoomCardViewModel sender, RoomSelectedEventArgs args)
         {
-            RoomViewModel = new RoomViewModel(args.RoomModel, sender.Background);
+            SelectedRoomViewModel = roomViewModels.Find((RoomCard) => {
+                return RoomCard.RoomModel == args.RoomModel && RoomCard.Background == sender.Background;
+            });
         }
 
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")

@@ -13,31 +13,36 @@ namespace HomeAssistant.ViewModel
 
         private RoomType roomType;
 
-        public override ImageSource Background
-        {
-            get
-            {
-                if (roomType == RoomType.Other)
-                    return base.Background;
-
-                string image = roomType.ToString().ToLower() + 
-                    randomGenerator.Next(0, ThemedBackgroundMaxIndex).ToString() + ".jpg";
-
-                switch (Device.RuntimePlatform)
-                {
-                    case Device.iOS:
-                        return default(ImageSource);
-                    case Device.Android:
-                        return image;
-                    case Device.UWP: return ResourcePathUWP + image;
-                    default: return default(ImageSource);
-                }
-            }
-        }
+        public override ImageSource Background { get; set; }
 
         public ThemedRoomCardViewModelBase(RoomType roomType)
         {
             this.roomType = roomType;
+
+            if (roomType == RoomType.Other)
+            {
+                Background = base.GetImage();
+            }
+            else
+            {
+                Background = GetImage();
+            }
+        }
+
+        protected override ImageSource GetImage()
+        {
+            string image = roomType.ToString().ToLower() +
+            randomGenerator.Next(0, ThemedBackgroundMaxIndex).ToString() + ".png";
+
+            switch (Device.RuntimePlatform)
+            {
+                case Device.iOS:
+                    return default(ImageSource);
+                case Device.Android:
+                    return image;
+                case Device.UWP: return ResourcePathUWP + image;
+                default: return default(ImageSource);
+            }
         }
     }
 }

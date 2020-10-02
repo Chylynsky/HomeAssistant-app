@@ -7,13 +7,13 @@ namespace HomeAssistant.ViewModel
     {
         public Command<string> SelectDeviceCommand { get; set; }
 
-        public DeviceModel Device { get; private set; }
+        public DeviceModel DeviceModel { get; private set; }
 
         public string Id
         {
             get
             {
-                return Device.Id;
+                return DeviceModel.Id;
             }
         }
 
@@ -21,7 +21,7 @@ namespace HomeAssistant.ViewModel
         {
             get
             {
-                return Device.Name;
+                return DeviceModel.Name;
             }
         }
 
@@ -29,13 +29,13 @@ namespace HomeAssistant.ViewModel
         {
             get
             {
-                return Device.IconSource;
+                return DeviceModel.IconSource;
             }
         }
 
         public DeviceCardSmallViewModel(DeviceModel device)
         {
-            Device = device;
+            DeviceModel = device;
         }
     }
 }

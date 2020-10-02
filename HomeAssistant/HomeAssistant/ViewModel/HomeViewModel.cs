@@ -35,7 +35,7 @@ namespace HomeAssistant.ViewModel
         }
 
         private RoomModel selectedRoom;
-        public RoomModel SelectedRoom
+        public RoomModel SelectedRoomModel
         {
             get
             {
@@ -44,7 +44,7 @@ namespace HomeAssistant.ViewModel
             private set
             {
                 selectedRoom = value;
-                NotifyPropertyChanged(nameof(SelectedRoom));
+                NotifyPropertyChanged(nameof(SelectedRoomModel));
             }
         }
 
@@ -64,8 +64,8 @@ namespace HomeAssistant.ViewModel
                 });
 
                 var selectedRoomCard = roomEnumerator.First();
-                SelectedRoom = selectedRoomCard.Room;
-                RoomSelected.Invoke(selectedRoomCard, new RoomSelectedEventArgs(SelectedRoom));
+                SelectedRoomModel = selectedRoomCard.RoomModel;
+                RoomSelected.Invoke(selectedRoomCard, new RoomSelectedEventArgs(SelectedRoomModel));
             });
 
             foreach (RoomModel roomModel in roomModels)

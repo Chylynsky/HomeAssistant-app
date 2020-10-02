@@ -68,6 +68,14 @@ namespace HomeAssistant.Controls
         public ActionCard()
         {
             InitializeComponent();
+            
+            switch (Device.RuntimePlatform)
+            {
+                case Device.UWP: closeButton.Source = "Assets\\close.png"; break;
+                case Device.Android: closeButton.Source = "close.png"; break;
+                default: break;
+            }
+
             closeButton.Clicked += (object sender, EventArgs e) => Closed?.Invoke(this, e);
             swipeGestureRecognizer.Swiped += (object sender, SwipedEventArgs e) => Swiped?.Invoke(this, e);
         }
