@@ -59,7 +59,13 @@
                 Margin="10"
                 TitleFontColor="Black"
                 Closed="actionCard_Closed"
-                Swiped="actionCard_Swiped"/>
+                Swiped="actionCard_Swiped">
+
+                <Controls:ActionCard.InnerContent>
+                    
+                </Controls:ActionCard.InnerContent>
+                
+            </Controls:ActionCard>
         </Grid>
 
     </ContentView.Content>

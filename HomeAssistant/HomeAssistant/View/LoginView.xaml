@@ -7,7 +7,7 @@
             <Image Source="{Binding Background}" Aspect="AspectFill"/>
 
             <ScrollView HeightRequest="500" WidthRequest="500" HorizontalOptions="Center" VerticalOptions="Center">
-                <Frame BackgroundColor="FloralWhite" Margin="30" Opacity="0.7" CornerRadius="20">
+                <Frame BackgroundColor="FloralWhite" Margin="30" Opacity="0.8" CornerRadius="20">
 
                     <Grid>
 
@@ -15,23 +15,18 @@
                         <Label Grid.Row="0" Text="Login" FontSize="Title" TextColor="Black" HorizontalOptions="Center" VerticalOptions="Center"
                                HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
 
-                        <Frame Grid.Row="1" BackgroundColor="DarkGray" Margin="10" Opacity="0.7" CornerRadius="20" Padding="0" HeightRequest="50">
+                        <Frame Grid.Row="1" BackgroundColor="DarkGray" Margin="10" Opacity="1" CornerRadius="20" Padding="0" HeightRequest="60" VerticalOptions="Center">
                             <Entry x:Name="usernameEntry" Placeholder="Username" FontSize="Micro" TextColor="Black" 
                                BackgroundColor="Transparent" HorizontalTextAlignment="Center" Text="{Binding Username}" TextChanged="usernameEntry_TextChanged"/>
                         </Frame>
 
-                        <Frame Grid.Row="2" BackgroundColor="DarkGray" Margin="10" Opacity="0.7" CornerRadius="20" Padding="0" HeightRequest="50">
+                        <Frame Grid.Row="2" BackgroundColor="DarkGray" Margin="10" Opacity="1" CornerRadius="20" Padding="0" HeightRequest="60" VerticalOptions="Center">
                             <Entry x:Name="passwordEntry" IsPassword="True" Placeholder="Password" FontSize="Micro" TextColor="Black" 
                                BackgroundColor="Transparent" HorizontalTextAlignment="Center" Text="{Binding Password}" TextChanged="passwordEntry_TextChanged"/>
                         </Frame>
 
-
-                        <Grid Grid.Row="3" Opacity="1" HeightRequest="50">
-                            <Button x:Name="registerButton" Grid.Column="0" Margin="10" CornerRadius="20" Text="Register" FontSize="Micro" 
-                                BackgroundColor="DarkGray" TextColor="Black" Opacity="1" Clicked="registerButton_Clicked"/>
-                            <Button x:Name="loginButton" Grid.Column="1" Margin="10" CornerRadius="20" Text="Login" FontSize="Micro" 
-                                BackgroundColor="DarkGray" TextColor="Black" Opacity="1" Clicked="loginButton_Clicked" Command="{Binding LoginRequestCommand}"/>
-                        </Grid>
+                        <Button Grid.Row="3" x:Name="loginButton" Margin="10" Opacity="1" CornerRadius="20" Text="Login" FontSize="Micro" HeightRequest="60" VerticalOptions="Center" 
+                                HorizontalOptions="Center" BackgroundColor="DarkGray" TextColor="Black" Clicked="loginButton_Clicked" Command="{Binding LoginRequestCommand}"/>
 
                     </Grid>
 

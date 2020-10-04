@@ -81,36 +81,39 @@ namespace HomeAssistant.ViewModel
             HomeViewModel.RoomSelected += HomeViewModel_RoomSelected;
 
             LoginViewModel = new LoginViewModel(apiClient);
-            LoginViewModel.LoginSuccess += async (sender, args) => {
+            LoginViewModel.LoginSuccess += LoginViewModel_LoginSuccess;
+        }
 
-                var connectedDevices = await apiClient.GetConnectedDevices();
+        private async void LoginViewModel_LoginSuccess(LoginViewModel sender, LoginSuccessEventArgs args)
+        {
+            var connectedDevices = await apiClient.GetConnectedDevices();
 
-                foreach (var roomEntry in args.UserModel.Rooms)
+            foreach (var roomEntry in args.UserModel.Rooms)
+            {
+                var roomModel = new RoomModel()
                 {
-                    var roomModel = new RoomModel()
-                    {
-                        Type = RoomModel.RoomTypeStringToRoomTypeEnum(roomEntry.Type),
-                        Name = roomEntry.Name,
-                        Devices = new ObservableCollection<DeviceModel>(connectedDevices.Where((DeviceModel deviceModel) => {
+                    Type = RoomModel.RoomTypeStringToRoomTypeEnum(roomEntry.Type),
+                    Name = roomEntry.Name,
+                    Devices = new ObservableCollection<DeviceModel>(connectedDevices.Where((DeviceModel deviceModel) => {
 
-                            foreach (var deviceEntry in roomEntry.Devices)
+                        foreach (var deviceEntry in roomEntry.Devices)
+                        {
+                            if (deviceEntry.Id == deviceModel.Id)
                             {
-                                if (deviceEntry.Id == deviceModel.Id)
-                                {
-                                    return true;
-                                }
+                                return true;
                             }
+                        }
 
-                            return false;
-                        }))
-                    };
+                        return false;
+                    }))
+                };
 
-                    var roomCardViewModel = new RoomCardViewModel(roomModel);
-                    roomCardViewModel.SelectRoomCommand = HomeViewModel.SelectRoomCommand;
-                    HomeViewModel.RoomCardViewModels.Add(roomCardViewModel);
-                    roomViewModels.Add(new RoomViewModel(roomModel));
-                }
-            };
+                var roomCardViewModel = new RoomCardViewModel(roomModel);
+                roomCardViewModel.SelectRoomCommand = HomeViewModel.SelectRoomCommand;
+                HomeViewModel.RoomCardViewModels.Add(roomCardViewModel);
+
+                roomViewModels.Add(new RoomViewModel(roomModel));
+            }
         }
 
         private void HomeViewModel_RoomSelected(RoomCardViewModel sender, RoomSelectedEventArgs args)

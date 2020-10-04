@@ -53,7 +53,7 @@ namespace HomeAssistant.ViewModel
 
                 if (userData is null)
                 {
-                    await Application.Current.MainPage.DisplayAlert("Login failed.", "Provided credentials are invalid.", "OK");
+                    await Application.Current.MainPage.DisplayAlert("Authentication failed.", "Provided credentials are invalid.", "OK");
                     return;
                 }
 
