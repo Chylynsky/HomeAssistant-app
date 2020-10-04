@@ -17,29 +17,24 @@ namespace HomeAssistant
         public MainPageView()
         {
             InitializeComponent();
+
             BindingContext = new MainPageViewModel();
 
             homeView = new HomeView();
-            homeView.SetBinding(BindingContextProperty, nameof(MainPageViewModel.UserHomeViewModel));
-            homeView.RoomSelected += homeView_RoomSelected;
+            homeView.SetBinding(BindingContextProperty, nameof(MainPageViewModel.HomeViewModel));
+            homeView.RoomSelected += async (sender, args) => { await navigationHandler.NavigateToAsync(roomView); };
 
             roomView = new RoomView();
             roomView.SetBinding(BindingContextProperty, nameof(MainPageViewModel.SelectedRoomViewModel));
-            roomView.BackNavigationRequested += roomView_BackButtonClicked;
+            roomView.BackNavigationRequested += async (sender, args) => { await navigationHandler.NavigateBackAsync(); };
 
-            navigationHandler = new NavigationHandler(new LoginView());
+            var loginView = new LoginView();
+            loginView.SetBinding(BindingContextProperty, nameof(MainPageViewModel.LoginViewModel));
+            loginView.LoginSuccess += async (sender, args) => { await navigationHandler.NavigateToAsync(homeView); };
+
+            navigationHandler = new NavigationHandler(loginView);
 
             Content = navigationHandler.Content;
-        }
-
-        private async void homeView_RoomSelected(object sender, EventArgs e)
-        {
-            await navigationHandler.NavigateToAsync(roomView);
-        }
-
-        private async void roomView_BackButtonClicked(object sender, EventArgs e)
-        {
-            await navigationHandler.NavigateBackAsync();
         }
     }
 }

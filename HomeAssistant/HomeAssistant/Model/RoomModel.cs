@@ -20,13 +20,7 @@ namespace HomeAssistant.Model
     {
         public RoomType Type { get; set; }
 
-        public string Name
-        {
-            get
-            {
-                return RoomTypeToString(Type);
-            }
-        }
+        public string Name { get; set; }
 
         public ObservableCollection<DeviceModel> Devices { get; set; }
 
@@ -40,6 +34,19 @@ namespace HomeAssistant.Model
                 case RoomType.DiningRoom: return "Dining Room";
                 case RoomType.Bathroom: return "Bathroom";
                 default: return "Other";
+            }
+        }
+
+        public static RoomType RoomTypeStringToRoomTypeEnum(string roomName)
+        {
+            switch (roomName)
+            {
+                case "LivingRoom": return RoomType.LivingRoom;
+                case "Kitchen": return RoomType.Kitchen;
+                case "Bedroom": return RoomType.Bedroom;
+                case "DiningRoom": return RoomType.DiningRoom;
+                case "Bathroom": return RoomType.Bathroom;
+                default: return RoomType.Other;
             }
         }
     }

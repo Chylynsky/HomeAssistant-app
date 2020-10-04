@@ -77,7 +77,7 @@ namespace HomeAssistant.ViewModel
             }
         }
 
-        public RoomViewModel(RoomModel roomModel, ImageSource background)
+        public RoomViewModel(RoomModel roomModel, ImageSource background = default(ImageSource))
         {
             RoomModel = roomModel;
             Background = background;

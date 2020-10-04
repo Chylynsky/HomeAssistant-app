@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,11 +14,41 @@ namespace HomeAssistant.View
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class LoginView : ContentView
     {
+        public event EventHandler LoginSuccess;
+
+        public static readonly BindableProperty UserAuthenticatedPropety = BindableProperty.Create(
+            nameof(UserAuthenticated),
+            typeof(bool),
+            typeof(LoginView),
+            false);
+
+        public bool UserAuthenticated
+        {
+            get
+            {
+                return (bool)GetValue(UserAuthenticatedPropety);
+            }
+            set
+            {
+                SetValue(UserAuthenticatedPropety, value);
+                LoginSuccess?.Invoke(this, null);
+            }
+        }
+
         public LoginView()
         {
             InitializeComponent();
-            BindingContext = new LoginViewModel();
-            loginButton.CommandParameter = new Dictionary<string, string>();
+            SetBinding(UserAuthenticatedPropety, new Binding("UserAuthenticated"));
+        }
+
+        protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            base.OnPropertyChanged(propertyName);
+
+            if (propertyName == UserAuthenticatedPropety.PropertyName)
+            {
+                LoginSuccess.Invoke(this, null);
+            }
         }
 
         private void registerButton_Clicked(object sender, EventArgs e)
@@ -27,22 +58,14 @@ namespace HomeAssistant.View
 
         private void loginButton_Clicked(object sender, EventArgs e)
         {
-            if (usernameEntry.Text?.Length == 0 || usernameEntry.Text is null)
+            if (string.IsNullOrEmpty(usernameEntry.Text))
             {
                 usernameEntry.BackgroundColor = Color.DarkRed;
             }
-            else
-            {
-                ((Dictionary<string, string>)loginButton.CommandParameter)["username"] = usernameEntry.Text;
-            }
 
-            if (passwordEntry.Text?.Length == 0 || passwordEntry.Text is null)
+            if (string.IsNullOrEmpty(passwordEntry.Text))
             {
                 passwordEntry.BackgroundColor = Color.DarkRed;
-            }
-            else
-            {
-                ((Dictionary<string, string>)loginButton.CommandParameter)["password"] = passwordEntry.Text;
             }
         }
 

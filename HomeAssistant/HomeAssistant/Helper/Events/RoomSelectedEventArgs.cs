@@ -5,7 +5,7 @@ namespace HomeAssistant.Helper.Events
 {
     public class RoomSelectedEventArgs : EventArgs
     {
-        public RoomModel RoomModel { get; set; }
+        public RoomModel RoomModel { get; private set; }
 
         public RoomSelectedEventArgs(RoomModel roomModel)
         {
