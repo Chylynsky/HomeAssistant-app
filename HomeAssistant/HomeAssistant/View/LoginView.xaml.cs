@@ -31,7 +31,6 @@ namespace HomeAssistant.View
             set
             {
                 SetValue(UserAuthenticatedPropety, value);
-                LoginSuccess?.Invoke(this, null);
             }
         }
 
@@ -47,7 +46,7 @@ namespace HomeAssistant.View
 
             if (propertyName == UserAuthenticatedPropety.PropertyName)
             {
-                LoginSuccess.Invoke(this, null);
+                LoginSuccess?.Invoke(this, null);
             }
         }
 

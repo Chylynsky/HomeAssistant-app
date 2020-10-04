@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using HomeAssistant.Helper.Events;
 using System;
 using System.Net;
+using Xamarin.Forms;
 
 namespace HomeAssistant.ViewModel
 {
@@ -23,8 +24,6 @@ namespace HomeAssistant.ViewModel
         private HomeAssistantClient apiClient;
 
         private List<RoomViewModel> roomViewModels;
-
-        private List<RoomModel> roomModels;
 
         private HomeViewModel homeViewModel;
 
@@ -76,8 +75,10 @@ namespace HomeAssistant.ViewModel
             // Wait for response from server containing connected devices
             apiClient = new HomeAssistantClient(address, proxy);
 
-            roomModels = new List<RoomModel>();
             roomViewModels = new List<RoomViewModel>();
+
+            HomeViewModel = new HomeViewModel();
+            HomeViewModel.RoomSelected += HomeViewModel_RoomSelected;
 
             LoginViewModel = new LoginViewModel(apiClient);
             LoginViewModel.LoginSuccess += async (sender, args) => {
@@ -104,12 +105,11 @@ namespace HomeAssistant.ViewModel
                         }))
                     };
 
-                    roomModels.Add(roomModel);
+                    var roomCardViewModel = new RoomCardViewModel(roomModel);
+                    roomCardViewModel.SelectRoomCommand = HomeViewModel.SelectRoomCommand;
+                    HomeViewModel.RoomCardViewModels.Add(roomCardViewModel);
                     roomViewModels.Add(new RoomViewModel(roomModel));
                 }
-
-                HomeViewModel = new HomeViewModel(roomModels);
-                HomeViewModel.RoomSelected += HomeViewModel_RoomSelected;
             };
         }
 

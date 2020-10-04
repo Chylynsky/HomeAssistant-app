@@ -4,6 +4,6 @@
     <SelectedDevice>Samsung SM-G935F</SelectedDevice>
     <DefaultDevice>pixel_2_oreo_8_0_-_api_26</DefaultDevice>
     <AndroidDesignerPreferredTheme>Theme.AppCompat.Light.NoActionBar</AndroidDesignerPreferredTheme>
-    <ProjectView>ProjectFiles</ProjectView>
+    <ProjectView>ShowAllFiles</ProjectView>
   </PropertyGroup>
 </Project>

@@ -29,7 +29,7 @@ namespace HomeAssistant.View
 
         private void roomCard_Clicked(object sender, EventArgs e)
         {
-            RoomSelected.Invoke(this, e);
+            RoomSelected?.Invoke(this, e);
         }
     }
 }

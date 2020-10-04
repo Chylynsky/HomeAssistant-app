@@ -19,7 +19,7 @@
             <RowDefinition Height="10*"/>
         </Grid.RowDefinitions>
         <Label x:Name="titleLabel" Grid.Row="0" Grid.ColumnSpan="2" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" FontSize="20"/>
-        <ImageButton x:Name="closeButton" Grid.Row="0" Grid.Column="2" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
+        <ImageButton x:Name="closeButton" Grid.Row="0" Grid.Column="2" BackgroundColor="Transparent" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
         <ScrollView x:Name="scrollViewContent" Grid.Row="1" Grid.ColumnSpan="3"/>
 
     </Grid>

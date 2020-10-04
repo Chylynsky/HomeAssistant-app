@@ -27,28 +27,28 @@ namespace HomeAssistant.ViewModel
             {
                 return roomCardViewModels;
             }
-            private set
+            set
             {
                 roomCardViewModels = value;
                 NotifyPropertyChanged(nameof(RoomCardViewModels));
             }
         }
 
-        private RoomModel selectedRoom;
+        private RoomModel selectedRoomModel;
         public RoomModel SelectedRoomModel
         {
             get
             {
-                return selectedRoom;
+                return selectedRoomModel;
             }
             private set
             {
-                selectedRoom = value;
+                selectedRoomModel = value;
                 NotifyPropertyChanged(nameof(SelectedRoomModel));
             }
         }
 
-        public HomeViewModel(List<RoomModel> roomModels)
+        public HomeViewModel()
         {
             RoomCardViewModels = new ObservableCollection<RoomCardViewModel>();
 
@@ -67,13 +67,6 @@ namespace HomeAssistant.ViewModel
                 SelectedRoomModel = selectedRoomCard.RoomModel;
                 RoomSelected?.Invoke(selectedRoomCard, new RoomSelectedEventArgs(SelectedRoomModel));
             });
-
-            foreach (RoomModel roomModel in roomModels)
-            {
-                var roomViewModel = new RoomCardViewModel(roomModel);
-                roomViewModel.SelectRoomCommand = SelectRoomCommand;
-                RoomCardViewModels.Add(roomViewModel);
-            }
         }
 
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")

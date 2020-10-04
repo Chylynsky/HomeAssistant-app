@@ -267,10 +267,25 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xhdpi\add.png" />
   </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\close.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-mdpi\close.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\close.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\close.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\close.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties XamarinHotReloadUnhandledDeviceExceptionHomeAssistantAndroidHideInfoBar="True" XamarinHotReloadDebuggerTimeoutExceptionHomeAssistantAndroidHideInfoBar="True" />
+      <UserProperties XamarinHotReloadDebuggerTimeoutExceptionHomeAssistantAndroidHideInfoBar="True" XamarinHotReloadUnhandledDeviceExceptionHomeAssistantAndroidHideInfoBar="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

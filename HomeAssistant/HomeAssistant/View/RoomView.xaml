@@ -25,7 +25,7 @@
                     </Grid.ColumnDefinitions>
                     <Label
                     Grid.Column="1"
-                    Text="{Binding Room.Name}" 
+                    Text="{Binding RoomModel.Name}" 
                     HorizontalOptions="CenterAndExpand" 
                     VerticalOptions="CenterAndExpand" 
                     HorizontalTextAlignment="Center" 

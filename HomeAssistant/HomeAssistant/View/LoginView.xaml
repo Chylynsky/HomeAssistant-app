@@ -28,9 +28,9 @@
 
                         <Grid Grid.Row="3" Opacity="1" HeightRequest="50">
                             <Button x:Name="registerButton" Grid.Column="0" Margin="10" CornerRadius="20" Text="Register" FontSize="Micro" 
-                                BackgroundColor="DarkGray" TextColor="Black" Clicked="registerButton_Clicked"/>
+                                BackgroundColor="DarkGray" TextColor="Black" Opacity="1" Clicked="registerButton_Clicked"/>
                             <Button x:Name="loginButton" Grid.Column="1" Margin="10" CornerRadius="20" Text="Login" FontSize="Micro" 
-                                BackgroundColor="DarkGray" TextColor="Black" Clicked="loginButton_Clicked" Command="{Binding LoginRequestCommand}"/>
+                                BackgroundColor="DarkGray" TextColor="Black" Opacity="1" Clicked="loginButton_Clicked" Command="{Binding LoginRequestCommand}"/>
                         </Grid>
 
                     </Grid>
