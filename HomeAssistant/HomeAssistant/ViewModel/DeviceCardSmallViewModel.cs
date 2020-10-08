@@ -7,7 +7,7 @@ namespace HomeAssistant.ViewModel
     {
         public Command<string> SelectDeviceCommand { get; set; }
 
-        public DeviceModel DeviceModel { get; private set; }
+        public DeviceModelBase DeviceModel { get; private set; }
 
         public string Id
         {
@@ -33,7 +33,7 @@ namespace HomeAssistant.ViewModel
             }
         }
 
-        public DeviceCardSmallViewModel(DeviceModel device)
+        public DeviceCardSmallViewModel(DeviceModelBase device)
         {
             DeviceModel = device;
         }

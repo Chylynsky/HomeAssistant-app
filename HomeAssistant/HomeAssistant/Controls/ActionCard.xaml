@@ -9,18 +9,13 @@
     </Frame.GestureRecognizers>
 
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="10*"/>
-            <ColumnDefinition Width="1*"/>
-        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="10*"/>
         </Grid.RowDefinitions>
-        <Label x:Name="titleLabel" Grid.Row="0" Grid.ColumnSpan="2" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" FontSize="20"/>
-        <ImageButton x:Name="closeButton" Grid.Row="0" Grid.Column="2" BackgroundColor="Transparent" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
-        <ScrollView x:Name="scrollViewContent" Grid.Row="1" Grid.ColumnSpan="3"/>
+        <Label x:Name="titleLabel" Grid.Row="0" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" FontSize="20"/>
+        <ImageButton x:Name="closeButton" Grid.Row="0" BackgroundColor="Transparent" VerticalOptions="Start" HorizontalOptions="End"/>
+        <ScrollView x:Name="scrollViewContent" Grid.Row="1"/>
 
     </Grid>
 </Frame>

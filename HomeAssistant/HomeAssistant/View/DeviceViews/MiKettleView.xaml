@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="HomeAssistant.View.DeviceViews.MiKettleView">
+  <ContentView.Content>
+        <StackLayout Spacing="5" Orientation="Vertical">
+
+            <Label Text="{Binding TemperatureCurrent, StringFormat=' {0}°'}" TextColor="Black" FontSize="Header" 
+                   HorizontalOptions="Center" VerticalOptions="Center"/>
+            <Label Text="{Binding Action}" TextColor="Black" FontSize="Medium" 
+                   HorizontalOptions="Center" VerticalOptions="Center"/>
+            <Label Text="{Binding TemperatureSet, StringFormat='Set temperature: {0}°'}" TextColor="Black" FontSize="Medium"/>
+            <Slider Maximum="{Binding MaxTemperature}" Minimum="{Binding MinTemperature}"
+                            Value="{Binding TemperatureSet}" MinimumTrackColor="LightBlue" MaximumTrackColor="IndianRed"/>
+            <Label Text="{Binding KeepWarmTimeLimit, StringFormat='Keep warm time: {0}h'}" TextColor="Black" FontSize="Medium"/>
+            <Slider Maximum="{Binding MaxKeepWarmTimeLimit}" Minimum="{Binding MinKeepWarmTimeLimit}"
+                            Value="{Binding KeepWarmTimeLimit}" MinimumTrackColor="LightGray" MaximumTrackColor="DarkGray"/>
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>

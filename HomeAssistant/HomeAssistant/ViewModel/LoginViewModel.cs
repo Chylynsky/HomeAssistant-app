@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace HomeAssistant.ViewModel
@@ -54,6 +55,18 @@ namespace HomeAssistant.ViewModel
                 if (userData is null)
                 {
                     await Application.Current.MainPage.DisplayAlert("Authentication failed.", "Provided credentials are invalid.", "OK");
+                    return;
+                }
+
+                LoginSuccess?.Invoke(this, new LoginSuccessEventArgs(userData));
+                UserAuthenticated = true;
+            });
+
+            Task.Run(async () => {
+                var userData = await apiClient.GetUserData();
+
+                if (userData == null)
+                {
                     return;
                 }
 

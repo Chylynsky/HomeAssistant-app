@@ -25,20 +25,7 @@ namespace HomeAssistant.ViewModel
 
         private List<RoomViewModel> roomViewModels;
 
-        private HomeViewModel homeViewModel;
-
-        public HomeViewModel HomeViewModel 
-        { 
-            get
-            {
-                return homeViewModel;
-            }
-            private set
-            {
-                homeViewModel = value;
-                NotifyPropertyChanged(nameof(HomeViewModel));
-            }
-        }
+        public HomeViewModel HomeViewModel { get; private set; }
 
         private RoomViewModel selectedRoomViewModel;
 
@@ -55,20 +42,7 @@ namespace HomeAssistant.ViewModel
             }
         }
 
-        private LoginViewModel loginPageViewModel;
-
-        public LoginViewModel LoginViewModel
-        {
-            get
-            {
-                return loginPageViewModel;
-            }
-            private set
-            {
-                loginPageViewModel = value;
-                NotifyPropertyChanged(nameof(LoginViewModel));
-            }
-        }
+        public LoginViewModel LoginViewModel { get; private set; }
 
         public MainPageViewModel()
         {
@@ -94,7 +68,7 @@ namespace HomeAssistant.ViewModel
                 {
                     Type = RoomModel.RoomTypeStringToRoomTypeEnum(roomEntry.Type),
                     Name = roomEntry.Name,
-                    Devices = new ObservableCollection<DeviceModel>(connectedDevices.Where((DeviceModel deviceModel) => {
+                    Devices = new ObservableCollection<DeviceModelBase>(connectedDevices.Where((DeviceModelBase deviceModel) => {
 
                         foreach (var deviceEntry in roomEntry.Devices)
                         {
@@ -108,11 +82,15 @@ namespace HomeAssistant.ViewModel
                     }))
                 };
 
-                var roomCardViewModel = new RoomCardViewModel(roomModel);
-                roomCardViewModel.SelectRoomCommand = HomeViewModel.SelectRoomCommand;
-                HomeViewModel.RoomCardViewModels.Add(roomCardViewModel);
+                var roomCardViewModel = new RoomCardViewModel(roomModel)
+                {
+                    SelectRoomCommand = HomeViewModel.SelectRoomCommand
+                };
 
-                roomViewModels.Add(new RoomViewModel(roomModel));
+                Device.BeginInvokeOnMainThread(() => {
+                    HomeViewModel.RoomCardViewModels.Add(roomCardViewModel);
+                    roomViewModels.Add(new RoomViewModel(roomModel));
+                });
             }
         }
 

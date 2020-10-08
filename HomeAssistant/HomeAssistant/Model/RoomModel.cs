@@ -22,7 +22,7 @@ namespace HomeAssistant.Model
 
         public string Name { get; set; }
 
-        public ObservableCollection<DeviceModel> Devices { get; set; }
+        public ObservableCollection<DeviceModelBase> Devices { get; set; }
 
         public static string RoomTypeToString(RoomType roomType)
         {

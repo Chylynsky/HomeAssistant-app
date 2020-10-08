@@ -1,4 +1,7 @@
-﻿using System;
+﻿using HomeAssistant.Helper;
+using HomeAssistant.View.DeviceViews;
+using HomeAssistant.ViewModel.DeviceViewModels;
+using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -8,6 +11,8 @@ namespace HomeAssistant.View
     public partial class RoomView : ContentView
     {
         public event EventHandler BackNavigationRequested;
+
+        private DeviceViewSelector deviceViewSelector;
 
         public RoomView()
         {
@@ -27,6 +32,8 @@ namespace HomeAssistant.View
                     break;
                 default: break;
             }
+
+            deviceViewSelector = new DeviceViewSelector();
         }
 
         private async void ShowActionCard()
@@ -68,6 +75,18 @@ namespace HomeAssistant.View
         private void backButton_Clicked(object sender, EventArgs e)
         {
             BackNavigationRequested.Invoke(sender, e);
+        }
+
+        private void actionCard_BindingContextChanged(object sender, EventArgs e)
+        {
+            if (actionCard.BindingContext == null)
+            {
+                return;
+            }
+
+            // Create device view instance based on BindingContext type
+            actionCard.InnerContent = deviceViewSelector[actionCard.BindingContext.GetType()].Invoke();
+            actionCard.InnerContent.BindingContext = actionCard.BindingContext;
         }
     }
 }

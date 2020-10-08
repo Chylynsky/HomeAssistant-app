@@ -2,7 +2,7 @@
 
 namespace HomeAssistant.Model
 {
-    public abstract class DeviceModel
+    public abstract class DeviceModelBase
     {
         public string Id { get; set; }
 

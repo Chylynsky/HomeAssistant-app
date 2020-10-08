@@ -19,20 +19,7 @@ namespace HomeAssistant.ViewModel
 
         public Command<string> SelectRoomCommand { get; }
 
-        private ObservableCollection<RoomCardViewModel> roomCardViewModels;
-
-        public ObservableCollection<RoomCardViewModel> RoomCardViewModels
-        {
-            get
-            {
-                return roomCardViewModels;
-            }
-            set
-            {
-                roomCardViewModels = value;
-                NotifyPropertyChanged(nameof(RoomCardViewModels));
-            }
-        }
+        public ObservableCollection<RoomCardViewModel> RoomCardViewModels { get; set; }
 
         private RoomModel selectedRoomModel;
         public RoomModel SelectedRoomModel

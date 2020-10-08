@@ -8,6 +8,7 @@ using System.Text;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using HomeAssistant.Model;
+using HomeAssistant.ViewModel.DeviceViewModels;
 
 namespace HomeAssistant.ViewModel
 {
@@ -62,9 +63,9 @@ namespace HomeAssistant.ViewModel
             }
         }
 
-        private DeviceModel selectedDevice;
+        private DeviceViewModelBase selectedDevice;
 
-        public DeviceModel SelectedDevice 
+        public DeviceViewModelBase SelectedDeviceViewModel 
         {
             get
             {
@@ -73,8 +74,13 @@ namespace HomeAssistant.ViewModel
             private set
             {
                 selectedDevice = value;
-                NotifyPropertyChanged(nameof(SelectedDevice));
+                NotifyPropertyChanged(nameof(SelectedDeviceViewModel));
             }
+        }
+
+        static RoomViewModel()
+        {
+
         }
 
         public RoomViewModel(RoomModel roomModel, ImageSource background = default(ImageSource))
@@ -90,19 +96,32 @@ namespace HomeAssistant.ViewModel
                     return;
                 }
 
-                var deviceEnumerator = RoomModel.Devices.Where((DeviceModel device) => {
+                var deviceEnumerator = RoomModel.Devices.Where((DeviceModelBase device) => {
                     return device.Id.Equals(deviceId);
                 });
 
-                SelectedDevice = deviceEnumerator.First();
+                SelectedDeviceViewModel = SelectDeviceViewModel(deviceEnumerator.First());
             });
 
-            foreach (DeviceModel deviceModel in RoomModel.Devices)
+            foreach (DeviceModelBase deviceModel in RoomModel.Devices)
             {
-                var deviceCardViewModel = new DeviceCardSmallViewModel(deviceModel);
-                deviceCardViewModel.SelectDeviceCommand = SelectDeviceCommand;
+                var deviceCardViewModel = new DeviceCardSmallViewModel(deviceModel)
+                { 
+                    SelectDeviceCommand = SelectDeviceCommand 
+                };
+
                 DeviceCardsViewModels.Add(deviceCardViewModel);
             }
+        }
+
+        private DeviceViewModelBase SelectDeviceViewModel(DeviceModelBase deviceModel)
+        {
+            if (deviceModel is MiKettleModel)
+            {
+                return new MiKettleViewModel(deviceModel);
+            }
+
+            return null;
         }
 
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
