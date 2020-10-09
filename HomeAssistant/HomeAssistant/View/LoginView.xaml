@@ -1,8 +1,9 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="HomeAssistant.View.LoginView">
-    <ContentView.Content>
+<controls:NavigatableContentPage  xmlns:controls="clr-namespace:HomeAssistant.Controls"
+    xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="HomeAssistant.View.LoginView">
+    <controls:NavigatableContentPage.Content>
         <Grid>
             <Image Source="{Binding Background}" Aspect="AspectFill"/>
 
@@ -33,5 +34,5 @@
                 </Frame>
             </ScrollView>
         </Grid>
-    </ContentView.Content>
-</ContentView>
+    </controls:NavigatableContentPage.Content>
+</controls:NavigatableContentPage>

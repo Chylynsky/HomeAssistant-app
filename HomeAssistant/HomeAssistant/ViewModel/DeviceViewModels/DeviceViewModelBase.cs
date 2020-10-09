@@ -1,4 +1,5 @@
-﻿using HomeAssistant.Model;
+﻿using HomeAssistant.Helper;
+using HomeAssistant.Model;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Xamarin.Forms;
@@ -7,6 +8,8 @@ namespace HomeAssistant.ViewModel.DeviceViewModels
 {
     abstract class DeviceViewModelBase : INotifyPropertyChanged
     {
+        public static HomeAssistantClient HttpClient { get; set; }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected DeviceModelBase deviceModel;

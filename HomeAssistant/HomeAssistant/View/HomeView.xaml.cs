@@ -1,17 +1,18 @@
-﻿using System;
+﻿using HomeAssistant.Controls;
+using HomeAssistant.ViewModel;
+using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace HomeAssistant.View
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class HomeView : ContentView
+    public partial class HomeView : NavigatableContentPage
     {
-        public event EventHandler RoomSelected;
-
         public HomeView()
         {
             InitializeComponent();
+            BindingContext = new HomeViewModel();
 
             switch (Device.RuntimePlatform)
             {
@@ -29,7 +30,10 @@ namespace HomeAssistant.View
 
         private void roomCard_Clicked(object sender, EventArgs e)
         {
-            RoomSelected?.Invoke(this, e);
+            Navigation.PushAsync(new RoomView()
+            {
+                BindingContext = ((HomeViewModel)BindingContext).SelectedRoomViewModel
+            });
         }
     }
 }

@@ -3,6 +3,7 @@ using HomeAssistant.Helper.Events;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Net;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -14,6 +15,8 @@ namespace HomeAssistant.ViewModel
         public event PropertyChangedEventHandler PropertyChanged;
 
         public event LoginSuccessEventHandler LoginSuccess;
+
+        private HomeAssistantClient httpClient;
 
         public Command LoginRequestCommand { get; }
 
@@ -36,8 +39,10 @@ namespace HomeAssistant.ViewModel
 
         public string Password { get; set; }
 
-        public LoginViewModel(HomeAssistantClient apiClient)
+        public LoginViewModel()
         {
+            httpClient = new HomeAssistantClient(new Uri("http://home.as"), new WebProxy("http://192.168.0.109:80"));
+
             LoginRequestCommand = new Command(async () => {
 
                 if (string.IsNullOrEmpty(Username))
@@ -50,7 +55,7 @@ namespace HomeAssistant.ViewModel
                     return;
                 }
 
-                var userData = await apiClient.RequestLogin(Username, Password);
+                var userData = await httpClient.RequestLogin(Username, Password);
 
                 if (userData is null)
                 {
@@ -63,7 +68,7 @@ namespace HomeAssistant.ViewModel
             });
 
             Task.Run(async () => {
-                var userData = await apiClient.GetUserData();
+                var userData = await httpClient.GetUserData();
 
                 if (userData == null)
                 {

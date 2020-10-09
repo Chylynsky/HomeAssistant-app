@@ -1,4 +1,5 @@
-﻿using HomeAssistant.Helper;
+﻿using HomeAssistant.Controls;
+using HomeAssistant.Helper;
 using HomeAssistant.View.DeviceViews;
 using HomeAssistant.ViewModel.DeviceViewModels;
 using System;
@@ -8,7 +9,7 @@ using Xamarin.Forms.Xaml;
 namespace HomeAssistant.View
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class RoomView : ContentView
+    public partial class RoomView : NavigatableContentPage
     {
         public event EventHandler BackNavigationRequested;
 

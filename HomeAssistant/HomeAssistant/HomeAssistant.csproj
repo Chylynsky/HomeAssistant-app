@@ -24,9 +24,6 @@
     <Compile Update="View\HomeView.xaml.cs">
       <DependentUpon>HomeView.xaml</DependentUpon>
     </Compile>
-    <Compile Update="View\MainPageView.xaml.cs">
-      <DependentUpon>MainPageView.xaml</DependentUpon>
-    </Compile>
     <Compile Update="View\RoomCardView.xaml.cs">
       <DependentUpon>RoomCardView.xaml</DependentUpon>
     </Compile>
@@ -40,6 +37,9 @@
 
   <ItemGroup>
     <EmbeddedResource Update="Controls\ActionCard.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Controls\NavigatableContentPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="View\DeviceCardSmallView.xaml">

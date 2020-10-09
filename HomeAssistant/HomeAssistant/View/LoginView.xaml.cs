@@ -1,4 +1,5 @@
-﻿using HomeAssistant.ViewModel;
+﻿using HomeAssistant.Controls;
+using HomeAssistant.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,10 +13,8 @@ using Xamarin.Forms.Xaml;
 namespace HomeAssistant.View
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class LoginView : ContentView
+    public partial class LoginView : NavigatableContentPage
     {
-        public event EventHandler LoginSuccess;
-
         public static readonly BindableProperty UserAuthenticatedPropety = BindableProperty.Create(
             nameof(UserAuthenticated),
             typeof(bool),
@@ -37,16 +36,17 @@ namespace HomeAssistant.View
         public LoginView()
         {
             InitializeComponent();
-            SetBinding(UserAuthenticatedPropety, new Binding("UserAuthenticated"));
+            BindingContext = new LoginViewModel();
+            SetBinding(UserAuthenticatedPropety, new Binding(nameof(LoginViewModel.UserAuthenticated)));
         }
 
-        protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        protected override async void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             base.OnPropertyChanged(propertyName);
 
             if (propertyName == UserAuthenticatedPropety.PropertyName)
             {
-                LoginSuccess?.Invoke(this, null);
+                await Navigation.PushAsync(new HomeView(), false);
             }
         }
 
