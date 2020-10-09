@@ -7,7 +7,7 @@ using Xamarin.Forms.Xaml;
 namespace HomeAssistant.View
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class HomeView : NavigatableContentPage
+    public partial class HomeView : ContentPage
     {
         public HomeView()
         {
@@ -33,7 +33,7 @@ namespace HomeAssistant.View
             Navigation.PushAsync(new RoomView()
             {
                 BindingContext = ((HomeViewModel)BindingContext).SelectedRoomViewModel
-            });
+            }, true);
         }
     }
 }

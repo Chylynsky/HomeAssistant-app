@@ -1,11 +1,12 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<controls:NavigatableContentPage  
-    xmlns:controls="clr-namespace:HomeAssistant.Controls"
+<ContentPage 
     xmlns="http://xamarin.com/schemas/2014/forms" 
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:View="clr-namespace:HomeAssistant.View"
-    x:Class="HomeAssistant.View.HomeView">
-    <controls:NavigatableContentPage.Content>
+    x:Class="HomeAssistant.View.HomeView"
+    NavigationPage.HasNavigationBar="False">
+    
+    <ContentPage.Content>
         <Grid x:Name="mainGrid">
             
             <Grid.RowDefinitions>
@@ -55,5 +56,5 @@
                 </FlexLayout>
             </ScrollView>
         </Grid>
-    </controls:NavigatableContentPage.Content>
-</controls:NavigatableContentPage>
+    </ContentPage.Content>
+</ContentPage>

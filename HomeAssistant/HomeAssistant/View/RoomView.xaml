@@ -1,13 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<Controls:NavigatableContentPage 
+<ContentPage
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
     xmlns:Controls="clr-namespace:HomeAssistant.Controls"
     xmlns:View="clr-namespace:HomeAssistant.View" 
     xmlns:Helper="clr-namespace:HomeAssistant.Helper"
-    x:Class="HomeAssistant.View.RoomView">
+    x:Class="HomeAssistant.View.RoomView"
+    NavigationPage.HasNavigationBar="False">
 
-    <Controls:NavigatableContentPage.Content>
+    <ContentPage.Content>
 
         <Grid x:Name="mainGrid">
 
@@ -68,6 +69,6 @@
             </Controls:ActionCard>
         </Grid>
 
-    </Controls:NavigatableContentPage.Content>
+    </ContentPage.Content>
 
-</Controls:NavigatableContentPage>
+</ContentPage>

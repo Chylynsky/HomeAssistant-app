@@ -13,7 +13,7 @@ using Xamarin.Forms.Xaml;
 namespace HomeAssistant.View
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class LoginView : NavigatableContentPage
+    public partial class LoginView : ContentPage
     {
         public static readonly BindableProperty UserAuthenticatedPropety = BindableProperty.Create(
             nameof(UserAuthenticated),
@@ -46,7 +46,8 @@ namespace HomeAssistant.View
 
             if (propertyName == UserAuthenticatedPropety.PropertyName)
             {
-                await Navigation.PushAsync(new HomeView(), false);
+                await Navigation.PushAsync(new HomeView(), true);
+                Navigation.RemovePage(this);
             }
         }
 

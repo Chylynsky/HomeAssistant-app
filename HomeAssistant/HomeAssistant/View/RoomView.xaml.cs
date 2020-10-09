@@ -9,10 +9,8 @@ using Xamarin.Forms.Xaml;
 namespace HomeAssistant.View
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class RoomView : NavigatableContentPage
-    {
-        public event EventHandler BackNavigationRequested;
-
+    public partial class RoomView : ContentPage
+    { 
         private DeviceViewSelector deviceViewSelector;
 
         public RoomView()
@@ -73,9 +71,9 @@ namespace HomeAssistant.View
             ShowActionCard();
         }
 
-        private void backButton_Clicked(object sender, EventArgs e)
+        private async void backButton_Clicked(object sender, EventArgs e)
         {
-            BackNavigationRequested.Invoke(sender, e);
+            await Navigation.PopAsync(true);
         }
 
         private void actionCard_BindingContextChanged(object sender, EventArgs e)
