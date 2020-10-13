@@ -45,7 +45,7 @@
                             <View:RoomCardView BindingContext="{Binding}" HeightRequest="130" Margin="10" Clicked="roomCard_Clicked">
                                 <FlexLayout.Basis>
                                     <OnPlatform x:TypeArguments="FlexBasis">
-                                        <On Platform="Android" Value="95%"/>
+                                        <On Platform="Android" Value="100%"/>
                                         <On Platform="UWP" Value="50%"/>
                                     </OnPlatform>
                                 </FlexLayout.Basis>

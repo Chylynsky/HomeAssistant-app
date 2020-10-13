@@ -1,7 +1,4 @@
-﻿using HomeAssistant.Controls;
-using HomeAssistant.Helper;
-using HomeAssistant.View.DeviceViews;
-using HomeAssistant.ViewModel.DeviceViewModels;
+﻿using HomeAssistant.Helper;
 using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;

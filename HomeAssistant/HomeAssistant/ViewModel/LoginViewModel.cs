@@ -1,7 +1,6 @@
 ﻿using HomeAssistant.Helper;
 using HomeAssistant.Helper.Events;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Net;
 using System.Runtime.CompilerServices;
@@ -13,10 +12,6 @@ namespace HomeAssistant.ViewModel
     public class LoginViewModel : ThemedViewModelBase, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-
-        public event LoginSuccessEventHandler LoginSuccess;
-
-        private HomeAssistantClient httpClient;
 
         public Command LoginRequestCommand { get; }
 
@@ -41,8 +36,6 @@ namespace HomeAssistant.ViewModel
 
         public LoginViewModel()
         {
-            httpClient = new HomeAssistantClient(new Uri("http://home.as"), new WebProxy("http://192.168.0.109:80"));
-
             LoginRequestCommand = new Command(async () => {
 
                 if (string.IsNullOrEmpty(Username))
@@ -55,27 +48,24 @@ namespace HomeAssistant.ViewModel
                     return;
                 }
 
-                var userData = await httpClient.RequestLogin(Username, Password);
+                var userData = await HomeAssistantClient.RequestLogin(Username, Password);
 
-                if (userData is null)
+                if (!userData)
                 {
-                    await Application.Current.MainPage.DisplayAlert("Authentication failed.", "Provided credentials are invalid.", "OK");
                     return;
                 }
 
-                LoginSuccess?.Invoke(this, new LoginSuccessEventArgs(userData));
                 UserAuthenticated = true;
             });
 
             Task.Run(async () => {
-                var userData = await httpClient.GetUserData();
+                var userData = await HomeAssistantClient.GetUserData();
 
                 if (userData == null)
                 {
                     return;
                 }
 
-                LoginSuccess?.Invoke(this, new LoginSuccessEventArgs(userData));
                 UserAuthenticated = true;
             });
         }

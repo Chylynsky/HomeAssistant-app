@@ -2,6 +2,9 @@
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using HomeAssistant.View;
+using HomeAssistant.Helper;
+using System.Net;
+using System.Resources;
 
 namespace HomeAssistant
 {
@@ -10,7 +13,6 @@ namespace HomeAssistant
         public App()
         {
             InitializeComponent();
-
             MainPage = new NavigationPage(new LoginView());
         }
 

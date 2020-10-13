@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
 using Xamarin.Forms;
-using HomeAssistant.Helper.Events;
 using HomeAssistant.Model;
 using HomeAssistant.Helper;
-using System.Net.Http;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -22,8 +18,6 @@ namespace HomeAssistant.ViewModel
         public Command<string> SelectRoomCommand { get; }
 
         public ObservableCollection<RoomCardViewModel> RoomCardViewModels { get; set; }
-
-        private HomeAssistantClient httpClient;
 
         private RoomViewModel selectedRoomModel;
 
@@ -42,7 +36,6 @@ namespace HomeAssistant.ViewModel
 
         public HomeViewModel()
         {
-            httpClient = new HomeAssistantClient(new Uri("http://home.as"), new WebProxy("http://192.168.0.109:80"));
             RoomCardViewModels = new ObservableCollection<RoomCardViewModel>();
 
             SelectRoomCommand = new Command<string>((string roomName) =>
@@ -62,8 +55,8 @@ namespace HomeAssistant.ViewModel
                 SelectedRoomViewModel = new RoomViewModel(selectedRoomCard.RoomModel, selectedRoomCard.Background);
             });
 
-            var getUserDataTask = httpClient.GetUserData();
-            var getConnectedDevicesTask = httpClient.GetConnectedDevices();
+            var getUserDataTask = HomeAssistantClient.GetUserData();
+            var getConnectedDevicesTask = HomeAssistantClient.GetConnectedDevices();
 
             Task.WhenAll(getUserDataTask, getConnectedDevicesTask).ContinueWith((task) => {
 

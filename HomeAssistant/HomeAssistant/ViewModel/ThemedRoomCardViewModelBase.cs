@@ -1,7 +1,4 @@
 ﻿using HomeAssistant.Model;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Xamarin.Forms;
 
 namespace HomeAssistant.ViewModel

@@ -1,6 +1,8 @@
 ﻿using HomeAssistant.Helper;
 using HomeAssistant.Model;
+using System;
 using System.ComponentModel;
+using System.Net;
 using System.Runtime.CompilerServices;
 using Xamarin.Forms;
 
@@ -8,8 +10,6 @@ namespace HomeAssistant.ViewModel.DeviceViewModels
 {
     abstract class DeviceViewModelBase : INotifyPropertyChanged
     {
-        public static HomeAssistantClient HttpClient { get; set; }
-
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected DeviceModelBase deviceModel;
@@ -27,14 +27,6 @@ namespace HomeAssistant.ViewModel.DeviceViewModels
             get
             {
                 return deviceModel.Id;
-            }
-        }
-
-        public ImageSource IconSource
-        {
-            get
-            {
-                return deviceModel.IconSource;
             }
         }
 

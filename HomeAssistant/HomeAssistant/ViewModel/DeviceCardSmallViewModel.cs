@@ -25,14 +25,6 @@ namespace HomeAssistant.ViewModel
             }
         }
 
-        public ImageSource IconSource
-        {
-            get
-            {
-                return DeviceModel.IconSource;
-            }
-        }
-
         public DeviceCardSmallViewModel(DeviceModelBase device)
         {
             DeviceModel = device;

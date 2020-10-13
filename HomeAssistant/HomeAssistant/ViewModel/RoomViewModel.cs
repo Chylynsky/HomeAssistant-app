@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 using HomeAssistant.Model;
 using HomeAssistant.ViewModel.DeviceViewModels;
 using HomeAssistant.Helper;
@@ -34,8 +31,6 @@ namespace HomeAssistant.ViewModel
                 NotifyPropertyChanged(nameof(DeviceCardsViewModels));
             }
         }
-
-        private HomeAssistantClient httpClient;
 
         private RoomModel roomModel;
 
@@ -87,7 +82,6 @@ namespace HomeAssistant.ViewModel
             RoomModel = roomModel;
             Background = background;
             DeviceCardsViewModels = new ObservableCollection<DeviceCardSmallViewModel>();
-            httpClient = new HomeAssistantClient(new Uri("http://home.as"), new WebProxy("http://192.168.0.109:80"));
 
             SelectDeviceCommand = new Command<string>((string deviceId) => {
 

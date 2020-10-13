@@ -1,8 +1,10 @@
-﻿using HomeAssistant.Model;
+﻿using HomeAssistant.Helper;
+using HomeAssistant.Model;
 using HomeAssistant.View.DeviceViews;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace HomeAssistant.ViewModel.DeviceViewModels
 {
@@ -33,6 +35,7 @@ namespace HomeAssistant.ViewModel.DeviceViewModels
             set
             {
                 ((MiKettleModel)deviceModel).TemperatureSet = value;
+                HomeAssistantClient.PutAsync(string.Format("action/{0}/temperature/set={1}", Id, value));
                 NotifyPropertyChanged(nameof(TemperatureSet));
             }
         }
@@ -75,6 +78,7 @@ namespace HomeAssistant.ViewModel.DeviceViewModels
             set
             {
                 ((MiKettleModel)deviceModel).KeepWarmTimeLimit = (float)Math.Round(value * 2.0f, MidpointRounding.AwayFromZero) / 2.0f;
+                HomeAssistantClient.PutAsync(string.Format("action/{0}/keep_warm/time_limit={1}", Id, value));
                 NotifyPropertyChanged(nameof(KeepWarmTimeLimit));
             }
         }
@@ -87,11 +91,67 @@ namespace HomeAssistant.ViewModel.DeviceViewModels
             }
         }
 
-        public string Action
+        public Model.Action Action
         {
             get
             {
-                switch (((MiKettleModel)deviceModel).Action)
+                return ((MiKettleModel)deviceModel).Action;
+            }
+            set
+            {
+                ((MiKettleModel)deviceModel).Action = value;
+                HomeAssistantClient.PutAsync(string.Format("action/{0}/action={1}", Id, (int)value));
+                NotifyPropertyChanged(nameof(Action));
+            }
+        }
+
+        public Mode Mode
+        {
+            get
+            {
+                return ((MiKettleModel)deviceModel).Mode;
+            }
+            set
+            {
+                ((MiKettleModel)deviceModel).Mode = value;
+                HomeAssistantClient.PutAsync(string.Format("action/{0}/mode={1}", Id, (int)value));
+                NotifyPropertyChanged(nameof(Mode));
+            }
+        }
+
+        public KeepWarmType KeepWarmType
+        {
+            get
+            {
+                return ((MiKettleModel)deviceModel).KeepWarmType;
+            }
+            set
+            {
+                ((MiKettleModel)deviceModel).KeepWarmType = value;
+                HomeAssistantClient.PutAsync(string.Format("action/{0}/keep_warm/type={1}", Id, (int)value));
+                NotifyPropertyChanged(nameof(KeepWarmType));
+            }
+        }
+
+        public BoilMode BoilMode
+        {
+            get
+            {
+                return ((MiKettleModel)deviceModel).BoilMode;
+            }
+            set
+            {
+                ((MiKettleModel)deviceModel).BoilMode = value;
+                HomeAssistantClient.PutAsync(string.Format("action/{0}/boil_mode={1}", Id, (int)value));
+                NotifyPropertyChanged(nameof(BoilMode));
+            }
+        }
+
+        public string ActionString
+        {
+            get
+            {
+                switch (Action)
                 {
                     case Model.Action.Cooling: return "Cooling";
                     case Model.Action.KeepingWarm: return 
@@ -105,9 +165,22 @@ namespace HomeAssistant.ViewModel.DeviceViewModels
 
         public MiKettleViewModel(DeviceModelBase deviceModel) : base(deviceModel)
         {
-            TemperatureCurrent = 60;
-            TemperatureSet = TemperatureCurrent;
-            KeepWarmTimeLimit = 3.0f;
+            Task.Run(async () => {
+                dynamic deviceData = await HomeAssistantClient.GetAsync(string.Format("action/{0}/*", Id));
+
+                if (deviceData == null)
+                {
+                    return;
+                }
+
+                TemperatureCurrent = deviceData.temperature.current;
+                TemperatureSet = deviceData.temperature.set;
+                KeepWarmTimeLimit = deviceData.keep_warm.time_limit;
+                KeepWarmType = (KeepWarmType)deviceData.keep_warm.type;
+                Action = (Model.Action)deviceData.action;
+                Mode = (Mode)deviceData.mode;
+                BoilMode = (BoilMode)deviceData.boil_mode;
+            });
         }
     }
 }

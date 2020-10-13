@@ -60,7 +60,7 @@
                 Title="{Binding Name}"
                 IsEnabled="false" 
                 IsVisible="false"
-                Scale="0.8"
+                Scale="1"
                 Margin="10"
                 TitleFontColor="Black"
                 Closed="actionCard_Closed"

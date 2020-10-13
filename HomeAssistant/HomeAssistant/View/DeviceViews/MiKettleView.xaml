@@ -7,7 +7,7 @@
 
             <Label Text="{Binding TemperatureCurrent, StringFormat=' {0}°'}" TextColor="Black" FontSize="Header" 
                    HorizontalOptions="Center" VerticalOptions="Center"/>
-            <Label Text="{Binding Action}" TextColor="Black" FontSize="Medium" 
+            <Label Text="{Binding ActionString}" TextColor="Black" FontSize="Medium" 
                    HorizontalOptions="Center" VerticalOptions="Center"/>
             <Label Text="{Binding TemperatureSet, StringFormat='Set temperature: {0}°'}" TextColor="Black" FontSize="Medium"/>
             <Slider Maximum="{Binding MaxTemperature}" Minimum="{Binding MinTemperature}"

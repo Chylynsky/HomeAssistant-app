@@ -1,26 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Net;
 using System.Net.Http;
 using System.Text;
-using System.IO;
-using System.Threading;
 using System.Threading.Tasks;
 using HomeAssistant.Model;
-using HomeAssistant.ViewModel;
 using Newtonsoft.Json;
 using Xamarin.Forms;
 
 namespace HomeAssistant.Helper
 {
-    public class HomeAssistantClient
+    public static class HomeAssistantClient
     {
-        private HttpClient httpClient;
+        private static HttpClient httpClient;
 
-        private HttpClientHandler clientHandler;
+        private static HttpClientHandler clientHandler;
 
-        public WebProxy Proxy
+        public static WebProxy Proxy
         {
             get
             {
@@ -32,7 +28,7 @@ namespace HomeAssistant.Helper
             }
         }
 
-        public Uri Address
+        public static Uri Address
         {
             get
             {
@@ -44,24 +40,16 @@ namespace HomeAssistant.Helper
             }
         }
 
-        public HomeAssistantClient(Uri address = null, WebProxy proxy = null)
+        static HomeAssistantClient()
         {
             clientHandler = new HttpClientHandler();
-
-            if (proxy != null)
-            {
-                Proxy = proxy;
-            }
+            Proxy = new WebProxy(HomeAssistant.Properties.Resources.Proxy);
 
             httpClient = new HttpClient(clientHandler);
-
-            if (address != null)
-            {
-                Address = address;
-            }
+            Address = new Uri("http://home.as");
         }
 
-        public async Task<List<DeviceModelBase>> GetConnectedDevices()
+        public static async Task<List<DeviceModelBase>> GetConnectedDevices()
         {
             var deviceList = new List<DeviceModelBase>();
 
@@ -92,7 +80,7 @@ namespace HomeAssistant.Helper
         }
 
         // Method assumes the credentials are validated
-        public async Task<UserModel> RequestLogin(string username, string password)
+        public static async Task<bool> RequestLogin(string username, string password)
         {
             Dictionary<string, string> credentials = new Dictionary<string, string>();
             credentials["Username"] = username;
@@ -104,11 +92,19 @@ namespace HomeAssistant.Helper
 
             if (!response.IsSuccessStatusCode)
             {
-                return null;
-            }
+                switch (response.StatusCode)
+                {
+                    case HttpStatusCode.Unauthorized:
+                        await Application.Current.MainPage.DisplayAlert("Authentication failed.", "Provided credentials are invalid.", "OK");
+                        break;
+                    case HttpStatusCode.ServiceUnavailable:
+                        await Application.Current.MainPage.DisplayAlert("Connection error.", "Could not connect to server.", "OK");
+                        break;
+                    default: break;
+                }
 
-            serializedData = await response.Content.ReadAsStringAsync();
-            UserModel responseData = JsonConvert.DeserializeObject<UserModel>(serializedData);
+                return false;
+            }
 
             var cookieEnumerator = clientHandler.CookieContainer.GetCookies(httpClient.BaseAddress).GetEnumerator();
             bool result = cookieEnumerator.MoveNext();
@@ -123,10 +119,10 @@ namespace HomeAssistant.Helper
                 Application.Current.Properties.Add("domain", cookie.Domain);
             }
 
-            return responseData;
+            return true;
         }
 
-        public async Task<UserModel> GetUserData()
+        public static async Task<UserModel> GetUserData()
         {
             object cookieName = null;
             object cookieValue = null;
@@ -160,6 +156,25 @@ namespace HomeAssistant.Helper
             UserModel responseData = JsonConvert.DeserializeObject<UserModel>(serializedData);
 
             return responseData;
+        }
+
+        public static async Task<object> GetAsync(string path)
+        {
+            HttpResponseMessage response = await httpClient.GetAsync(path);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                return null;
+            }
+
+            var serializedData = await response.Content.ReadAsStringAsync();
+            dynamic responseData = JsonConvert.DeserializeObject(serializedData);
+            return responseData;
+        }
+
+        public static async void PutAsync(string path)
+        {
+            HttpResponseMessage response = await httpClient.PutAsync(path, null);
         }
     }
 }

@@ -7,7 +7,5 @@ namespace HomeAssistant.Model
         public string Id { get; set; }
 
         public string Name { get; set; }
-
-        public ImageSource IconSource { get; protected set; }
     }
 }
