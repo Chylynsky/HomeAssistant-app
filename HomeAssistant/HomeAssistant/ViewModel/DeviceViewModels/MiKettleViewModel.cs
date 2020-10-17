@@ -10,12 +10,12 @@ namespace HomeAssistant.ViewModel.DeviceViewModels
 {
     class MiKettleViewModel : DeviceViewModelBase
     {
-        public int MinTemperature 
-        { 
-            get 
-            { 
-                return MiKettleModel.MinTemperature; 
-            } 
+        public int MinTemperature
+        {
+            get
+            {
+                return MiKettleModel.MinTemperature;
+            }
         }
 
         public int MaxTemperature
@@ -91,7 +91,7 @@ namespace HomeAssistant.ViewModel.DeviceViewModels
             }
         }
 
-        public Model.Action Action
+        private Model.Action Action
         {
             get
             {
@@ -101,11 +101,11 @@ namespace HomeAssistant.ViewModel.DeviceViewModels
             {
                 ((MiKettleModel)deviceModel).Action = value;
                 HomeAssistantClient.PutAsync(string.Format("action/{0}/action={1}", Id, (int)value));
-                NotifyPropertyChanged(nameof(Action));
+                NotifyPropertyChanged(nameof(ActionString));
             }
         }
 
-        public Mode Mode
+        private Mode Mode
         {
             get
             {
@@ -133,7 +133,7 @@ namespace HomeAssistant.ViewModel.DeviceViewModels
             }
         }
 
-        public BoilMode BoilMode
+        private BoilMode BoilMode
         {
             get
             {
@@ -153,12 +153,25 @@ namespace HomeAssistant.ViewModel.DeviceViewModels
             {
                 switch (Action)
                 {
-                    case Model.Action.Cooling: return "Cooling";
-                    case Model.Action.KeepingWarm: return 
-                            string.Format("Keeping warm for {0} minutes", ((MiKettleModel)deviceModel).KeepWarmTime);
-                    case Model.Action.Heating: return "Heating";
+                    case Model.Action.Cooling: return "Cooling.";
+                    case Model.Action.KeepingWarm: return
+                            string.Format("Keeping warm for {0} minutes.", ((MiKettleModel)deviceModel).KeepWarmTime);
+                    case Model.Action.Heating: return "Heating.";
                     case Model.Action.Idle:
-                    default: return "Idle";
+                    default: return "Idle.";
+                }
+            }
+        }
+
+        public string KeepWarmTypeString
+        {
+            get
+            {
+                switch (KeepWarmType)
+                {
+                    case KeepWarmType.BoilAndCool: return "Boil then cool down to set temperature.";
+                    case KeepWarmType.HeatUp: return "Heat up to set temperature.";
+                    default: return "";
                 }
             }
         }

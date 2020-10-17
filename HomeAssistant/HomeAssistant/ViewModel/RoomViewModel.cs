@@ -17,6 +17,8 @@ namespace HomeAssistant.ViewModel
 
         public Command<string> SelectDeviceCommand { get; }
 
+        private DeviceViewModelSelector deviceViewModelSelector;
+
         private ObservableCollection<DeviceCardSmallViewModel> deviceCardsViewModels;
 
         public ObservableCollection<DeviceCardSmallViewModel> DeviceCardsViewModels
@@ -79,6 +81,7 @@ namespace HomeAssistant.ViewModel
 
         public RoomViewModel(RoomModel roomModel, ImageSource background = default(ImageSource))
         {
+            deviceViewModelSelector = new DeviceViewModelSelector();
             RoomModel = roomModel;
             Background = background;
             DeviceCardsViewModels = new ObservableCollection<DeviceCardSmallViewModel>();
@@ -110,12 +113,7 @@ namespace HomeAssistant.ViewModel
 
         private DeviceViewModelBase SelectDeviceViewModel(DeviceModelBase deviceModel)
         {
-            if (deviceModel is MiKettleModel)
-            {
-                return new MiKettleViewModel(deviceModel);
-            }
-
-            return null;
+            return deviceViewModelSelector[typeof(DeviceModelBase)](deviceModel);
         }
 
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")

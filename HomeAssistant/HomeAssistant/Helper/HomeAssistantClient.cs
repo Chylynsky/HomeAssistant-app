@@ -79,8 +79,8 @@ namespace HomeAssistant.Helper
             return deviceList;
         }
 
-        // Method assumes the credentials are validated
-        public static async Task<bool> RequestLogin(string username, string password)
+        // Method assumes the credentials are validated, return status code
+        public static async Task<HttpStatusCode> RequestLogin(string username, string password)
         {
             Dictionary<string, string> credentials = new Dictionary<string, string>();
             credentials["Username"] = username;
@@ -92,18 +92,7 @@ namespace HomeAssistant.Helper
 
             if (!response.IsSuccessStatusCode)
             {
-                switch (response.StatusCode)
-                {
-                    case HttpStatusCode.Unauthorized:
-                        await Application.Current.MainPage.DisplayAlert("Authentication failed.", "Provided credentials are invalid.", "OK");
-                        break;
-                    case HttpStatusCode.ServiceUnavailable:
-                        await Application.Current.MainPage.DisplayAlert("Connection error.", "Could not connect to server.", "OK");
-                        break;
-                    default: break;
-                }
-
-                return false;
+                return response.StatusCode;
             }
 
             var cookieEnumerator = clientHandler.CookieContainer.GetCookies(httpClient.BaseAddress).GetEnumerator();
@@ -119,7 +108,7 @@ namespace HomeAssistant.Helper
                 Application.Current.Properties.Add("domain", cookie.Domain);
             }
 
-            return true;
+            return response.StatusCode;
         }
 
         public static async Task<UserModel> GetUserData()
@@ -174,7 +163,7 @@ namespace HomeAssistant.Helper
 
         public static async void PutAsync(string path)
         {
-            HttpResponseMessage response = await httpClient.PutAsync(path, null);
+            await httpClient.PutAsync(path, null);
         }
     }
 }

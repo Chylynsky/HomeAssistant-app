@@ -1,6 +1,4 @@
-﻿
-
-using HomeAssistant.ViewModel;
+﻿using HomeAssistant.ViewModel;
 
 namespace HomeAssistant.Helper.Events
 {

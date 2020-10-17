@@ -6,6 +6,7 @@ using Xamarin.Forms;
 
 namespace HomeAssistant.Helper
 {
+    // Class that matches Device View with its View Model.
     public class DeviceViewSelector : Dictionary<Type, Func<ContentView>>
     {
         public DeviceViewSelector()

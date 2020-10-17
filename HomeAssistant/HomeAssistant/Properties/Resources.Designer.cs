@@ -61,7 +61,7 @@ namespace HomeAssistant.Properties {
         }
         
         /// <summary>
-        /// Wyszukuje zlokalizowany ciąg podobny do ciągu 192.168.0.105:80.
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu 192.168.0.109:80.
         /// </summary>
         public static string Proxy {
             get {

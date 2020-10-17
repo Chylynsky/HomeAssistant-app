@@ -36,6 +36,18 @@ namespace HomeAssistant.ViewModel
 
         public LoginViewModel()
         {
+            // Try to get user data, change UserAuthenticated property on success
+            Task.Run(async () => {
+                var userData = await HomeAssistantClient.GetUserData();
+
+                if (userData == null)
+                {
+                    return;
+                }
+
+                UserAuthenticated = true;
+            });
+
             LoginRequestCommand = new Command(async () => {
 
                 if (string.IsNullOrEmpty(Username))
@@ -48,25 +60,26 @@ namespace HomeAssistant.ViewModel
                     return;
                 }
 
-                var userData = await HomeAssistantClient.RequestLogin(Username, Password);
+                HttpStatusCode status = await HomeAssistantClient.RequestLogin(Username, Password);
 
-                if (!userData)
+                switch (status)
                 {
-                    return;
+                    case HttpStatusCode.OK:
+                        UserAuthenticated = true;
+                        return;
+                    case HttpStatusCode.RequestTimeout:
+                        await Application.Current.MainPage.DisplayAlert("Connection error.", "Connection timed out.", "OK");
+                        return;
+                    case HttpStatusCode.Unauthorized:
+                        await Application.Current.MainPage.DisplayAlert("Authorization error.", "Provided credentials are invalid.", "OK");
+                        return;
+                    case HttpStatusCode.NotFound:
+                        await Application.Current.MainPage.DisplayAlert("Internal server error.", "Internal server error occured. Try again later.", "OK");
+                        return;
+                    default:
+                        await Application.Current.MainPage.DisplayAlert("Unknown error.", "Unknown error occured.", "OK");
+                        return;
                 }
-
-                UserAuthenticated = true;
-            });
-
-            Task.Run(async () => {
-                var userData = await HomeAssistantClient.GetUserData();
-
-                if (userData == null)
-                {
-                    return;
-                }
-
-                UserAuthenticated = true;
             });
         }
 

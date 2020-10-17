@@ -5,16 +5,22 @@
   <ContentView.Content>
         <StackLayout Spacing="5" Orientation="Vertical">
 
-            <Label Text="{Binding TemperatureCurrent, StringFormat=' {0}°'}" TextColor="Black" FontSize="Header" 
+            <Label Text="{Binding TemperatureCurrent, StringFormat=' {0}°', Mode=OneWay}" TextColor="Black" FontSize="Header" 
                    HorizontalOptions="Center" VerticalOptions="Center"/>
-            <Label Text="{Binding ActionString}" TextColor="Black" FontSize="Medium" 
+            <Label Text="{Binding ActionString, Mode=OneWay}" TextColor="Black" FontSize="Medium" 
                    HorizontalOptions="Center" VerticalOptions="Center"/>
             <Label Text="{Binding TemperatureSet, StringFormat='Set temperature: {0}°'}" TextColor="Black" FontSize="Medium"/>
-            <Slider Maximum="{Binding MaxTemperature}" Minimum="{Binding MinTemperature}"
-                            Value="{Binding TemperatureSet}" MinimumTrackColor="LightBlue" MaximumTrackColor="IndianRed"/>
-            <Label Text="{Binding KeepWarmTimeLimit, StringFormat='Keep warm time: {0}h'}" TextColor="Black" FontSize="Medium"/>
-            <Slider Maximum="{Binding MaxKeepWarmTimeLimit}" Minimum="{Binding MinKeepWarmTimeLimit}"
-                            Value="{Binding KeepWarmTimeLimit}" MinimumTrackColor="LightGray" MaximumTrackColor="DarkGray"/>
+            <Slider Maximum="{Binding MaxTemperature, Mode=OneTime}" Minimum="{Binding MinTemperature, Mode=OneTime}"
+                            Value="{Binding TemperatureSet, Mode=TwoWay}" MinimumTrackColor="LightBlue" MaximumTrackColor="IndianRed"/>
+            <Label Text="{Binding KeepWarmTimeLimit, StringFormat='Keep warm time: {0}h', Mode=TwoWay}" TextColor="Black" FontSize="Medium"/>
+            <Slider Maximum="{Binding MaxKeepWarmTimeLimit, Mode=OneTime}" Minimum="{Binding MinKeepWarmTimeLimit, Mode=OneTime}"
+                            Value="{Binding KeepWarmTimeLimit, Mode=TwoWay}" MinimumTrackColor="LightGray" MaximumTrackColor="DarkGray"/>
+            <Picker x:Name="keepWarmTypePicker" Title="Keep warm type" SelectedIndexChanged="keepWarmTypePicker_SelectedIndexChanged">
+                <Picker.Items>
+                    <x:String>Boil then cool down to set temperature.</x:String>
+                    <x:String>Heat up to set temperature.</x:String>
+                </Picker.Items>
+            </Picker>
         </StackLayout>
     </ContentView.Content>
 </ContentView>
