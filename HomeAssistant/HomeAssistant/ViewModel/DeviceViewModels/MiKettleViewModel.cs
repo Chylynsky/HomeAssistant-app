@@ -173,13 +173,23 @@ namespace HomeAssistant.ViewModel.DeviceViewModels
                     return;
                 }
 
-                TemperatureCurrent = deviceData.temperature.current;
-                TemperatureSet = deviceData.temperature.set;
-                KeepWarmTimeLimit = deviceData.keep_warm.time_limit;
-                KeepWarmType = (KeepWarmType)deviceData.keep_warm.type;
-                Action = (Model.Action)deviceData.action;
-                Mode = (Mode)deviceData.mode;
-                BoilMode = (BoilMode)deviceData.boil_mode;
+                // Avoid setting values via properties which would cause PUT requests sent to server
+
+                ((MiKettleModel)deviceModel).TemperatureCurrent = deviceData.temperature.current;
+                ((MiKettleModel)deviceModel).TemperatureSet = deviceData.temperature.set;
+                ((MiKettleModel)deviceModel).KeepWarmTimeLimit = deviceData.keep_warm.time_limit;
+                ((MiKettleModel)deviceModel).KeepWarmType = (KeepWarmType)deviceData.keep_warm.type;
+                ((MiKettleModel)deviceModel).Action = (Model.Action)deviceData.action;
+                ((MiKettleModel)deviceModel).Mode = (Mode)deviceData.mode;
+                ((MiKettleModel)deviceModel).BoilMode = (BoilMode)deviceData.boil_mode;
+
+                NotifyPropertyChanged(nameof(TemperatureCurrent));
+                NotifyPropertyChanged(nameof(TemperatureSet));
+                NotifyPropertyChanged(nameof(KeepWarmTimeLimit));
+                NotifyPropertyChanged(nameof(KeepWarmType));
+                NotifyPropertyChanged(nameof(Action));
+                NotifyPropertyChanged(nameof(Mode));
+                NotifyPropertyChanged(nameof(BoilMode));
             });
         }
     }
