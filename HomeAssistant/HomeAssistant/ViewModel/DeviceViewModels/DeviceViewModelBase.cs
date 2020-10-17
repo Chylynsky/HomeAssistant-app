@@ -8,13 +8,13 @@ using Xamarin.Forms;
 
 namespace HomeAssistant.ViewModel.DeviceViewModels
 {
-    abstract class DeviceViewModelBase : INotifyPropertyChanged
+    abstract class DeviceViewModelBase : IActionViewModel
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected DeviceModelBase deviceModel;
 
-        public string Name
+        public string Title
         {
             get
             {

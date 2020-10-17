@@ -3,6 +3,10 @@ using Xamarin.Forms;
 
 namespace HomeAssistant.ViewModel
 {
+    /// <summary>
+    /// Base class for View Models that require background selection at runtime. Background is selected
+    /// randomly from "universal" resource directory.
+    /// </summary>
     public class ThemedViewModelBase : IThemedViewModelBase
     {
         // Number of backgrounds available for Universal category

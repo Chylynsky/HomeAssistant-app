@@ -163,19 +163,6 @@ namespace HomeAssistant.ViewModel.DeviceViewModels
             }
         }
 
-        public string KeepWarmTypeString
-        {
-            get
-            {
-                switch (KeepWarmType)
-                {
-                    case KeepWarmType.BoilAndCool: return "Boil then cool down to set temperature.";
-                    case KeepWarmType.HeatUp: return "Heat up to set temperature.";
-                    default: return "";
-                }
-            }
-        }
-
         public MiKettleViewModel(DeviceModelBase deviceModel) : base(deviceModel)
         {
             Task.Run(async () => {

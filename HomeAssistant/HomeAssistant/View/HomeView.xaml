@@ -2,7 +2,7 @@
 <ContentPage 
     xmlns="http://xamarin.com/schemas/2014/forms" 
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:View="clr-namespace:HomeAssistant.View"
+    xmlns:View="clr-namespace:HomeAssistant.View" xmlns:Controls="clr-namespace:HomeAssistant.Controls"
     x:Class="HomeAssistant.View.HomeView"
     NavigationPage.HasNavigationBar="False">
     
@@ -31,8 +31,8 @@
                         VerticalTextAlignment="Center" 
                         TextColor="Black"
                         FontSize="Title"/>
-                    <ImageButton x:Name="addButton" Grid.Column="1" Opacity="1" BackgroundColor="Transparent" HorizontalOptions="CenterAndExpand"/>
-                    <ImageButton x:Name="moreButton" Grid.Column="2" Opacity="1" BackgroundColor="Transparent" HorizontalOptions="CenterAndExpand"/>
+                    <ImageButton x:Name="addButton" Grid.Column="1" Opacity="1" BackgroundColor="Transparent" HorizontalOptions="CenterAndExpand" Clicked="addButton_Clicked"/>
+                    <ImageButton x:Name="moreButton" Grid.Column="2" Opacity="1" BackgroundColor="Transparent" HorizontalOptions="CenterAndExpand" Clicked="moreButton_Clicked"/>
                 </Grid>
             </Frame>
 
@@ -55,6 +55,17 @@
                     
                 </FlexLayout>
             </ScrollView>
+
+            <Controls:ActionCard 
+                x:Name="actionCard" 
+                Grid.RowSpan="2"
+                IsEnabled="false" 
+                IsVisible="false"
+                Scale="0.8"
+                Margin="10"
+                TitleFontColor="Black"
+                Closed="actionCard_Closed"
+                Swiped="actionCard_Swiped"/>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

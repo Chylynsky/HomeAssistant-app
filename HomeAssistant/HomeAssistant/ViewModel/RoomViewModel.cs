@@ -113,7 +113,7 @@ namespace HomeAssistant.ViewModel
 
         private DeviceViewModelBase SelectDeviceViewModel(DeviceModelBase deviceModel)
         {
-            return deviceViewModelSelector[typeof(DeviceModelBase)](deviceModel);
+            return deviceViewModelSelector[deviceModel.GetType()](deviceModel);
         }
 
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")

@@ -1,21 +1,18 @@
-﻿using HomeAssistant.Model;
-using HomeAssistant.ViewModel.DeviceViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace HomeAssistant.View.DeviceViews
+namespace HomeAssistant.View
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class MiKettleView : ContentView
+    public partial class CreateRoomView : ContentView
     {
-        public MiKettleView()
+        public CreateRoomView()
         {
             InitializeComponent();
         }

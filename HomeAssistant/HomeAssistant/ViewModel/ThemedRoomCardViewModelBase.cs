@@ -3,6 +3,9 @@ using Xamarin.Forms;
 
 namespace HomeAssistant.ViewModel
 {
+    /// <summary>
+    /// Base class for RoomCardViewModel. It selects background image based on room type.
+    /// </summary>
     public class ThemedRoomCardViewModelBase : ThemedViewModelBase
     {
         // Number of backgrounds available for themed category (Kitchen, Living Room, etc...)
@@ -26,6 +29,10 @@ namespace HomeAssistant.ViewModel
             }
         }
 
+        /// <summary>
+        /// Select background image randomly, based on room type.
+        /// </summary>
+        /// <returns>ImageSource object being the selected image path.</returns>
         protected override ImageSource GetImage()
         {
             string image = roomType.ToString().ToLower() +

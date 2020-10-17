@@ -11,6 +11,9 @@ using System.Threading.Tasks;
 
 namespace HomeAssistant.ViewModel
 {
+    /// <summary>
+    /// View model for Home page. Home page contains collection of rooms to select and allows to control them.
+    /// </summary>
     class HomeViewModel : ThemedViewModelBase, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
