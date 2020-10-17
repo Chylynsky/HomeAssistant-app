@@ -1,4 +1,5 @@
 ﻿using HomeAssistant.Model;
+using HomeAssistant.Helper;
 using Xamarin.Forms;
 
 namespace HomeAssistant.ViewModel
@@ -13,7 +14,7 @@ namespace HomeAssistant.ViewModel
         {
             get
             {
-                return RoomModel.RoomTypeToString(RoomModel.Type);
+                return RoomModel.Type.ToString().SplitCamelCase();
             }
         }
 

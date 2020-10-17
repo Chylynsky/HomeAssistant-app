@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
+using Xamarin.Forms;
 
 namespace HomeAssistant.Helper
 {
@@ -21,6 +22,11 @@ namespace HomeAssistant.Helper
                 @"(\p{Ll})(\P{Ll})",
                 "$1 $2"
             );
+        }
+
+        public static string RemoveWhitespaces(this string str)
+        {
+            return Regex.Replace(str, @"\s+", "");
         }
     }
 }
