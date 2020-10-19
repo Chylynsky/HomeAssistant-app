@@ -61,12 +61,12 @@
                 IsEnabled="false" 
                 IsVisible="false"
                 Scale="0.8"
-                Margin="10"
                 TitleFontColor="Black"
                 Closed="actionCard_Closed"
                 Swiped="actionCard_Swiped">
 
             </Controls:ActionCard>
+            
         </Grid>
 
     </ContentPage.Content>

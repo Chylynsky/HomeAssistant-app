@@ -28,7 +28,7 @@ namespace HomeAssistant.View
                 default: break;
             }
 
-            HideActionCard();
+            actionCard.TranslationY = Bounds.Bottom;
         }
 
         private void roomCard_Clicked(object sender, EventArgs e)
@@ -51,7 +51,7 @@ namespace HomeAssistant.View
         {
             actionCard.IsEnabled = false;
             await actionCard.ScaleTo(0.8, 75, Easing.SinIn);
-            await actionCard.TranslateTo(0.0, mainGrid.Bounds.Bottom, 150, Easing.SinIn);
+            await actionCard.TranslateTo(0.0, Bounds.Bottom, 150, Easing.SinIn);
             actionCard.IsVisible = false;
         }
 

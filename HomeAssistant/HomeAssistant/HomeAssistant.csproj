@@ -18,6 +18,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="Windows.Foundation.UniversalApiContract">
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Windows Kits\10\References\10.0.18362.0\Windows.Foundation.UniversalApiContract\8.0.0.0\Windows.Foundation.UniversalApiContract.winmd</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Update="Controls\ActionCard.xaml.cs">
       <DependentUpon>ActionCard.xaml</DependentUpon>
     </Compile>
@@ -25,6 +31,9 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="View\CreateRoomActionView.xaml.cs">
+      <DependentUpon>CreateRoomActionView.xaml</DependentUpon>
     </Compile>
     <Compile Update="View\HomeView.xaml.cs">
       <DependentUpon>HomeView.xaml</DependentUpon>
@@ -48,7 +57,7 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Update="View\CreateRoomView.xaml">
+    <EmbeddedResource Update="View\CreateRoomActionView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="View\DeviceCardSmallView.xaml">

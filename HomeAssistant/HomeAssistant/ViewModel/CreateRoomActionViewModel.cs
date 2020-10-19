@@ -3,9 +3,11 @@ using HomeAssistant.Model;
 using HomeAssistant.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace HomeAssistant.View
@@ -16,13 +18,13 @@ namespace HomeAssistant.View
 
         RoomModel roomModel;
 
-        public Command CreateRoom;
+        public Command CreateRoomCommand { get; }
 
         public string Title
         {
             get
             {
-                return "Create new room";
+                return "New room";
             }
         }
 
@@ -55,15 +57,32 @@ namespace HomeAssistant.View
         {
             get
             {
-                return new List<string>(Enum.GetNames(typeof(RoomType)).Select((elem) => { return elem.SplitCamelCase(); }));
+                return new List<string>(Enum.GetNames(typeof(RoomType)).Select((elem) => { 
+                    return elem.SplitCamelCase(); 
+                }));
             }
         }
+
+        public ObservableCollection<DeviceModelBase> AvailableDevices { get; private set; }
 
         public CreateRoomActionViewModel()
         {
             roomModel = new RoomModel();
-            CreateRoom = new Command(() => {
-                Application.Current.MainPage.DisplayPromptAsync("git", "konkrecik, zapraszam");
+            AvailableDevices = new ObservableCollection<DeviceModelBase>();
+
+            Task.Run(async () => {
+                var availableDevices = await HomeAssistantClient.GetConnectedDevices();
+
+                if (availableDevices == null && availableDevices.Count == 0)
+                {
+                    return;
+                }
+
+                AvailableDevices = new ObservableCollection<DeviceModelBase>(availableDevices);
+            });
+
+            CreateRoomCommand = new Command(() => {
+                return;
             });
         }
 

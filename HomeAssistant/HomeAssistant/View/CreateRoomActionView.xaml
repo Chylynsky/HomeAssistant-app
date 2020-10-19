@@ -11,11 +11,32 @@
     </ContentView.Resources>
     
     <ContentView.Content>
-        <StackLayout>
+        <StackLayout Spacing="20">
 
             <Entry Placeholder="Room Name" Text="{Binding RoomName, Mode=TwoWay}"/>
-            <Picker ItemsSource="{Binding RoomTypes}" SelectedIndex="{Binding RoomType, Converter={StaticResource Key=IntEnum}, Mode=TwoWay}"/>
-            <Button Text="OK" Command="{Binding CreateRoomCommand, Mode=OneWay}"/>
+            <Picker Title="Room type" ItemsSource="{Binding RoomTypes}" SelectedIndex="{Binding RoomType, Converter={StaticResource Key=IntEnum}, Mode=TwoWay}"/>
+            <Label Text="Select devices for this room:"/>
+            <ScrollView>
+                <StackLayout BindableLayout.ItemsSource="{Binding AvailableDevices}">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                                <Frame Margin="5" CornerRadius="20" BorderColor="LightGray">
+                                
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" Command="{Binding DeviceSelectedCommand}"/>
+                                    </Frame.GestureRecognizers>
+                                
+                                    <Grid>
+                                        <Image Grid.Column="0" Source="{Binding IconSource}"/>
+                                        <Label Grid.Column="1" Text="{Binding Name}"/>
+                                    </Grid>
+                                </Frame>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </StackLayout>
+            </ScrollView>
+
+            <Button Text="OK" CornerRadius="20" Command="{Binding CreateRoomCommand, Mode=TwoWay}" HorizontalOptions="Center" BackgroundColor="LightGray"/>
 
         </StackLayout>
     </ContentView.Content>

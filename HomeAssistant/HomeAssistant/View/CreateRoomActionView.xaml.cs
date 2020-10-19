@@ -16,5 +16,24 @@ namespace HomeAssistant.View
         {
             InitializeComponent();
         }
+
+        private async void TapGestureRecognizer_Tapped(object sender, EventArgs e)
+        {
+            const double ScaleToValue = 0.9;
+            const int AnimationLength = 100;
+
+            Frame senderFrame = (Frame)sender;
+
+            if (senderFrame.Scale == ScaleToValue)
+            {
+                senderFrame.BorderColor = Color.LightGray;
+                await senderFrame.ScaleTo(1.0, AnimationLength);
+            }
+            else
+            {
+                senderFrame.BorderColor = Color.PeachPuff;
+                await senderFrame.ScaleTo(ScaleToValue, AnimationLength);
+            }
+        }
     }
 }
