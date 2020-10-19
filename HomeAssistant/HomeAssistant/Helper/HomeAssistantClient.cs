@@ -47,6 +47,7 @@ namespace HomeAssistant.Helper
 
             httpClient = new HttpClient(clientHandler);
             Address = new Uri("http://home.as");
+            httpClient.Timeout = TimeSpan.FromSeconds(5.0);
         }
 
         public static async Task<List<DeviceModelBase>> GetConnectedDevices()

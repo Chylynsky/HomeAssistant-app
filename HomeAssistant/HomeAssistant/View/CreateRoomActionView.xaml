@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:Converters="clr-namespace:HomeAssistant.Helper.Converters"
+             x:Class="HomeAssistant.View.CreateRoomActionView">
+
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <Converters:IntEnumConverter x:Key="IntEnum"/>
+        </ResourceDictionary>
+    </ContentView.Resources>
+    
+    <ContentView.Content>
+        <StackLayout>
+
+            <Entry Placeholder="Room Name" Text="{Binding RoomName, Mode=TwoWay}"/>
+            <Picker ItemsSource="{Binding RoomTypes}" SelectedIndex="{Binding RoomType, Converter={StaticResource Key=IntEnum}, Mode=TwoWay}"/>
+            <Button Text="OK" Command="{Binding CreateRoomCommand, Mode=OneWay}"/>
+
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>

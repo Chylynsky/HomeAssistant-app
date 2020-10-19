@@ -58,6 +58,8 @@
 
             <Controls:ActionCard 
                 x:Name="actionCard" 
+                Title="{Binding Title}"
+                BindingContextChanged="actionCard_BindingContextChanged"
                 Grid.RowSpan="2"
                 IsEnabled="false" 
                 IsVisible="false"

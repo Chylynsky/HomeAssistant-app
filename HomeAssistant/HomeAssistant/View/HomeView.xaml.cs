@@ -1,6 +1,7 @@
 ﻿using HomeAssistant.Controls;
 using HomeAssistant.ViewModel;
 using System;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -26,6 +27,8 @@ namespace HomeAssistant.View
                     break;
                 default: break;
             }
+
+            HideActionCard();
         }
 
         private void roomCard_Clicked(object sender, EventArgs e)
@@ -36,7 +39,7 @@ namespace HomeAssistant.View
             }, true);
         }
 
-        private async void ShowActionCard()
+        private async Task ShowActionCard()
         {
             actionCard.IsVisible = true;
             await actionCard.TranslateTo(0.0, 0.0, 150, Easing.SinOut);
@@ -44,7 +47,7 @@ namespace HomeAssistant.View
             actionCard.IsEnabled = true;
         }
 
-        private async void HideActionCard()
+        private async Task HideActionCard()
         {
             actionCard.IsEnabled = false;
             await actionCard.ScaleTo(0.8, 75, Easing.SinIn);
@@ -52,43 +55,48 @@ namespace HomeAssistant.View
             actionCard.IsVisible = false;
         }
 
-        private void actionCard_Closed(object sender, EventArgs e)
+        private async void actionCard_Closed(object sender, EventArgs e)
         {
-            HideActionCard();
+            await HideActionCard();
         }
 
-        private void actionCard_Swiped(object sender, SwipedEventArgs e)
+        private async void actionCard_Swiped(object sender, SwipedEventArgs e)
         {
             if (e.Direction != SwipeDirection.Down)
             {
                 return;
             }
 
-            HideActionCard();
+            await HideActionCard();
         }
 
-        private void addButton_Clicked(object sender, EventArgs e)
+        private async void addButton_Clicked(object sender, EventArgs e)
         {
             if (actionCard.IsEnabled)
             {
-                HideActionCard();
+                await HideActionCard();
             }
 
-            // Bind both action card and its content
             actionCard.BindingContext = new CreateRoomActionViewModel();
+            actionCard.InnerContent = new CreateRoomActionView();
             actionCard.InnerContent.BindingContext = actionCard.BindingContext;
 
-            ShowActionCard();
+            await ShowActionCard();
         }
 
-        private void moreButton_Clicked(object sender, EventArgs e)
+        private async void moreButton_Clicked(object sender, EventArgs e)
         {
             if (actionCard.IsEnabled)
             {
-                HideActionCard();
+                await HideActionCard();
             }
 
-            ShowActionCard();
+            await ShowActionCard();
+        }
+
+        private void actionCard_BindingContextChanged(object sender, EventArgs e)
+        {
+            return;
         }
     }
 }

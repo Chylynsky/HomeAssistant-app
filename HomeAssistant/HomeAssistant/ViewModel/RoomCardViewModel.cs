@@ -14,11 +14,11 @@ namespace HomeAssistant.ViewModel
         {
             get
             {
-                return RoomModel.Type.ToString().SplitCamelCase();
+                return RoomModel.RoomType.ToString().SplitCamelCase();
             }
         }
 
-        public RoomCardViewModel(RoomModel roomModel) : base(roomModel.Type)
+        public RoomCardViewModel(RoomModel roomModel) : base(roomModel.RoomType)
         {
             RoomModel = roomModel;
         }

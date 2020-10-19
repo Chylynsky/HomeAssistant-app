@@ -18,7 +18,7 @@ namespace HomeAssistant.Model
 
     public class RoomModel
     {
-        public RoomType Type { get; set; }
+        public RoomType RoomType { get; set; }
 
         public string Name { get; set; }
 

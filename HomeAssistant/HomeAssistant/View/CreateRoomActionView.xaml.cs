@@ -10,9 +10,9 @@ using Xamarin.Forms.Xaml;
 namespace HomeAssistant.View
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class CreateRoomView : ContentView
+    public partial class CreateRoomActionView : ContentView
     {
-        public CreateRoomView()
+        public CreateRoomActionView()
         {
             InitializeComponent();
         }

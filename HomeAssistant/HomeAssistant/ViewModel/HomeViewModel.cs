@@ -70,7 +70,7 @@ namespace HomeAssistant.ViewModel
                 {
                     var roomModel = new RoomModel()
                     {
-                        Type = (RoomType)Enum.Parse(typeof(RoomType), roomEntry.Type.RemoveWhitespaces()),
+                        RoomType = (RoomType)Enum.Parse(typeof(RoomType), roomEntry.Type.RemoveWhitespaces()),
                         Name = roomEntry.Name,
                         Devices = new ObservableCollection<DeviceModelBase>(connectedDevices.Where((DeviceModelBase deviceModel) => {
 
