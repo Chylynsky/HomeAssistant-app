@@ -14,9 +14,9 @@ namespace HomeAssistant.Helper
 {
     class NavigationService
     {
-        public async Task NavigateToAsync<TViewModel>(object parameter = null) where TViewModel : IThemedViewModelBase
+        public async Task NavigateToAsync<TViewModel>(params object[] parameters) where TViewModel : IThemedViewModelBase
         {
-            await InternalNavigateToAsync(typeof(TViewModel), parameter);
+            await InternalNavigateToAsync(typeof(TViewModel), parameters);
         }
 
         public async Task NavigateBackAsync()
@@ -26,9 +26,9 @@ namespace HomeAssistant.Helper
             await navigationPage.PopAsync();
         }
 
-        private async Task InternalNavigateToAsync(Type viewModelType, object parameter)
+        private async Task InternalNavigateToAsync(Type viewModelType, params object[] parameters)
         {
-            ContentPage view = CreateView(viewModelType, parameter);
+            ContentPage view = CreateView(viewModelType);
 
             if (view is LoginView)
             {
@@ -48,7 +48,7 @@ namespace HomeAssistant.Helper
                 }
             }
 
-            view.BindingContext = Activator.CreateInstance(viewModelType);
+            view.BindingContext = Activator.CreateInstance(viewModelType, parameters);
         }
 
         private Type GetViewForViewModel(Type viewModelType)
@@ -66,7 +66,7 @@ namespace HomeAssistant.Helper
             return viewType;
         }
 
-        private ContentPage CreateView(Type viewModelType, object parameter)
+        private ContentPage CreateView(Type viewModelType)
         {
             Type viewType = GetViewForViewModel(viewModelType);
 
