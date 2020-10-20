@@ -5,6 +5,8 @@ using HomeAssistant.View;
 using HomeAssistant.Helper;
 using System.Net;
 using System.Resources;
+using System.Threading.Tasks;
+using HomeAssistant.ViewModel;
 
 namespace HomeAssistant
 {
@@ -13,7 +15,9 @@ namespace HomeAssistant
         public App()
         {
             InitializeComponent();
-            MainPage = new NavigationPage(new LoginView());
+
+            var navigationService = NavigationService.Instance;
+            navigationService.NavigateToAsync<LoginViewModel>();
         }
 
         protected override void OnStart()
