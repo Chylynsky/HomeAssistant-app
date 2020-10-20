@@ -22,26 +22,11 @@ namespace HomeAssistant.ViewModel
 
         public ObservableCollection<RoomCardViewModel> RoomCardViewModels { get; set; }
 
-        private RoomViewModel selectedRoomModel;
-
-        public RoomViewModel SelectedRoomViewModel
-        {
-            get
-            {
-                return selectedRoomModel;
-            }
-            private set
-            {
-                selectedRoomModel = value;
-                NotifyPropertyChanged(nameof(SelectedRoomViewModel));
-            }
-        }
-
         public HomeViewModel()
         {
             RoomCardViewModels = new ObservableCollection<RoomCardViewModel>();
 
-            SelectRoomCommand = new Command<string>((string roomName) =>
+            SelectRoomCommand = new Command<string>(async (string roomName) =>
             {
 
                 if (roomName == null)
@@ -55,7 +40,8 @@ namespace HomeAssistant.ViewModel
                 });
 
                 var selectedRoomCard = roomEnumerator.First();
-                SelectedRoomViewModel = new RoomViewModel(selectedRoomCard.RoomModel, selectedRoomCard.Background);
+
+                await NavigationService.Navigation.NavigateToAsync<RoomViewModel>(selectedRoomCard.RoomModel, selectedRoomCard.Background);
             });
 
             var getUserDataTask = HomeAssistantClient.GetUserData();
@@ -96,11 +82,6 @@ namespace HomeAssistant.ViewModel
                     });
                 }
             });
-        }
-
-        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
