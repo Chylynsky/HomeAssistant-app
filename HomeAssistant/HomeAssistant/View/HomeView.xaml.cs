@@ -13,7 +13,6 @@ namespace HomeAssistant.View
         public HomeView()
         {
             InitializeComponent();
-            BindingContext = new HomeViewModel();
 
             switch (Device.RuntimePlatform)
             {
@@ -29,14 +28,6 @@ namespace HomeAssistant.View
             }
 
             actionCard.TranslationY = Bounds.Bottom;
-        }
-
-        private void roomCard_Clicked(object sender, EventArgs e)
-        {
-            Navigation.PushAsync(new RoomView()
-            {
-                BindingContext = ((HomeViewModel)BindingContext).SelectedRoomViewModel
-            }, true);
         }
 
         private async Task ShowActionCard()

@@ -12,39 +12,20 @@ using Xamarin.Forms;
 
 namespace HomeAssistant.Helper
 {
-    class NavigationService : INavigationService
+    class NavigationService
     {
-        public IThemedViewModelBase PreviousPageViewModel => throw new NotImplementedException();
-
-        public Task InitializeAsync()
+        public async Task NavigateToAsync<TViewModel>(object parameter = null) where TViewModel : IThemedViewModelBase
         {
-            throw new NotImplementedException();
+            await InternalNavigateToAsync(typeof(TViewModel), parameter);
         }
 
-        public Task NavigateBackAsync<TViewModel>() where TViewModel : IThemedViewModelBase
+        public async Task NavigateBackAsync()
         {
-            throw new NotImplementedException();
+            var navigationPage = Application.Current.MainPage as NavigationPage;
+
+            await navigationPage.PopAsync();
         }
 
-        public async Task NavigateToAsync<TViewModel>() where TViewModel : IThemedViewModelBase
-        {
-            await InternalNavigateToAsync(typeof(TViewModel), null);
-        }
-
-        public Task NavigateToAsync<TViewModel>(object parameter) where TViewModel : IThemedViewModelBase
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task RemoveBackStackAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task RemoveLastFromBackStackAsync()
-        {
-            throw new NotImplementedException();
-        }
         private async Task InternalNavigateToAsync(Type viewModelType, object parameter)
         {
             ContentPage view = CreateView(viewModelType, parameter);
@@ -74,8 +55,13 @@ namespace HomeAssistant.Helper
         {
             var viewName = viewModelType.FullName.Replace("Model", string.Empty);
             var viewModelAssemblyName = viewModelType.GetTypeInfo().Assembly.FullName;
+
             var viewAssemblyName = string.Format(
-                        CultureInfo.InvariantCulture, "{0}, {1}", viewName, viewModelAssemblyName);
+                        CultureInfo.InvariantCulture, 
+                        "{0}, {1}", 
+                        viewName, 
+                        viewModelAssemblyName);
+
             var viewType = Type.GetType(viewAssemblyName);
             return viewType;
         }
@@ -92,14 +78,6 @@ namespace HomeAssistant.Helper
             return Activator.CreateInstance(viewType) as ContentPage;
         }
 
-        private static readonly NavigationService NavigationServiceInstance = new NavigationService();
-
-        public static NavigationService Instance 
-        { 
-            get 
-            { 
-                return NavigationServiceInstance; 
-            } 
-        }
+        public static NavigationService Navigation { get; } = new NavigationService();
     }
 }

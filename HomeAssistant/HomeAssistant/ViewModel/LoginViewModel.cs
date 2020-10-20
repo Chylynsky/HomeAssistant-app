@@ -15,21 +15,6 @@ namespace HomeAssistant.ViewModel
 
         public Command LoginRequestCommand { get; }
 
-        private bool userAuthenticated;
-
-        public bool UserAuthenticated
-        {
-            get
-            {
-                return userAuthenticated;
-            }
-            private set
-            {
-                userAuthenticated = value;
-                NotifyPropertyChanged(nameof(UserAuthenticated));
-            }
-        }
-
         public string Username { get; set; }
 
         public string Password { get; set; }
@@ -45,7 +30,7 @@ namespace HomeAssistant.ViewModel
                     return;
                 }
 
-                UserAuthenticated = true;
+                await NavigationService.Navigation.NavigateToAsync<HomeViewModel>();
             });
 
             LoginRequestCommand = new Command(async () => {
@@ -65,7 +50,7 @@ namespace HomeAssistant.ViewModel
                 switch (status)
                 {
                     case HttpStatusCode.OK:
-                        UserAuthenticated = true;
+                        await NavigationService.Navigation.NavigateToAsync<HomeViewModel>();
                         return;
                     case HttpStatusCode.RequestTimeout:
                         await Application.Current.MainPage.DisplayAlert("Connection error.", "Connection timed out.", "OK");

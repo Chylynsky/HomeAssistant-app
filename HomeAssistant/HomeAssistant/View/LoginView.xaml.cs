@@ -9,40 +9,9 @@ namespace HomeAssistant.View
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class LoginView : ContentPage
     {
-        public static readonly BindableProperty UserAuthenticatedPropety = BindableProperty.Create(
-            nameof(UserAuthenticated),
-            typeof(bool),
-            typeof(LoginView),
-            false);
-
-        public bool UserAuthenticated
-        {
-            get
-            {
-                return (bool)GetValue(UserAuthenticatedPropety);
-            }
-            set
-            {
-                SetValue(UserAuthenticatedPropety, value);
-            }
-        }
-
         public LoginView()
         {
             InitializeComponent();
-            BindingContext = new LoginViewModel();
-            SetBinding(UserAuthenticatedPropety, new Binding(nameof(LoginViewModel.UserAuthenticated)));
-        }
-
-        protected override async void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            base.OnPropertyChanged(propertyName);
-
-            if (propertyName == UserAuthenticatedPropety.PropertyName)
-            {
-                await Navigation.PushAsync(new HomeView(), true);
-                Navigation.RemovePage(this);
-            }
         }
 
         private void registerButton_Clicked(object sender, EventArgs e)
