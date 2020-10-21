@@ -89,7 +89,7 @@ namespace HomeAssistant.ViewModel
 
             foreach (IDeviceModel deviceModel in RoomModel.Devices)
             {
-                DeviceViewModels.Add(DeviceLinker.GetDeviceViewModelForModel(deviceModel.GetType()));
+                DeviceViewModels.Add(DeviceLinker.GetDeviceViewModelForModel(deviceModel));
             }
         }
 
