@@ -43,8 +43,8 @@ namespace HomeAssistant.ViewModel
                     case HttpStatusCode.Unauthorized:
                         await Application.Current.MainPage.DisplayAlert("Authorization error.", "Provided credentials are invalid.", "OK");
                         return;
-                    case HttpStatusCode.NotFound:
-                        await Application.Current.MainPage.DisplayAlert("Internal server error.", "Internal server error occured. Try again later.", "OK");
+                    case HttpStatusCode.ServiceUnavailable:
+                        await Application.Current.MainPage.DisplayAlert("Service unavailable.", "Server is temporarily down. Try again later.", "OK");
                         return;
                     default:
                         await Application.Current.MainPage.DisplayAlert("Unknown error.", "Unknown error occured.", "OK");
