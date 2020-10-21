@@ -38,9 +38,6 @@
     <Compile Update="View\HomeView.xaml.cs">
       <DependentUpon>HomeView.xaml</DependentUpon>
     </Compile>
-    <Compile Update="View\RoomCardView.xaml.cs">
-      <DependentUpon>RoomCardView.xaml</DependentUpon>
-    </Compile>
     <Compile Update="View\DeviceCardSmallView.xaml.cs">
       <DependentUpon>DeviceCardSmallView.xaml</DependentUpon>
     </Compile>

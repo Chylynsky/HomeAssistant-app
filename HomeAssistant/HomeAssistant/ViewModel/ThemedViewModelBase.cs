@@ -1,4 +1,6 @@
 ﻿using System;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using Xamarin.Forms;
 
 namespace HomeAssistant.ViewModel
@@ -9,6 +11,8 @@ namespace HomeAssistant.ViewModel
     /// </summary>
     public class ThemedViewModelBase : IThemedViewModelBase
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
         // Number of backgrounds available for Universal category
         protected static readonly int UniversalBackgroundMaxIndex = 10;
 
@@ -16,7 +20,20 @@ namespace HomeAssistant.ViewModel
 
         protected static Random randomGenerator;
 
-        public virtual ImageSource Background { get; set; }
+        private ImageSource background;
+
+        public virtual ImageSource Background 
+        { 
+            get
+            {
+                return background;
+            }
+            set
+            {
+                background = value;
+                NotifyPropertyChanged(nameof(Background));
+            }
+        }
 
         static ThemedViewModelBase()
         {
@@ -41,6 +58,11 @@ namespace HomeAssistant.ViewModel
                 case Device.UWP: return ResourcePathUWP + image;
                 default: return default(ImageSource);
             }
+        }
+
+        protected void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

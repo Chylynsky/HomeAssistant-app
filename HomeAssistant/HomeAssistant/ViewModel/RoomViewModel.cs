@@ -11,10 +11,8 @@ using System.Net;
 
 namespace HomeAssistant.ViewModel
 {
-    class RoomViewModel : IThemedViewModelBase, INotifyPropertyChanged
+    class RoomViewModel : ThemedViewModelBase
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
         public Command<string> SelectDeviceCommand { get; }
 
         private DeviceViewModelSelector deviceViewModelSelector;
@@ -49,18 +47,11 @@ namespace HomeAssistant.ViewModel
             }
         }
 
-        private ImageSource background;
-
-        public ImageSource Background 
-        { 
+        public string Name
+        {
             get
             {
-                return background;
-            }
-            set
-            {
-                background = value;
-                NotifyPropertyChanged(nameof(Background));
+                return RoomModel.Name;
             }
         }
 
@@ -114,11 +105,6 @@ namespace HomeAssistant.ViewModel
         private DeviceViewModelBase SelectDeviceViewModel(DeviceModelBase deviceModel)
         {
             return deviceViewModelSelector[deviceModel.GetType()](deviceModel);
-        }
-
-        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

@@ -14,17 +14,28 @@ namespace HomeAssistant.ViewModel
     /// <summary>
     /// View model for Home page. Home page contains collection of rooms to select and allows to control them.
     /// </summary>
-    class HomeViewModel : ThemedViewModelBase, INotifyPropertyChanged
+    class HomeViewModel : ThemedViewModelBase
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
         public Command<string> SelectRoomCommand { get; }
 
-        public ObservableCollection<RoomCardViewModel> RoomCardViewModels { get; set; }
+        ObservableCollection<RoomViewModel> roomViewModels;
 
-        public HomeViewModel()
+        public ObservableCollection<RoomViewModel> RoomViewModels 
+        { 
+            get
+            {
+                return roomViewModels;
+            }
+            set
+            {
+                roomViewModels = value;
+                NotifyPropertyChanged(nameof(RoomViewModels));
+            }
+        }
+
+        public HomeViewModel(UserModel userModel = null)
         {
-            RoomCardViewModels = new ObservableCollection<RoomCardViewModel>();
+            RoomViewModels = new ObservableCollection<RoomViewModel>();
 
             SelectRoomCommand = new Command<string>(async (string roomName) =>
             {
@@ -34,31 +45,33 @@ namespace HomeAssistant.ViewModel
                     return;
                 }
 
-                var roomEnumerator = RoomCardViewModels.Where((RoomCardViewModel roomCardViewModel) =>
+                var roomEnumerator = RoomViewModels.Where((RoomViewModel roomViewModel) =>
                 {
-                    return roomCardViewModel.Name.Equals(roomName);
+                    return roomViewModel.RoomModel.Name.Equals(roomName);
                 });
 
-                var selectedRoomCard = roomEnumerator.First();
+                var slectedRoomViewModel = roomEnumerator.First();
 
-                await NavigationService.Navigation.NavigateToAsync<RoomViewModel>(selectedRoomCard.RoomModel, selectedRoomCard.Background);
+                await NavigationService.Navigation.NavigateToAsync<RoomViewModel>(slectedRoomViewModel.RoomModel, slectedRoomViewModel.Background);
             });
 
-            var getUserDataTask = HomeAssistantClient.GetUserData();
-            var getConnectedDevicesTask = HomeAssistantClient.GetConnectedDevices();
+            Task.Run(async () => {
 
-            Task.WhenAll(getUserDataTask, getConnectedDevicesTask).ContinueWith((task) => {
+                if (userModel == null)
+                {
+                    userModel = await HomeAssistantClient.GetUserData();
+                }
 
-                var userData = getUserDataTask.Result;
-                var connectedDevices = getConnectedDevicesTask.Result;
+                var connectedDevices = await HomeAssistantClient.GetConnectedDevices();
 
-                foreach (var roomEntry in userData.Rooms)
+                foreach (var roomEntry in userModel.Rooms)
                 {
                     var roomModel = new RoomModel()
                     {
                         RoomType = (RoomType)Enum.Parse(typeof(RoomType), roomEntry.Type.RemoveWhitespaces()),
                         Name = roomEntry.Name,
-                        Devices = new ObservableCollection<DeviceModelBase>(connectedDevices.Where((DeviceModelBase deviceModel) => {
+                        Devices = new ObservableCollection<DeviceModelBase>(connectedDevices.Where((DeviceModelBase deviceModel) =>
+                        {
 
                             foreach (var deviceEntry in roomEntry.Devices)
                             {
@@ -72,13 +85,9 @@ namespace HomeAssistant.ViewModel
                         }))
                     };
 
-                    var roomCardViewModel = new RoomCardViewModel(roomModel)
+                    Device.BeginInvokeOnMainThread(() =>
                     {
-                        SelectRoomCommand = SelectRoomCommand
-                    };
-
-                    Device.BeginInvokeOnMainThread(() => {
-                        RoomCardViewModels.Add(roomCardViewModel);
+                        RoomViewModels.Add(new RoomViewModel(roomModel));
                     });
                 }
             });

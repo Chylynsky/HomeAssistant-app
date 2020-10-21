@@ -1,5 +1,4 @@
 ﻿using HomeAssistant.Helper;
-using HomeAssistant.Helper.Events;
 using System;
 using System.ComponentModel;
 using System.Net;
@@ -11,8 +10,6 @@ namespace HomeAssistant.ViewModel
 {
     public class LoginViewModel : ThemedViewModelBase, INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
         public Command LoginRequestCommand { get; }
 
         public string Username { get; set; }
@@ -30,7 +27,7 @@ namespace HomeAssistant.ViewModel
                     return;
                 }
 
-                await NavigationService.Navigation.NavigateToAsync<HomeViewModel>();
+                await NavigationService.Navigation.NavigateToAsync<HomeViewModel>(userData);
             });
 
             LoginRequestCommand = new Command(async () => {
@@ -66,11 +63,6 @@ namespace HomeAssistant.ViewModel
                         return;
                 }
             });
-        }
-
-        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

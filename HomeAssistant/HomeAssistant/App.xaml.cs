@@ -16,8 +16,16 @@ namespace HomeAssistant
         {
             InitializeComponent();
 
-            var navigationService = NavigationService.Navigation;
-            navigationService.NavigateToAsync<LoginViewModel>().Wait();
+            Task.Run(async () => {
+                var userData = await HomeAssistantClient.GetUserData();
+
+                if (userData == null)
+                {
+                    await NavigationService.Navigation.NavigateToAsync<LoginViewModel>();
+                }
+
+                await NavigationService.Navigation.NavigateToAsync<HomeViewModel>(userData);
+            }).Wait();
         }
 
         protected override void OnStart()

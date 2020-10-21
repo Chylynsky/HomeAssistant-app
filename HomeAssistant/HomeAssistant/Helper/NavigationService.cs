@@ -23,32 +23,21 @@ namespace HomeAssistant.Helper
         {
             var navigationPage = Application.Current.MainPage as NavigationPage;
 
-            await navigationPage.PopAsync();
+            await (Application.Current.MainPage as NavigationPage).Navigation.PopAsync();
         }
 
         private async Task InternalNavigateToAsync(Type viewModelType, params object[] parameters)
         {
             ContentPage view = CreateView(viewModelType);
+            view.BindingContext = Activator.CreateInstance(viewModelType, parameters);
 
-            if (view is LoginView)
+            if (!(Application.Current.MainPage is NavigationPage))
             {
                 Application.Current.MainPage = new NavigationPage(view);
-            }
-            else
-            {
-                var navigationPage = Application.Current.MainPage as NavigationPage;
-
-                if (navigationPage == null)
-                {
-                    Application.Current.MainPage = new NavigationPage(view);
-                }
-                else
-                {
-                    await navigationPage.PushAsync(view);
-                }
+                return;
             }
 
-            view.BindingContext = Activator.CreateInstance(viewModelType, parameters);
+            await (Application.Current.MainPage as NavigationPage).Navigation.PushAsync(view);
         }
 
         private Type GetViewForViewModel(Type viewModelType)
