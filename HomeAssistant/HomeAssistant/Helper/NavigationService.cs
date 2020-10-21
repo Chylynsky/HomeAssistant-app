@@ -14,6 +14,23 @@ namespace HomeAssistant.Helper
 {
     class NavigationService
     {
+        /// <summary>
+        /// Navigate to the View corresponding to the given ViewModel.
+        /// </summary>
+        /// <param name="viewModel">ViewModel object.</param>
+        /// <returns></returns>
+        public async Task NavigateToAsync(IThemedViewModelBase viewModel)
+        {
+            var view = CreateView(viewModel.GetType());
+            view.BindingContext = viewModel;
+            await (Application.Current.MainPage as NavigationPage).Navigation.PushAsync(view);
+        }
+
+        /// <summary>
+        /// Navigate to the View corresponding to the given ViewModel.
+        /// </summary>
+        /// <param name="viewModel">ViewModel object.</param>
+        /// <returns></returns>
         public async Task NavigateToAsync<TViewModel>(params object[] parameters) where TViewModel : IThemedViewModelBase
         {
             await InternalNavigateToAsync(typeof(TViewModel), parameters);
