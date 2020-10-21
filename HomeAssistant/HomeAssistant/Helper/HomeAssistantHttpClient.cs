@@ -101,10 +101,10 @@ namespace HomeAssistant.Helper
             {
                 var cookie = (Cookie)cookieEnumerator.Current;
 
-                Application.Current.Properties.Add("name", cookie.Name);
-                Application.Current.Properties.Add("value", cookie.Value);
-                Application.Current.Properties.Add("path", cookie.Path);
-                Application.Current.Properties.Add("domain", cookie.Domain);
+                Application.Current.Properties["name"] = cookie.Name;
+                Application.Current.Properties["value"] = cookie.Value;
+                Application.Current.Properties["path"] = cookie.Path;
+                Application.Current.Properties["domain"] = cookie.Domain;
             }
 
             return response.StatusCode;
