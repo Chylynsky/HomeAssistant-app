@@ -18,20 +18,7 @@ namespace HomeAssistant.ViewModel
     {
         public Command<string> SelectRoomCommand { get; }
 
-        ObservableCollection<RoomViewModel> roomViewModels;
-
-        public ObservableCollection<RoomViewModel> RoomViewModels 
-        { 
-            get
-            {
-                return roomViewModels;
-            }
-            set
-            {
-                roomViewModels = value;
-                NotifyPropertyChanged(nameof(RoomViewModels));
-            }
-        }
+        public ObservableCollection<RoomViewModel> RoomViewModels { get; private set; }
 
         public HomeViewModel(UserModel userModel = null)
         {
@@ -52,7 +39,7 @@ namespace HomeAssistant.ViewModel
 
                 var slectedRoomViewModel = roomEnumerator.First();
 
-                await NavigationService.Navigation.NavigateToAsync<RoomViewModel>(slectedRoomViewModel.RoomModel, slectedRoomViewModel.Background);
+                await NavigationService.Navigation.NavigateToAsync(slectedRoomViewModel);
             });
 
             Task.Run(async () => {

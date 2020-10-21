@@ -15,6 +15,8 @@ namespace HomeAssistant.ViewModel
     {
         public Command<string> SelectDeviceCommand { get; }
 
+        private static readonly int ThemedBackgroundMax = 5;
+
         private DeviceViewModelSelector deviceViewModelSelector;
 
         private ObservableCollection<DeviceCardSmallViewModel> deviceCardsViewModels;
@@ -70,11 +72,11 @@ namespace HomeAssistant.ViewModel
             }
         }
 
-        public RoomViewModel(RoomModel roomModel, ImageSource background = default(ImageSource))
+        public RoomViewModel(RoomModel roomModel)
         {
             deviceViewModelSelector = new DeviceViewModelSelector();
             RoomModel = roomModel;
-            Background = background;
+            Background = GetImage();
             DeviceCardsViewModels = new ObservableCollection<DeviceCardSmallViewModel>();
 
             SelectDeviceCommand = new Command<string>((string deviceId) => {
@@ -99,6 +101,31 @@ namespace HomeAssistant.ViewModel
                 };
 
                 DeviceCardsViewModels.Add(deviceCardViewModel);
+            }
+        }
+
+        protected override ImageSource GetImage()
+        {
+            if (RoomModel == null)
+            {
+                return string.Empty;
+            }
+
+            if (RoomModel.RoomType == RoomType.Other)
+            {
+                base.GetImage();
+            }
+
+            string image = RoomModel.RoomType.ToString().ToLower() + randomGenerator.Next(0, ThemedBackgroundMax).ToString() + ".png";
+
+            switch (Device.RuntimePlatform)
+            {
+                case Device.iOS:
+                    return string.Empty;
+                case Device.Android:
+                    return image;
+                case Device.UWP: return ResourcePathUWP + image;
+                default: return string.Empty;
             }
         }
 
