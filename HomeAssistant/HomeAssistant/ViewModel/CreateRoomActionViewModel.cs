@@ -1,5 +1,6 @@
 ﻿using HomeAssistant.Helper;
 using HomeAssistant.Model;
+using HomeAssistant.Model.Devices;
 using HomeAssistant.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -63,22 +64,22 @@ namespace HomeAssistant.View
             }
         }
 
-        public ObservableCollection<DeviceModelBase> AvailableDevices { get; private set; }
+        public ObservableCollection<IDeviceModel> AvailableDevices { get; private set; }
 
         public CreateRoomActionViewModel()
         {
             roomModel = new RoomModel();
-            AvailableDevices = new ObservableCollection<DeviceModelBase>();
+            AvailableDevices = new ObservableCollection<IDeviceModel>();
 
             Task.Run(async () => {
-                var availableDevices = await HomeAssistantClient.GetConnectedDevices();
+                var availableDevices = await HomeAssistantHttpClient.GetConnectedDevices();
 
                 if (availableDevices == null && availableDevices.Count == 0)
                 {
                     return;
                 }
 
-                AvailableDevices = new ObservableCollection<DeviceModelBase>(availableDevices);
+                AvailableDevices = new ObservableCollection<IDeviceModel>(availableDevices);
             });
 
             CreateRoomCommand = new Command(() => {

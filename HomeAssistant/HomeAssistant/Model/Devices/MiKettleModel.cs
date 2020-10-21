@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace HomeAssistant.Model
+namespace HomeAssistant.Model.Devices
 {
     public enum Action
     {

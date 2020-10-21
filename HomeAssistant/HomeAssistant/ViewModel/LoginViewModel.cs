@@ -30,7 +30,7 @@ namespace HomeAssistant.ViewModel
                     return;
                 }
 
-                HttpStatusCode status = await HomeAssistantClient.RequestLogin(Username, Password);
+                HttpStatusCode status = await HomeAssistantHttpClient.RequestLogin(Username, Password);
 
                 switch (status)
                 {

@@ -8,6 +8,7 @@ using HomeAssistant.Model;
 using HomeAssistant.Helper;
 using System.Net;
 using System.Threading.Tasks;
+using HomeAssistant.Model.Devices;
 
 namespace HomeAssistant.ViewModel
 {
@@ -74,10 +75,10 @@ namespace HomeAssistant.ViewModel
         {
             if (userModel == null)
             {
-                userModel = await HomeAssistantClient.GetUserData();
+                userModel = await HomeAssistantHttpClient.GetUserData();
             }
 
-            var connectedDevices = await HomeAssistantClient.GetConnectedDevices();
+            var connectedDevices = await HomeAssistantHttpClient.GetConnectedDevices();
 
             foreach (var roomEntry in userModel.Rooms)
             {
@@ -85,7 +86,7 @@ namespace HomeAssistant.ViewModel
                 {
                     RoomType = (RoomType)Enum.Parse(typeof(RoomType), roomEntry.Type.RemoveWhitespaces()),
                     Name = roomEntry.Name,
-                    Devices = new ObservableCollection<DeviceModelBase>(connectedDevices.Where((DeviceModelBase deviceModel) =>
+                    Devices = new ObservableCollection<IDeviceModel>(connectedDevices.Where((IDeviceModel deviceModel) =>
                     {
 
                         foreach (var deviceEntry in roomEntry.Devices)

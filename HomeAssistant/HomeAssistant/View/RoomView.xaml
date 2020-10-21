@@ -67,7 +67,7 @@
                                         <RowDefinition Height="1*"/>
                                         <RowDefinition Height="1*"/>
                                     </Grid.RowDefinitions>
-                                    <Label Grid.Row="0" Text="{Binding Title}" TextColor="Black" HorizontalOptions="CenterAndExpand" VerticalOptions="StartAndExpand"/>
+                                    <Label Grid.Row="0" Text="{Binding Name}" TextColor="Black" HorizontalOptions="CenterAndExpand" VerticalOptions="StartAndExpand"/>
                                     <Image Grid.Row="1"/>
                                 </Grid>
                             </Frame>

@@ -1,24 +1,20 @@
-﻿using HomeAssistant.Helper;
-using HomeAssistant.Model;
-using System;
+﻿using HomeAssistant.Model.Devices;
 using System.ComponentModel;
-using System.Net;
 using System.Runtime.CompilerServices;
-using Xamarin.Forms;
 
-namespace HomeAssistant.ViewModel.DeviceViewModels
+namespace HomeAssistant.ViewModel.Devices
 {
-    abstract class DeviceViewModelBase : IActionViewModel
+    public abstract class DeviceViewModelBase : IDeviceViewModel
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected DeviceModelBase deviceModel;
+        public IDeviceModel DeviceModel { get; private set; }
 
-        public string Title
+        public string Name
         {
             get
             {
-                return deviceModel.Name;
+                return DeviceModel.Name;
             }
         }
 
@@ -26,18 +22,20 @@ namespace HomeAssistant.ViewModel.DeviceViewModels
         {
             get
             {
-                return deviceModel.Id;
+                return DeviceModel.Id;
             }
         }
 
-        public DeviceViewModelBase(DeviceModelBase deviceModel)
+        public DeviceViewModelBase(IDeviceModel deviceModel)
         {
-            this.deviceModel = deviceModel;
+            DeviceModel = deviceModel;
         }
 
         protected void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        public abstract void UpdateData();
     }
 }

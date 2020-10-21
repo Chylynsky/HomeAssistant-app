@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using HomeAssistant.Model.Devices;
 using System.Collections.ObjectModel;
-using System.Text;
-using Xamarin.Forms;
 
 namespace HomeAssistant.Model
 {
@@ -22,6 +19,6 @@ namespace HomeAssistant.Model
 
         public string Name { get; set; }
 
-        public ObservableCollection<DeviceModelBase> Devices { get; set; }
+        public ObservableCollection<IDeviceModel> Devices { get; set; }
     }
 }

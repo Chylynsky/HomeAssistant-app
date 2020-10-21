@@ -38,9 +38,6 @@
     <Compile Update="View\HomeView.xaml.cs">
       <DependentUpon>HomeView.xaml</DependentUpon>
     </Compile>
-    <Compile Update="View\DeviceCardSmallView.xaml.cs">
-      <DependentUpon>DeviceCardSmallView.xaml</DependentUpon>
-    </Compile>
     <Compile Update="View\RoomView.xaml.cs">
       <DependentUpon>RoomView.xaml</DependentUpon>
     </Compile>
@@ -57,10 +54,7 @@
     <EmbeddedResource Update="View\CreateRoomActionView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="View\DeviceCardSmallView.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="View\DeviceViews\MiKettleView.xaml">
+    <EmbeddedResource Update="View\Devices\MiKettleView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="View\HomeView.xaml">

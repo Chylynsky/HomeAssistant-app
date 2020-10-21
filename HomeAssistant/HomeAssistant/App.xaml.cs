@@ -17,7 +17,7 @@ namespace HomeAssistant
             InitializeComponent();
 
             Task.Run(async () => {
-                var userData = await HomeAssistantClient.GetUserData();
+                var userData = await HomeAssistantHttpClient.GetUserData();
 
                 if (userData == null)
                 {

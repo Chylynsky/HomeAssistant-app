@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using Xamarin.Forms;
 using HomeAssistant.Model;
-using HomeAssistant.ViewModel.DeviceViewModels;
+using HomeAssistant.ViewModel.Devices;
 using HomeAssistant.Helper;
-using System.Net;
+using HomeAssistant.Model.Devices;
 
 namespace HomeAssistant.ViewModel
 {
@@ -17,11 +14,9 @@ namespace HomeAssistant.ViewModel
 
         private static readonly int ThemedBackgroundMax = 5;
 
-        private DeviceViewModelSelector deviceViewModelSelector;
+        private ObservableCollection<IDeviceViewModel> deviceViewModels;
 
-        private ObservableCollection<DeviceViewModelBase> deviceViewModels;
-
-        public ObservableCollection<DeviceViewModelBase> DeviceViewModels
+        public ObservableCollection<IDeviceViewModel> DeviceViewModels
         {
             get
             {
@@ -57,9 +52,9 @@ namespace HomeAssistant.ViewModel
             }
         }
 
-        private DeviceViewModelBase selectedDevice;
+        private IDeviceViewModel selectedDevice;
 
-        public DeviceViewModelBase SelectedDeviceViewModel 
+        public IDeviceViewModel SelectedDeviceViewModel 
         {
             get
             {
@@ -74,10 +69,9 @@ namespace HomeAssistant.ViewModel
 
         public RoomViewModel(RoomModel roomModel)
         {
-            deviceViewModelSelector = new DeviceViewModelSelector();
             RoomModel = roomModel;
             Background = GetImage();
-            DeviceViewModels = new ObservableCollection<DeviceViewModelBase>();
+            DeviceViewModels = new ObservableCollection<IDeviceViewModel>();
 
             SelectDeviceCommand = new Command<string>((string deviceId) => {
 
@@ -86,16 +80,16 @@ namespace HomeAssistant.ViewModel
                     return;
                 }
 
-                var deviceEnumerator = DeviceViewModels.Where((DeviceViewModelBase deviceViewModel) => {
+                var deviceEnumerator = DeviceViewModels.Where((IDeviceViewModel deviceViewModel) => {
                     return deviceViewModel.Id.Equals(deviceId);
                 });
 
                 SelectedDeviceViewModel = deviceEnumerator.First();
             });
 
-            foreach (DeviceModelBase deviceModel in RoomModel.Devices)
+            foreach (IDeviceModel deviceModel in RoomModel.Devices)
             {
-                DeviceViewModels.Add(SelectDeviceViewModel(deviceModel));
+                DeviceViewModels.Add(DeviceLinker.GetDeviceViewModelForModel(deviceModel.GetType()));
             }
         }
 
@@ -122,11 +116,6 @@ namespace HomeAssistant.ViewModel
                 case Device.UWP: return ResourcePathUWP + image;
                 default: return string.Empty;
             }
-        }
-
-        private DeviceViewModelBase SelectDeviceViewModel(DeviceModelBase deviceModel)
-        {
-            return deviceViewModelSelector[deviceModel.GetType()](deviceModel);
         }
     }
 }

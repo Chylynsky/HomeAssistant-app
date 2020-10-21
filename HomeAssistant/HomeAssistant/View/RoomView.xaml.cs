@@ -9,8 +9,6 @@ namespace HomeAssistant.View
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class RoomView : ContentPage
     { 
-        private DeviceViewSelector deviceViewSelector;
-
         public RoomView()
         {
             InitializeComponent();
@@ -30,7 +28,6 @@ namespace HomeAssistant.View
                 default: break;
             }
 
-            deviceViewSelector = new DeviceViewSelector();
             actionCard.TranslationY = Bounds.Bottom;
         }
 
@@ -83,7 +80,7 @@ namespace HomeAssistant.View
             }
 
             // Create device view instance based on BindingContext type
-            actionCard.InnerContent = deviceViewSelector[actionCard.BindingContext.GetType()].Invoke();
+            actionCard.InnerContent = DeviceLinker.GetDeviceViewForViewModel(actionCard.BindingContext.GetType());
             actionCard.InnerContent.BindingContext = actionCard.BindingContext;
         }
     }

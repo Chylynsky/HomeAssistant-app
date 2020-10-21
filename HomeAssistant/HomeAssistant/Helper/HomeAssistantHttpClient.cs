@@ -5,12 +5,13 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using HomeAssistant.Model;
+using HomeAssistant.Model.Devices;
 using Newtonsoft.Json;
 using Xamarin.Forms;
 
 namespace HomeAssistant.Helper
 {
-    public static class HomeAssistantClient
+    public static class HomeAssistantHttpClient
     {
         private static HttpClient httpClient;
 
@@ -40,7 +41,7 @@ namespace HomeAssistant.Helper
             }
         }
 
-        static HomeAssistantClient()
+        static HomeAssistantHttpClient()
         {
             clientHandler = new HttpClientHandler();
             Proxy = new WebProxy(HomeAssistant.Properties.Resources.Proxy);
@@ -50,9 +51,9 @@ namespace HomeAssistant.Helper
             httpClient.Timeout = TimeSpan.FromSeconds(5.0);
         }
 
-        public static async Task<List<DeviceModelBase>> GetConnectedDevices()
+        public static async Task<List<IDeviceModel>> GetConnectedDevices()
         {
-            var deviceList = new List<DeviceModelBase>();
+            var deviceList = new List<IDeviceModel>();
 
             HttpResponseMessage response = await httpClient.GetAsync("devices", HttpCompletionOption.ResponseContentRead);
 
@@ -64,12 +65,9 @@ namespace HomeAssistant.Helper
             string responseContent = await response.Content.ReadAsStringAsync();
             var devicesList = JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(responseContent);
 
-            DeviceModelSelector deviceModelSelector = new DeviceModelSelector();
-
             foreach (var deviceEntry in devicesList)
             {
-                var deviceFactory = deviceModelSelector[deviceEntry["Type"]];
-                var device = deviceFactory.Invoke();
+                var device = DeviceLinker.GetDeviceModelForTypeName(deviceEntry["Type"]);
 
                 device.Id = deviceEntry["Id"];
                 device.Name = deviceEntry["Name"];
