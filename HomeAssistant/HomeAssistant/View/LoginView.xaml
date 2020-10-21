@@ -10,7 +10,7 @@
             <Image Source="{Binding Background}" Aspect="AspectFill"/>
 
             <ScrollView HeightRequest="500" WidthRequest="500" HorizontalOptions="Center" VerticalOptions="Center">
-                <Frame BackgroundColor="FloralWhite" Margin="30" Opacity="0.8" CornerRadius="20">
+                <Frame BackgroundColor="FloralWhite" Margin="30" Opacity="0.95" CornerRadius="20">
 
                     <Grid>
 
