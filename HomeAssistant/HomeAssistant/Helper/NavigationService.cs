@@ -27,9 +27,10 @@ namespace HomeAssistant.Helper
         }
 
         /// <summary>
-        /// Navigate to the View corresponding to the given ViewModel.
+        /// Navigate to the View corresponding to the given ViewModel type.
         /// </summary>
-        /// <param name="viewModel">ViewModel object.</param>
+        /// <typeparam name="TViewModel">Type of ViewModel to be navigated to.</typeparam>
+        /// <param name="parameters">Arguments passed to ViewModel constructor.</param>
         /// <returns></returns>
         public async Task NavigateToAsync<TViewModel>(params object[] parameters) where TViewModel : IThemedViewModelBase
         {
