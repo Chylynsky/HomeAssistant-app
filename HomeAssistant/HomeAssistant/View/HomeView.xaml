@@ -38,15 +38,15 @@
             </Frame>
 
             <ScrollView x:Name="scrollViewMain" Grid.Row="1">
-                <FlexLayout x:Name="flexLayoutMain" BindableLayout.ItemsSource="{Binding RoomViewModels, Mode=OneWay}" Wrap="Wrap" 
-                        Margin="20" FlowDirection="LeftToRight" Direction="Row" AlignContent="Start" JustifyContent="SpaceBetween">
-
-                    <FlexLayout.Basis>
-                        <OnPlatform x:TypeArguments="FlexBasis">
-                            <On Platform="Android" Value="100%"/>
-                            <On Platform="UWP" Value="50%"/>
-                        </OnPlatform>
-                    </FlexLayout.Basis>
+                <FlexLayout 
+                    x:Name="flexLayoutMain" 
+                    BindableLayout.ItemsSource="{Binding RoomViewModels, Mode=OneWay}"
+                    Wrap="Wrap" 
+                    FlowDirection="LeftToRight" 
+                    Direction="Row" 
+                    AlignContent="Start" 
+                    JustifyContent="SpaceBetween"
+                    Padding="10">
 
                     <BindableLayout.ItemTemplate>
                         <DataTemplate>
@@ -60,19 +60,27 @@
                                 CornerRadius="20" 
                                 Padding="0" 
                                 HasShadow="True" 
-                                Opacity="0">
+                                Opacity="1">
+
+                                <FlexLayout.Basis>
+                                    <OnPlatform x:TypeArguments="FlexBasis">
+                                        <On Platform="Android" Value="100%"/>
+                                        <On Platform="UWP" Value="50%"/>
+                                    </OnPlatform>
+                                </FlexLayout.Basis>
 
                                 <Frame.GestureRecognizers>
                                     <TapGestureRecognizer 
-                                        Command="{Binding SelectRoomCommand, Source={RelativeSource AncestorType={x:Type ViewModel:HomeViewModel}}}"
+                                        Command="{Binding SelectRoomCommand, Source={RelativeSource AncestorType={x:Type ViewModel:HomeViewModel}}, Mode=OneWay}"
                                         CommandParameter="{Binding Name, Mode=OneWay}"/>
                                 </Frame.GestureRecognizers>
                                 
                                 <Frame.Content>
                                     <Grid>
-                                        <Image Aspect="AspectFill" Source="{Binding Background, Mode=OneTime}"/>
-                                        <Frame Margin="40" BackgroundColor="FloralWhite" CornerRadius="20" Opacity="0.7" HasShadow="False"/>
-                                        <Label Text="{Binding Name, Mode=OneWay}" TextColor="Black" FontSize="Title" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+                                        <Image Aspect="AspectFill" Source="{Binding Background, Mode=OneWay}"/>
+                                        <Frame Margin="40" BackgroundColor="FloralWhite" CornerRadius="20" Opacity="0.8" HasShadow="False" Padding="0">
+                                            <Label Text="{Binding Name, Mode=OneWay}" TextColor="Black" FontSize="Title" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+                                        </Frame>
                                     </Grid>
                                 </Frame.Content>
                                 
