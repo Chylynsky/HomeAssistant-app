@@ -18,18 +18,6 @@ namespace HomeAssistant.ViewModel
 
         public LoginViewModel()
         {
-            // Try to get user data, change UserAuthenticated property on success
-            Task.Run(async () => {
-                var userData = await HomeAssistantClient.GetUserData();
-
-                if (userData == null)
-                {
-                    return;
-                }
-
-                await NavigationService.Navigation.NavigateToAsync<HomeViewModel>(userData);
-            });
-
             LoginRequestCommand = new Command(async () => {
 
                 if (string.IsNullOrEmpty(Username))

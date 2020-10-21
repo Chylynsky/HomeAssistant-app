@@ -3,8 +3,7 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
     xmlns:Controls="clr-namespace:HomeAssistant.Controls"
-    xmlns:View="clr-namespace:HomeAssistant.View" 
-    xmlns:Helper="clr-namespace:HomeAssistant.Helper"
+    xmlns:ViewModel="clr-namespace:HomeAssistant.ViewModel" 
     x:Class="HomeAssistant.View.RoomView"
     NavigationPage.HasNavigationBar="False">
 
@@ -18,7 +17,7 @@
 
             <Image Aspect="AspectFill" Grid.RowSpan="2" Source="{Binding Background}"/>
 
-            <Frame Grid.Row="0" BackgroundColor="FloralWhite" Margin="10" Opacity="0.7" CornerRadius="20" Padding="0" HasShadow="False">
+            <Frame Grid.Row="0" BackgroundColor="FloralWhite" Margin="10" Opacity="0.9" CornerRadius="20" Padding="0" HasShadow="False">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1*"/>
@@ -42,11 +41,37 @@
             </Frame>
 
             <ScrollView x:Name="scrollViewMain" Grid.Row="1">
-                <FlexLayout x:Name="flexLayoutMain" BindableLayout.ItemsSource="{Binding DeviceCardsViewModels}" Wrap="Wrap" 
+                <FlexLayout x:Name="flexLayoutMain" BindableLayout.ItemsSource="{Binding DeviceViewModels}" Wrap="Wrap" 
                         Margin="20" FlowDirection="LeftToRight" Direction="Row" AlignContent="Start" JustifyContent="SpaceBetween">
                     <BindableLayout.ItemTemplate>
                         <DataTemplate>
-                            <View:DeviceCardSmallView BindingContext="{Binding}" FlexLayout.Basis="50%" HeightRequest="130" Margin="10" Clicked="deviceCard_Clicked"/>
+
+                            <Frame
+                                BackgroundColor="FloralWhite" 
+                                BorderColor="PeachPuff" 
+                                CornerRadius="20" 
+                                HasShadow="True"
+                                BindingContext="{Binding}"
+                                FlexLayout.Basis="50%" 
+                                HeightRequest="130" 
+                                Margin="10">
+
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding SelectDeviceCommand, Source={RelativeSource AncestorType={x:Type ViewModel:RoomViewModel}}, Mode=OneWay}"
+                                                          CommandParameter="{Binding Id}" 
+                                                          Tapped="deviceCard_Clicked"/>
+                                </Frame.GestureRecognizers>
+
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="1*"/>
+                                        <RowDefinition Height="1*"/>
+                                    </Grid.RowDefinitions>
+                                    <Label Grid.Row="0" Text="{Binding Title}" TextColor="Black" HorizontalOptions="CenterAndExpand" VerticalOptions="StartAndExpand"/>
+                                    <Image Grid.Row="1"/>
+                                </Grid>
+                            </Frame>
+
                         </DataTemplate>
                     </BindableLayout.ItemTemplate>
                 </FlexLayout>

@@ -15,6 +15,11 @@ namespace HomeAssistant.Helper
     class NavigationService
     {
         /// <summary>
+        /// NavigationService singleton instance.
+        /// </summary>
+        public static NavigationService Navigation { get; } = new NavigationService();
+
+        /// <summary>
         /// Navigate to the View corresponding to the given ViewModel.
         /// </summary>
         /// <param name="viewModel">ViewModel object.</param>
@@ -30,6 +35,27 @@ namespace HomeAssistant.Helper
         /// Navigate to the View corresponding to the given ViewModel type.
         /// </summary>
         /// <typeparam name="TViewModel">Type of ViewModel to be navigated to.</typeparam>
+        /// <returns></returns>
+        public async Task NavigateToAsync<TViewModel>() where TViewModel : IThemedViewModelBase
+        {
+            await InternalNavigateToAsync(typeof(TViewModel), null);
+        }
+
+        /// <summary>
+        /// Navigate to the View corresponding to the given ViewModel type.
+        /// </summary>
+        /// <typeparam name="TViewModel">Type of ViewModel to be navigated to.</typeparam>
+        /// <param name="parameter">Parameter passed to the ViewModel constructor.</param>
+        /// <returns></returns>
+        public async Task NavigateToAsync<TViewModel>(object parameter) where TViewModel : IThemedViewModelBase
+        {
+            await InternalNavigateToAsync(typeof(TViewModel), parameter);
+        }
+
+        /// <summary>
+        /// Navigate to the View corresponding to the given ViewModel type.
+        /// </summary>
+        /// <typeparam name="TViewModel">Type of ViewModel to be navigated to.</typeparam>
         /// <param name="parameters">Arguments passed to ViewModel constructor.</param>
         /// <returns></returns>
         public async Task NavigateToAsync<TViewModel>(params object[] parameters) where TViewModel : IThemedViewModelBase
@@ -39,8 +65,6 @@ namespace HomeAssistant.Helper
 
         public async Task NavigateBackAsync()
         {
-            var navigationPage = Application.Current.MainPage as NavigationPage;
-
             await (Application.Current.MainPage as NavigationPage).Navigation.PopAsync();
         }
 
@@ -84,7 +108,5 @@ namespace HomeAssistant.Helper
 
             return Activator.CreateInstance(viewType) as ContentPage;
         }
-
-        public static NavigationService Navigation { get; } = new NavigationService();
     }
 }

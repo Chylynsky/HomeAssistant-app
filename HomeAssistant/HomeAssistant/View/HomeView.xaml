@@ -16,7 +16,7 @@
 
             <Image Grid.RowSpan="2" Aspect="AspectFill" Source="{Binding Background, Mode=OneTime}"/>
 
-            <Frame Grid.Row="0" BackgroundColor="FloralWhite" Margin="10" Opacity="0.7" CornerRadius="20" Padding="0" HasShadow="False">
+            <Frame Grid.Row="0" BackgroundColor="FloralWhite" Margin="10" Opacity="0.9" CornerRadius="20" Padding="0" HasShadow="False">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="5*"/>
@@ -45,8 +45,7 @@
                     FlowDirection="LeftToRight" 
                     Direction="Row" 
                     AlignContent="Start" 
-                    JustifyContent="SpaceBetween"
-                    Padding="10">
+                    JustifyContent="SpaceBetween">
 
                     <BindableLayout.ItemTemplate>
                         <DataTemplate>
@@ -56,7 +55,7 @@
                                 BackgroundColor="FloralWhite" 
                                 BorderColor="Transparent" 
                                 HeightRequest="130" 
-                                Margin="10" 
+                                Margin="20" 
                                 CornerRadius="20" 
                                 Padding="0" 
                                 HasShadow="True" 

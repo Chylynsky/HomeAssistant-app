@@ -20,7 +20,7 @@ namespace HomeAssistant.ViewModel
 
         public ObservableCollection<RoomViewModel> RoomViewModels { get; private set; }
 
-        public HomeViewModel(UserModel userModel = null)
+        public HomeViewModel()
         {
             RoomViewModels = new ObservableCollection<RoomViewModel>();
 
@@ -42,42 +42,69 @@ namespace HomeAssistant.ViewModel
                 await NavigationService.Navigation.NavigateToAsync(slectedRoomViewModel);
             });
 
-            Task.Run(async () => {
+            Task.Run(async () => { await InitializeAsync(null); });
+        }
 
-                if (userModel == null)
+        public HomeViewModel(UserModel userModel)
+        {
+            RoomViewModels = new ObservableCollection<RoomViewModel>();
+
+            SelectRoomCommand = new Command<string>(async (string roomName) =>
+            {
+
+                if (roomName == null)
                 {
-                    userModel = await HomeAssistantClient.GetUserData();
+                    return;
                 }
 
-                var connectedDevices = await HomeAssistantClient.GetConnectedDevices();
-
-                foreach (var roomEntry in userModel.Rooms)
+                var roomEnumerator = RoomViewModels.Where((RoomViewModel roomViewModel) =>
                 {
-                    var roomModel = new RoomModel()
-                    {
-                        RoomType = (RoomType)Enum.Parse(typeof(RoomType), roomEntry.Type.RemoveWhitespaces()),
-                        Name = roomEntry.Name,
-                        Devices = new ObservableCollection<DeviceModelBase>(connectedDevices.Where((DeviceModelBase deviceModel) =>
-                        {
+                    return roomViewModel.RoomModel.Name.Equals(roomName);
+                });
 
-                            foreach (var deviceEntry in roomEntry.Devices)
-                            {
-                                if (deviceEntry.Id == deviceModel.Id)
-                                {
-                                    return true;
-                                }
-                            }
+                var slectedRoomViewModel = roomEnumerator.First();
 
-                            return false;
-                        }))
-                    };
-
-                    Device.BeginInvokeOnMainThread(() =>
-                    {
-                        RoomViewModels.Add(new RoomViewModel(roomModel));
-                    });
-                }
+                await NavigationService.Navigation.NavigateToAsync(slectedRoomViewModel);
             });
+
+            Task.Run(async () => { await InitializeAsync(userModel); });
+        }
+
+        private async Task InitializeAsync(UserModel userModel)
+        {
+            if (userModel == null)
+            {
+                userModel = await HomeAssistantClient.GetUserData();
+            }
+
+            var connectedDevices = await HomeAssistantClient.GetConnectedDevices();
+
+            foreach (var roomEntry in userModel.Rooms)
+            {
+                var roomModel = new RoomModel()
+                {
+                    RoomType = (RoomType)Enum.Parse(typeof(RoomType), roomEntry.Type.RemoveWhitespaces()),
+                    Name = roomEntry.Name,
+                    Devices = new ObservableCollection<DeviceModelBase>(connectedDevices.Where((DeviceModelBase deviceModel) =>
+                    {
+
+                        foreach (var deviceEntry in roomEntry.Devices)
+                        {
+                            if (deviceEntry.Id == deviceModel.Id)
+                            {
+                                return true;
+                            }
+                        }
+
+                        return false;
+                    }))
+                };
+
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    RoomViewModels.Add(new RoomViewModel(roomModel));
+                });
+            }
         }
     }
 }

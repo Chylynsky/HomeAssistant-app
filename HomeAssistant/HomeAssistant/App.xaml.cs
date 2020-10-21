@@ -22,6 +22,7 @@ namespace HomeAssistant
                 if (userData == null)
                 {
                     await NavigationService.Navigation.NavigateToAsync<LoginViewModel>();
+                    return;
                 }
 
                 await NavigationService.Navigation.NavigateToAsync<HomeViewModel>(userData);

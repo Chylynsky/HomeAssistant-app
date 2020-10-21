@@ -19,18 +19,18 @@ namespace HomeAssistant.ViewModel
 
         private DeviceViewModelSelector deviceViewModelSelector;
 
-        private ObservableCollection<DeviceCardSmallViewModel> deviceCardsViewModels;
+        private ObservableCollection<DeviceViewModelBase> deviceViewModels;
 
-        public ObservableCollection<DeviceCardSmallViewModel> DeviceCardsViewModels
+        public ObservableCollection<DeviceViewModelBase> DeviceViewModels
         {
             get
             {
-                return deviceCardsViewModels;
+                return deviceViewModels;
             }
             private set
             {
-                deviceCardsViewModels = value;
-                NotifyPropertyChanged(nameof(DeviceCardsViewModels));
+                deviceViewModels = value;
+                NotifyPropertyChanged(nameof(DeviceViewModels));
             }
         }
 
@@ -77,7 +77,7 @@ namespace HomeAssistant.ViewModel
             deviceViewModelSelector = new DeviceViewModelSelector();
             RoomModel = roomModel;
             Background = GetImage();
-            DeviceCardsViewModels = new ObservableCollection<DeviceCardSmallViewModel>();
+            DeviceViewModels = new ObservableCollection<DeviceViewModelBase>();
 
             SelectDeviceCommand = new Command<string>((string deviceId) => {
 
@@ -86,21 +86,16 @@ namespace HomeAssistant.ViewModel
                     return;
                 }
 
-                var deviceEnumerator = RoomModel.Devices.Where((DeviceModelBase device) => {
-                    return device.Id.Equals(deviceId);
+                var deviceEnumerator = DeviceViewModels.Where((DeviceViewModelBase deviceViewModel) => {
+                    return deviceViewModel.Id.Equals(deviceId);
                 });
 
-                SelectedDeviceViewModel = SelectDeviceViewModel(deviceEnumerator.First());
+                SelectedDeviceViewModel = deviceEnumerator.First();
             });
 
             foreach (DeviceModelBase deviceModel in RoomModel.Devices)
             {
-                var deviceCardViewModel = new DeviceCardSmallViewModel(deviceModel)
-                { 
-                    SelectDeviceCommand = SelectDeviceCommand 
-                };
-
-                DeviceCardsViewModels.Add(deviceCardViewModel);
+                DeviceViewModels.Add(SelectDeviceViewModel(deviceModel));
             }
         }
 
