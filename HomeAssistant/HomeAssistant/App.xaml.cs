@@ -19,7 +19,7 @@ namespace HomeAssistant
         {
             InitializeComponent();
 
-            // Setting page on application start allows the use of Page boundaries in later navigation
+            // Create placeholder Page on application start to allow the use of Page boundaries in later navigation
             MainPage = new ContentPage
             {
                 BackgroundImageSource = @"Assets\\universal0.png"

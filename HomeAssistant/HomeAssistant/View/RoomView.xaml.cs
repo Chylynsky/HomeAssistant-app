@@ -46,6 +46,11 @@ namespace HomeAssistant.View
                 return;
             }
 
+            if (actionCard.InnerContent != null && actionCard.BindingContext == actionCard.InnerContent.BindingContext)
+            {
+                return;
+            }
+
             // Create device view instance based on BindingContext type
             actionCard.InnerContent = DeviceLinker.GetDeviceViewForViewModel(actionCard.BindingContext.GetType());
         }

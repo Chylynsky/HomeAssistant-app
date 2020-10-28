@@ -7,6 +7,7 @@ using System.Globalization;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Media.Core;
 using Windows.UI.Xaml.Controls;
 using Xamarin.Forms;
 

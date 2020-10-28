@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using HomeAssistant.Helper;
 using HomeAssistant.Model.Devices;
+using Xamarin.Forms;
 
 namespace HomeAssistant.ViewModel.Devices
 {
