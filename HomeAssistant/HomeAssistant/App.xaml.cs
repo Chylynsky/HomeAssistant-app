@@ -7,6 +7,9 @@ using System.Net;
 using System.Resources;
 using System.Threading.Tasks;
 using HomeAssistant.ViewModel;
+using System.Collections.Generic;
+using HomeAssistant.Model;
+using System.Net.Http;
 
 namespace HomeAssistant
 {
@@ -16,8 +19,15 @@ namespace HomeAssistant
         {
             InitializeComponent();
 
-            Task.Run(async () => {
-                var userData = await HomeAssistantHttpClient.GetUserData();
+            // Setting page on application start allows the use of Page boundaries in later navigation
+            MainPage = new ContentPage
+            {
+                BackgroundImageSource = @"Assets\\universal0.png"
+            };
+
+            Device.BeginInvokeOnMainThread(async () =>
+            {
+                UserModel userData = await HomeAssistantHttpClient.GetUserData();
 
                 if (userData == null)
                 {
@@ -26,7 +36,7 @@ namespace HomeAssistant
                 }
 
                 await NavigationService.Navigation.NavigateToAsync<HomeViewModel>(userData);
-            }).Wait();
+            });
         }
 
         protected override void OnStart()

@@ -63,6 +63,7 @@ namespace HomeAssistant.ViewModel
             private set
             {
                 selectedDevice = value;
+                selectedDevice.UpdateData();
                 NotifyPropertyChanged(nameof(SelectedDeviceViewModel));
             }
         }

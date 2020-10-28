@@ -87,7 +87,16 @@ namespace HomeAssistant.Helper
 
             string serializedData = JsonConvert.SerializeObject(credentials);
             StringContent content = new StringContent(serializedData, Encoding.UTF8, "application/json");
-            HttpResponseMessage response = await httpClient.PostAsync("login", content);
+            HttpResponseMessage response = null;
+
+            try
+            {
+                response = await httpClient.PostAsync("login", content);
+            }
+            catch (TaskCanceledException)
+            {
+                return HttpStatusCode.ServiceUnavailable;
+            }
 
             if (!response.IsSuccessStatusCode)
             {
@@ -133,7 +142,17 @@ namespace HomeAssistant.Helper
                     (string)cookieValue, 
                     (string)cookiePath, 
                     (string)cookieDomain));
-            HttpResponseMessage response = await httpClient.GetAsync("user");
+
+            HttpResponseMessage response = null;
+
+            try
+            {
+                response = await httpClient.GetAsync("user");
+            }
+            catch (TaskCanceledException)
+            {
+                return null;
+            }
 
             if (!response.IsSuccessStatusCode)
             {

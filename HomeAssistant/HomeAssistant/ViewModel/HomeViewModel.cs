@@ -9,6 +9,7 @@ using HomeAssistant.Helper;
 using System.Net;
 using System.Threading.Tasks;
 using HomeAssistant.Model.Devices;
+using HomeAssistant.View;
 
 namespace HomeAssistant.ViewModel
 {
@@ -20,6 +21,8 @@ namespace HomeAssistant.ViewModel
         public Command<string> SelectRoomCommand { get; }
 
         public ObservableCollection<RoomViewModel> RoomViewModels { get; private set; }
+
+        public CreateRoomViewModel CreateRoomViewModel { get; private set; }
 
         public HomeViewModel()
         {

@@ -92,15 +92,12 @@
 
             <Controls:ActionCard 
                 x:Name="actionCard" 
-                Title="{Binding Title}"
+                BindingContext="{Binding CreateRoomViewModel}"
+                Title="{Binding Title, Mode=OneWay}"
                 BindingContextChanged="actionCard_BindingContextChanged"
                 Grid.RowSpan="2"
-                IsEnabled="false" 
-                IsVisible="false"
-                Scale="0.8"
-                TitleFontColor="Black"
-                Closed="actionCard_Closed"
-                Swiped="actionCard_Swiped"/>
+                IsUp="False"
+                TitleFontColor="Black"/>
 
         </Grid>
     </ContentPage.Content>

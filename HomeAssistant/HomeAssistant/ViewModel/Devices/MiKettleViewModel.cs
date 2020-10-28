@@ -175,7 +175,6 @@ namespace HomeAssistant.ViewModel.Devices
                 }
 
                 // Avoid setting values via properties which would cause PUT requests sent to server
-
                 ((MiKettleModel)DeviceModel).TemperatureCurrent = deviceData.temperature.current;
                 ((MiKettleModel)DeviceModel).TemperatureSet = deviceData.temperature.set;
                 ((MiKettleModel)DeviceModel).KeepWarmTimeLimit = deviceData.keep_warm.time_limit;

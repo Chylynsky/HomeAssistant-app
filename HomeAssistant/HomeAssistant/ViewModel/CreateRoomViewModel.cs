@@ -13,7 +13,7 @@ using Xamarin.Forms;
 
 namespace HomeAssistant.View
 {
-    public class CreateRoomActionViewModel : IActionViewModel
+    public class CreateRoomViewModel : IActionViewModel
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -66,7 +66,7 @@ namespace HomeAssistant.View
 
         public ObservableCollection<IDeviceModel> AvailableDevices { get; private set; }
 
-        public CreateRoomActionViewModel()
+        public CreateRoomViewModel()
         {
             roomModel = new RoomModel();
             AvailableDevices = new ObservableCollection<IDeviceModel>();

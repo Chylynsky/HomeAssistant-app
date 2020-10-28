@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
+using Windows.UI.Xaml.Data;
 using Xamarin.Forms;
+using Xamarin.Forms.Markup;
 using Xamarin.Forms.Xaml;
 
 namespace HomeAssistant.Controls
@@ -65,6 +68,26 @@ namespace HomeAssistant.Controls
             }
         }
 
+        public bool IsUp
+        {
+            get
+            {
+                return TranslationY != Application.Current.MainPage.Bounds.Bottom;
+            }
+            set
+            {
+                if (!value)
+                {
+                    TranslationY = Application.Current.MainPage.Bounds.Bottom;
+                }
+                else
+                {
+                    TranslationY = 0.0;
+                }
+            }
+        }
+
+
         public ActionCard()
         {
             InitializeComponent();
@@ -76,8 +99,30 @@ namespace HomeAssistant.Controls
                 default: break;
             }
 
-            closeButton.Clicked += (object sender, EventArgs e) => Closed?.Invoke(this, e);
-            swipeGestureRecognizer.Swiped += (object sender, SwipedEventArgs e) => Swiped?.Invoke(this, e);
+            closeButton.Clicked += async (object sender, EventArgs e) => {
+                await SlideDown();
+                Closed?.Invoke(this, e); 
+            };
+            swipeGestureRecognizer.Swiped += async (object sender, SwipedEventArgs e) => {
+                await SlideDown();
+                Swiped?.Invoke(this, e); 
+            };
+        }
+
+        public async Task SlideUp()
+        {
+            IsVisible = true;
+            await this.TranslateTo(0.0, 0.0, 150, Easing.SinOut);
+            await this.ScaleTo(1.0, 75, Easing.SinOut);
+            IsEnabled = true;
+        }
+
+        public async Task SlideDown()
+        {
+            IsEnabled = false;
+            await this.ScaleTo(0.8, 75, Easing.SinIn);
+            await this.TranslateTo(0.0, Application.Current.MainPage.Bounds.Bottom, 150, Easing.SinIn);
+            IsVisible = false;
         }
 
         protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)

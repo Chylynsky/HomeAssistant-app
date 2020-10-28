@@ -82,13 +82,9 @@
                 Grid.RowSpan="2"
                 BindingContext="{Binding SelectedDeviceViewModel}"
                 BindingContextChanged="actionCard_BindingContextChanged"
-                Title="{Binding Title}"
-                IsEnabled="false" 
-                IsVisible="false"
-                Scale="0.8"
-                TitleFontColor="Black"
-                Closed="actionCard_Closed"
-                Swiped="actionCard_Swiped">
+                Title="{Binding Name}"
+                IsUp="False"
+                TitleFontColor="Black">
 
             </Controls:ActionCard>
             

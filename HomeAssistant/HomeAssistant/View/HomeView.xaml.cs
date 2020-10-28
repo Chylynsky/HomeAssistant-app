@@ -26,63 +26,21 @@ namespace HomeAssistant.View
                     break;
                 default: break;
             }
-
-            actionCard.TranslationY = Bounds.Bottom;
-        }
-
-        private async Task ShowActionCard()
-        {
-            actionCard.IsVisible = true;
-            await actionCard.TranslateTo(0.0, 0.0, 150, Easing.SinOut);
-            await actionCard.ScaleTo(1.0, 75, Easing.SinOut);
-            actionCard.IsEnabled = true;
-        }
-
-        private async Task HideActionCard()
-        {
-            actionCard.IsEnabled = false;
-            await actionCard.ScaleTo(0.8, 75, Easing.SinIn);
-            await actionCard.TranslateTo(0.0, Bounds.Bottom, 150, Easing.SinIn);
-            actionCard.IsVisible = false;
-        }
-
-        private async void actionCard_Closed(object sender, EventArgs e)
-        {
-            await HideActionCard();
-        }
-
-        private async void actionCard_Swiped(object sender, SwipedEventArgs e)
-        {
-            if (e.Direction != SwipeDirection.Down)
-            {
-                return;
-            }
-
-            await HideActionCard();
         }
 
         private async void addButton_Clicked(object sender, EventArgs e)
         {
             if (actionCard.IsEnabled)
             {
-                await HideActionCard();
+                await actionCard.SlideDown();
             }
 
-            actionCard.BindingContext = new CreateRoomActionViewModel();
-            actionCard.InnerContent = new CreateRoomActionView();
-            actionCard.InnerContent.BindingContext = actionCard.BindingContext;
-
-            await ShowActionCard();
+            await actionCard.SlideUp();
         }
 
-        private async void moreButton_Clicked(object sender, EventArgs e)
+        private void moreButton_Clicked(object sender, EventArgs e)
         {
-            if (actionCard.IsEnabled)
-            {
-                await HideActionCard();
-            }
-
-            await ShowActionCard();
+            return;
         }
 
         private void actionCard_BindingContextChanged(object sender, EventArgs e)

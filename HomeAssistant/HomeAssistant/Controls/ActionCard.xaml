@@ -6,7 +6,8 @@
     BorderColor="DarkGray" 
     CornerRadius="20" 
     HasShadow="True"
-    Margin="10">
+    Margin="10"
+    Scale="0.8">
 
     <Frame.GestureRecognizers>
         <SwipeGestureRecognizer x:Name="swipeGestureRecognizer" Direction="Down"/>
