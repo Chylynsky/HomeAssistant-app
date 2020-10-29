@@ -17,6 +17,8 @@ namespace HomeAssistant.View
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
+        public event EventHandler RoomCreated;
+
         RoomModel roomModel;
 
         public Command CreateRoomCommand { get; }
@@ -82,8 +84,9 @@ namespace HomeAssistant.View
                 AvailableDevices = new ObservableCollection<IDeviceModel>(availableDevices);
             });
 
-            CreateRoomCommand = new Command(() => {
-                return;
+            CreateRoomCommand = new Command(async () => {
+                await HomeAssistantHttpClient.CreateRoomAsync(RoomType, RoomName);
+                RoomCreated.Invoke(this, new EventArgs());
             });
         }
 

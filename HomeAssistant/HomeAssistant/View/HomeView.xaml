@@ -94,6 +94,7 @@
                 x:Name="actionCard" 
                 BindingContext="{Binding CreateRoomViewModel}"
                 Title="{Binding Title, Mode=OneWay}"
+                Closed="actionCard_Closed"
                 BindingContextChanged="actionCard_BindingContextChanged"
                 Grid.RowSpan="2"
                 IsUp="False"

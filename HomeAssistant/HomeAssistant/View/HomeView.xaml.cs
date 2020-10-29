@@ -1,7 +1,5 @@
-﻿using HomeAssistant.Controls;
-using HomeAssistant.ViewModel;
+﻿using HomeAssistant.View;
 using System;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -36,6 +34,8 @@ namespace HomeAssistant.View
             }
 
             await actionCard.SlideUp();
+
+            actionCard.InnerContent = new CreateRoomView();
         }
 
         private void moreButton_Clicked(object sender, EventArgs e)
@@ -46,6 +46,11 @@ namespace HomeAssistant.View
         private void actionCard_BindingContextChanged(object sender, EventArgs e)
         {
             return;
+        }
+
+        private void actionCard_Closed(object sender, EventArgs e)
+        {
+            actionCard.InnerContent = null;
         }
     }
 }

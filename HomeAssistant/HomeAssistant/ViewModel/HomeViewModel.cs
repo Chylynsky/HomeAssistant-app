@@ -46,12 +46,15 @@ namespace HomeAssistant.ViewModel
                 await NavigationService.Navigation.NavigateToAsync(slectedRoomViewModel);
             });
 
-            Task.Run(async () => { await InitializeAsync(null); });
+            Task.Run(async () => { await GetUserData(); });
         }
 
         public HomeViewModel(UserModel userModel)
         {
             RoomViewModels = new ObservableCollection<RoomViewModel>();
+            CreateRoomViewModel = new CreateRoomViewModel();
+
+            CreateRoomViewModel.RoomCreated += async (sender, args) => { await GetUserData(); };
 
             SelectRoomCommand = new Command<string>(async (string roomName) =>
             {
@@ -71,11 +74,16 @@ namespace HomeAssistant.ViewModel
                 await NavigationService.Navigation.NavigateToAsync(slectedRoomViewModel);
             });
 
-            Task.Run(async () => { await InitializeAsync(userModel); });
+            Task.Run(async () => { await GetUserData(userModel); });
         }
 
-        private async Task InitializeAsync(UserModel userModel)
+        private async Task GetUserData(UserModel userModel = null)
         {
+            if (RoomViewModels.Count != 0)
+            {
+                RoomViewModels = new ObservableCollection<RoomViewModel>();
+            }
+
             if (userModel == null)
             {
                 userModel = await HomeAssistantHttpClient.GetUserData();

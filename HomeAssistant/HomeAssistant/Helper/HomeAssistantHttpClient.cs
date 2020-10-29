@@ -179,9 +179,36 @@ namespace HomeAssistant.Helper
             return responseData;
         }
 
-        public static async void PutAsync(string path)
+        public static async Task PutAsync(string path)
         {
             await httpClient.PutAsync(path, null);
+        }
+
+        public static async Task CreateRoomAsync(RoomType type, string name)
+        {
+            var roomData = new Dictionary<string, string>();
+
+            roomData["Type"] = type.ToString();
+            roomData["Name"] = name;
+            roomData["Devices"] = null;
+
+            string serializedData = JsonConvert.SerializeObject(roomData);
+            StringContent content = new StringContent(serializedData, Encoding.UTF8, "application/json");
+            HttpResponseMessage response = null;
+
+            try
+            {
+                response = await httpClient.PutAsync("/create_room", content);
+            }
+            catch (TaskCanceledException)
+            {
+                return;
+            }
+
+            if (!response.IsSuccessStatusCode)
+            {
+                return;
+            }
         }
     }
 }
