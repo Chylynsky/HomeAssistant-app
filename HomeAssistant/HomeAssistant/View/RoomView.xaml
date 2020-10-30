@@ -48,7 +48,7 @@
 
                             <Frame
                                 BackgroundColor="FloralWhite" 
-                                BorderColor="PeachPuff" 
+                                BorderColor="DarkGray" 
                                 CornerRadius="20" 
                                 HasShadow="True"
                                 BindingContext="{Binding}"

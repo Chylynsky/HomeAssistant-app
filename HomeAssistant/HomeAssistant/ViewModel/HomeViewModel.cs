@@ -81,7 +81,7 @@ namespace HomeAssistant.ViewModel
         {
             if (RoomViewModels.Count != 0)
             {
-                RoomViewModels = new ObservableCollection<RoomViewModel>();
+                RoomViewModels.Clear();
             }
 
             if (userModel == null)

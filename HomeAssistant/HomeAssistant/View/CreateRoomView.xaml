@@ -11,16 +11,21 @@
     </ContentView.Resources>
     
     <ContentView.Content>
-        <StackLayout Spacing="20">
+        <StackLayout Spacing="20" Margin="10">
 
-            <Entry Placeholder="Room Name" Text="{Binding RoomName, Mode=TwoWay}"/>
-            <Picker Title="Room type" ItemsSource="{Binding RoomTypes}" SelectedIndex="{Binding RoomType, Converter={StaticResource Key=IntEnum}, Mode=TwoWay}"/>
-            <Label Text="Select devices for this room:"/>
+            <Frame BackgroundColor="LightGray" Opacity="1" CornerRadius="20" Padding="0" HeightRequest="50">
+                <Entry Placeholder="Room Name" Text="{Binding RoomName, Mode=TwoWay}" TextColor="Black" BackgroundColor="Transparent" PlaceholderColor="Black"/>
+            </Frame>
+            <Frame BackgroundColor="LightGray" Opacity="1" CornerRadius="20" Padding="0" HeightRequest="50">
+                <Picker ItemsSource="{Binding RoomTypes}" SelectedIndex="{Binding RoomType, Converter={StaticResource Key=IntEnum}, Mode=TwoWay}" 
+                        BackgroundColor="Transparent" TextColor="Black"/>
+            </Frame>
+            <Label Text="Select devices for this room:" TextColor="Black"/>
             <ScrollView>
                 <StackLayout BindableLayout.ItemsSource="{Binding AvailableDevices}">
                     <BindableLayout.ItemTemplate>
                         <DataTemplate>
-                                <Frame Margin="5" CornerRadius="20" BorderColor="LightGray">
+                                <Frame CornerRadius="20" BorderColor="LightGray">
                                 
                                     <Frame.GestureRecognizers>
                                         <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" Command="{Binding DeviceSelectedCommand}"/>
@@ -28,7 +33,7 @@
                                 
                                     <Grid>
                                         <Image Grid.Column="0" Source="{Binding IconSource}"/>
-                                        <Label Grid.Column="1" Text="{Binding Name}"/>
+                                        <Label Grid.Column="1" Text="{Binding Name}" TextColor="Black"/>
                                     </Grid>
                                 </Frame>
                         </DataTemplate>
@@ -36,7 +41,7 @@
                 </StackLayout>
             </ScrollView>
 
-            <Button Text="OK" CornerRadius="20" Command="{Binding CreateRoomCommand, Mode=TwoWay}" HorizontalOptions="Center" BackgroundColor="LightGray"/>
+            <Button Text="OK" CornerRadius="20" Command="{Binding CreateRoomCommand, Mode=TwoWay}" HorizontalOptions="Center" WidthRequest="150" HeightRequest="50" BackgroundColor="LightGray" TextColor="Black"/>
 
         </StackLayout>
     </ContentView.Content>

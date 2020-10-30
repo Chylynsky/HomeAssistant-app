@@ -19,12 +19,13 @@
             <Frame Grid.Row="0" BackgroundColor="FloralWhite" Margin="10" Opacity="0.9" CornerRadius="20" Padding="0" HasShadow="False">
                 <Grid>
                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="5*"/>
                         <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="1*"/>
                     </Grid.ColumnDefinitions>
                     <Label
-                        Grid.Column="0"
+                        Grid.Column="1"
                         Text="Rooms" 
                         HorizontalOptions="CenterAndExpand" 
                         VerticalOptions="CenterAndExpand" 
@@ -32,8 +33,8 @@
                         VerticalTextAlignment="Center" 
                         TextColor="Black"
                         FontSize="Title"/>
-                    <ImageButton x:Name="addButton" Grid.Column="1" Opacity="1" BackgroundColor="Transparent" HorizontalOptions="CenterAndExpand" Clicked="addButton_Clicked"/>
-                    <ImageButton x:Name="moreButton" Grid.Column="2" Opacity="1" BackgroundColor="Transparent" HorizontalOptions="CenterAndExpand" Clicked="moreButton_Clicked"/>
+                    <ImageButton x:Name="addButton" Grid.Column="2" Opacity="1" BackgroundColor="Transparent" HorizontalOptions="CenterAndExpand" Clicked="addButton_Clicked"/>
+                    <ImageButton x:Name="moreButton" Grid.Column="3" Opacity="1" BackgroundColor="Transparent" HorizontalOptions="CenterAndExpand" Clicked="moreButton_Clicked"/>
                 </Grid>
             </Frame>
 
@@ -53,7 +54,7 @@
                             <Frame
                                 BindingContext="{Binding}"
                                 BackgroundColor="FloralWhite" 
-                                BorderColor="Transparent" 
+                                BorderColor="DarkGray" 
                                 HeightRequest="130" 
                                 Margin="20" 
                                 CornerRadius="20" 
@@ -94,8 +95,6 @@
                 x:Name="actionCard" 
                 BindingContext="{Binding CreateRoomViewModel}"
                 Title="{Binding Title, Mode=OneWay}"
-                Closed="actionCard_Closed"
-                BindingContextChanged="actionCard_BindingContextChanged"
                 Grid.RowSpan="2"
                 IsUp="False"
                 TitleFontColor="Black"/>

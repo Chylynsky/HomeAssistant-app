@@ -31,7 +31,7 @@ namespace HomeAssistant.View
             }
             else
             {
-                senderFrame.BorderColor = Color.PeachPuff;
+                senderFrame.BorderColor = Color.DarkRed;
                 await senderFrame.ScaleTo(ScaleToValue, AnimationLength);
             }
         }

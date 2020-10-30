@@ -9,6 +9,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.Appointments;
 using Xamarin.Forms;
 
 namespace HomeAssistant.View
@@ -56,13 +57,15 @@ namespace HomeAssistant.View
             }
         }
 
+        private static readonly List<string> roomTypes = new List<string>(Enum.GetNames(typeof(RoomType)).Select((elem) => {
+            return elem.SplitCamelCase();
+        }));
+
         public List<string> RoomTypes
         {
             get
             {
-                return new List<string>(Enum.GetNames(typeof(RoomType)).Select((elem) => { 
-                    return elem.SplitCamelCase(); 
-                }));
+                return roomTypes;
             }
         }
 
@@ -71,6 +74,7 @@ namespace HomeAssistant.View
         public CreateRoomViewModel()
         {
             roomModel = new RoomModel();
+            RoomType = RoomType.Other;
             AvailableDevices = new ObservableCollection<IDeviceModel>();
 
             Task.Run(async () => {
@@ -85,6 +89,12 @@ namespace HomeAssistant.View
             });
 
             CreateRoomCommand = new Command(async () => {
+
+                if (string.IsNullOrEmpty(RoomName))
+                {
+                    RoomName = RoomType.ToString().SplitCamelCase();
+                }
+
                 await HomeAssistantHttpClient.CreateRoomAsync(RoomType, RoomName);
                 RoomCreated.Invoke(this, new EventArgs());
             });

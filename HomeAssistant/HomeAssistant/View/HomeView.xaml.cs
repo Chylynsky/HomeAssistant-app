@@ -42,15 +42,5 @@ namespace HomeAssistant.View
         {
             return;
         }
-
-        private void actionCard_BindingContextChanged(object sender, EventArgs e)
-        {
-            return;
-        }
-
-        private void actionCard_Closed(object sender, EventArgs e)
-        {
-            actionCard.InnerContent = null;
-        }
     }
 }

@@ -51,6 +51,22 @@ namespace HomeAssistant.Helper
             httpClient.Timeout = TimeSpan.FromSeconds(5.0);
         }
 
+        private static void DumpSessionCookie()
+        {
+            var cookieEnumerator = clientHandler.CookieContainer.GetCookies(httpClient.BaseAddress).GetEnumerator();
+            bool result = cookieEnumerator.MoveNext();
+
+            if (result)
+            {
+                var cookie = (Cookie)cookieEnumerator.Current;
+
+                Application.Current.Properties["name"] = cookie.Name;
+                Application.Current.Properties["value"] = cookie.Value;
+                Application.Current.Properties["path"] = cookie.Path;
+                Application.Current.Properties["domain"] = cookie.Domain;
+            }
+        }
+
         public static async Task<List<IDeviceModel>> GetConnectedDevices()
         {
             var deviceList = new List<IDeviceModel>();
@@ -74,6 +90,8 @@ namespace HomeAssistant.Helper
 
                 deviceList.Add(device);
             }
+
+            DumpSessionCookie();
 
             return deviceList;
         }
@@ -103,18 +121,7 @@ namespace HomeAssistant.Helper
                 return response.StatusCode;
             }
 
-            var cookieEnumerator = clientHandler.CookieContainer.GetCookies(httpClient.BaseAddress).GetEnumerator();
-            bool result = cookieEnumerator.MoveNext();
-
-            if (result)
-            {
-                var cookie = (Cookie)cookieEnumerator.Current;
-
-                Application.Current.Properties["name"] = cookie.Name;
-                Application.Current.Properties["value"] = cookie.Value;
-                Application.Current.Properties["path"] = cookie.Path;
-                Application.Current.Properties["domain"] = cookie.Domain;
-            }
+            DumpSessionCookie();
 
             return response.StatusCode;
         }
@@ -162,6 +169,8 @@ namespace HomeAssistant.Helper
             var serializedData = await response.Content.ReadAsStringAsync();
             UserModel responseData = JsonConvert.DeserializeObject<UserModel>(serializedData);
 
+            DumpSessionCookie();
+
             return responseData;
         }
 
@@ -176,12 +185,16 @@ namespace HomeAssistant.Helper
 
             var serializedData = await response.Content.ReadAsStringAsync();
             dynamic responseData = JsonConvert.DeserializeObject(serializedData);
+
+            DumpSessionCookie();
+
             return responseData;
         }
 
         public static async Task PutAsync(string path)
         {
             await httpClient.PutAsync(path, null);
+            DumpSessionCookie();
         }
 
         public static async Task CreateRoomAsync(RoomType type, string name)
@@ -209,6 +222,8 @@ namespace HomeAssistant.Helper
             {
                 return;
             }
+
+            DumpSessionCookie();
         }
     }
 }

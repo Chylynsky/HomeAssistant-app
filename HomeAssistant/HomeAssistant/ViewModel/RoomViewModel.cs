@@ -103,7 +103,7 @@ namespace HomeAssistant.ViewModel
 
             if (RoomModel.RoomType == RoomType.Other)
             {
-                base.GetImage();
+                return base.GetImage();
             }
 
             string image = RoomModel.RoomType.ToString().ToLower() + randomGenerator.Next(0, ThemedBackgroundMax).ToString() + ".png";
